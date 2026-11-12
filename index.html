@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>0 € 紀念鈔收藏</title>
+<style>
+  :root {
+    --bg: #fff; --panel: #fff; --soft: #f7f7f7; --text: #2b2b2b; --muted: #6f6f6f; --line: #dedede;
+    --accent: #c8102e; --accent-ink: #fff; --blue: #1f6feb;
+    --type-bg: #e8f4fd; --type-ink: #0c5460; --type-line: #b8daff;
+    --serie-bg: #eef8ec; --serie-ink: #1e6b2d; --serie-line: #b9dfb6;
+    --ok: #28a745; --sold: #d33;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #141416; --panel: #1d1d20; --soft: #232327; --text: #ececee; --muted: #9a9aa2; --line: #34343a;
+      --accent: #ef5866; --blue: #4c8dff;
+      --type-bg: #15303f; --type-ink: #9fd3ef; --type-line: #24506a;
+      --serie-bg: #18301b; --serie-ink: #a6dcae; --serie-line: #2c5233;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 15px/1.45 system-ui, -apple-system, "PingFang TC", sans-serif; }
+  .wrap { max-width: 1320px; margin: 0 auto; padding: 20px 16px 60px; }
+  h1 { font-size: 22px; margin: 0 0 14px; }
+  h1 span { color: var(--accent); }
+  .label { font-size: 13px; font-weight: 600; color: var(--muted); margin: 10px 0 6px; }
+  .chips { display: flex; gap: 8px; overflow-x: auto; padding: 2px 2px 8px; scrollbar-width: thin; }
+  .chip { flex: none; display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--line); background: var(--panel); color: var(--text);
+    border-radius: 999px; padding: 6px 14px; font: inherit; font-weight: 500; cursor: pointer; white-space: nowrap; }
+  .chip:hover { border-color: var(--muted); }
+  .chip.on { background: var(--blue); border-color: var(--blue); color: #fff; }
+  .chip small { color: inherit; opacity: .65; font-weight: 400; }
+  .chips.wrap { flex-wrap: wrap; overflow: visible; }
+  .chip.toggle { border-style: dashed; color: var(--muted); }
+  .label { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .seg { display: inline-flex; flex-wrap: wrap; gap: 2px; background: var(--soft); border: 1px solid var(--line); border-radius: 8px; padding: 2px; }
+  .seg button { font: inherit; font-size: 13px; font-weight: 500; border: 0; background: none; color: var(--muted); border-radius: 6px; padding: 3px 10px; cursor: pointer; }
+  .seg button.on { background: var(--panel); color: var(--text); box-shadow: 0 1px 3px rgba(0,0,0,.15); }
+  .regions { margin: 0 0 8px; }
+  .filters { display: flex; flex-wrap: wrap; gap: 12px; align-items: end; border: 1px solid var(--line); background: var(--soft);
+    border-radius: 8px; padding: 14px 16px; margin: 10px 0 18px; }
+  .filters label { display: grid; gap: 2px; font-size: 13px; color: var(--muted); }
+  input, select { font: inherit; color: var(--text); background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 7px 10px; }
+  .filters input { min-width: 0; width: 280px; max-width: 100%; }
+  .btn { font: inherit; font-weight: 600; border-radius: 6px; padding: 7px 16px; cursor: pointer; border: 1px solid var(--line); background: var(--panel); color: var(--text); }
+  .found { margin: 0 0 12px; } .found b { font-size: 17px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 22px; }
+  .card { position: relative; display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: 6px; background: var(--panel);
+    overflow: hidden; cursor: pointer; transition: box-shadow .15s, transform .15s; }
+  .card:hover { box-shadow: 0 6px 18px rgba(0,0,0,.12); transform: translateY(-2px); }
+  .pic { aspect-ratio: 2/1; background: var(--soft); display: grid; place-items: center; font-size: 34px; overflow: hidden; }
+  .pic img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .count { position: absolute; top: 10px; right: 10px; background: rgba(255,255,255,.95); color: #222; border-radius: 999px;
+    padding: 3px 10px; font-size: 13px; font-weight: 600; box-shadow: 0 1px 4px rgba(0,0,0,.2); }
+  .body { padding: 12px 14px 10px; flex: 1; }
+  .nr { font-size: 13px; color: var(--muted); letter-spacing: .04em; }
+  .title { font-weight: 700; font-size: 17px; line-height: 1.3; margin: 2px 0 4px; overflow-wrap: anywhere; }
+  .orig { font-size: 12px; color: var(--muted); margin: -2px 0 4px; overflow-wrap: anywhere; }
+  .place, .meta { font-size: 14px; color: var(--muted); }
+  .meta { display: flex; flex-wrap: wrap; gap: 4px 12px; margin-top: 6px; }
+  .foot { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; padding: 8px 14px 12px; border-top: 1px solid var(--line); }
+  .foot:empty { display: none; }
+  .badge { font-size: 12px; font-weight: 600; border-radius: 999px; padding: 2px 10px; border: 1px solid; }
+  .b-type { background: var(--type-bg); color: var(--type-ink); border-color: var(--type-line); }
+  .b-serie { background: var(--serie-bg); color: var(--serie-ink); border-color: var(--serie-line); }
+  .dot { width: 10px; height: 10px; border-radius: 50%; margin-left: auto; flex: none; }
+  .more { text-align: center; color: var(--muted); padding: 24px; }
+  .empty { text-align: center; color: var(--muted); padding: 60px 0; }
+  .section { grid-column: 1 / -1; display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 10px; margin: 14px 0 -8px;
+    padding-bottom: 6px; border-bottom: 2px solid var(--line); font-size: 18px; font-weight: 700; }
+  .section:first-child { margin-top: 0; }
+  .section small { font-size: 13px; font-weight: 400; color: var(--muted); }
+
+  /* detail sheet */
+  .overlay { position: fixed; inset: 0; background: rgba(0,0,0,.45); display: none; z-index: 10; overflow-y: auto; padding: 32px 16px; }
+  .overlay.open { display: block; }
+  .sheet { position: relative; max-width: 980px; margin: 0 auto; background: var(--panel); border-radius: 10px; padding: 24px; box-shadow: 0 10px 40px rgba(0,0,0,.3); }
+  .close { position: absolute; top: 12px; right: 12px; width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--line);
+    background: var(--panel); color: var(--text); font-size: 18px; cursor: pointer; }
+  .hero { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 24px; }
+  .hero .pic { border-radius: 6px; border: 1px solid var(--line); }
+  .hero .pic img { object-fit: contain; background: var(--soft); }
+  .sheet h2 { margin: 4px 40px 4px 0; font-size: 22px; overflow-wrap: anywhere; }
+  .vers { display: flex; flex-wrap: wrap; gap: 6px; margin: 14px 0; }
+  .vers .chip { padding: 4px 12px; font-size: 13px; }
+  .src { font-size: 13px; font-weight: 700; color: var(--accent); margin: 14px 0 4px; }
+  dl { display: grid; grid-template-columns: max-content 1fr; gap: 3px 14px; margin: 0; font-size: 14px; }
+  dt { color: var(--muted); } dd { margin: 0; overflow-wrap: anywhere; }
+  a { color: var(--accent); }
+  .sheet h3 { font-size: 15px; color: var(--muted); margin: 26px 0 12px; }
+  .mini { grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 14px; }
+  .mini .title { font-size: 14px; }
+  .mini .body { padding: 8px 10px; }
+  .card.on { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent); }
+  @media (max-width: 700px) {
+    .hero { grid-template-columns: 1fr; }
+    .sheet { padding: 16px; }
+    .overlay { padding: 12px 8px; }
+    .grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
+    .title { font-size: 15px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>0 € <span>紀念鈔收藏</span></h1>
+  <div class="label">國家
+    <span class="seg" id="csort"><button data-csort="count" class="on">依數量</button><button data-csort="name">依筆畫</button></span>
+  </div>
+  <div class="seg regions" id="regions"></div>
+  <div class="chips wrap" id="countries"></div>
+  <div id="cityRow" hidden>
+    <div class="label">城市</div>
+    <div class="chips" id="cities"></div>
+  </div>
+  <div class="filters">
+    <label>搜尋<input id="q" type="search" placeholder="名稱、代碼、城市…"></label>
+    <label>排序<select id="sort">
+      <option value="place">國家 / 城市</option>
+      <option value="newest">最新年份</option>
+      <option value="versions">版本數</option>
+      <option value="name">名稱</option>
+    </select></label>
+    <button class="btn" id="reset">重設</button>
+  </div>
+  <p class="found" id="found"></p>
+  <div class="grid" id="grid"></div>
+  <div class="more" id="more"></div>
+</div>
+
+<div class="overlay" id="overlay"><div class="sheet" id="sheet"></div></div>
+
+<script src="data.js"></script>
+<script>
+const DATA = window.DATA || { groups: [], labels: {} };
+const GROUPS = DATA.groups;
+const PAGE = 60;
+const state = { country: "", city: "", region: "", csort: "count", allCountries: false, shown: PAGE };
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const flag = cc => cc ? String.fromCodePoint(...[...cc].map(c => 0x1F1A5 + c.charCodeAt(0))) : "🏳️";
+const pic = v => `<div class="pic">${v.img ? `<img loading="lazy" src="${esc(v.img)}" alt="${esc(v.name)}">` : "💶"}</div>`;
+const yearOf = g => Math.max(...g.versions.map(v => parseInt(v.edition) || 0));
+
+const COUNTRY_ZH = {
+  "Andorra": "安道爾", "Argentina": "阿根廷", "Armenia": "亞美尼亞", "Australia": "澳洲", "Austria": "奧地利", "Bahrain": "巴林",
+  "Belgium": "比利時", "Brazil": "巴西", "Bulgaria": "保加利亞", "Cambodia": "柬埔寨", "Canada": "加拿大", "China": "中國",
+  "Colombia": "哥倫比亞", "Croatia": "克羅埃西亞", "Cuba": "古巴", "Cyprus": "賽普勒斯", "Czech Republic": "捷克", "Denmark": "丹麥",
+  "Egypt": "埃及", "Estonia": "愛沙尼亞", "Finland": "芬蘭", "France": "法國", "Georgia": "喬治亞", "Germany": "德國",
+  "Greece": "希臘", "Haiti": "海地", "Hungary": "匈牙利", "Iceland": "冰島", "India": "印度", "Indonesia": "印尼", "Iraq": "伊拉克",
+  "Ireland": "愛爾蘭", "Italy": "義大利", "Japan": "日本", "Jordan": "約旦", "Kosovo": "科索沃", "Kuwait": "科威特",
+  "Latvia": "拉脫維亞", "Lebanon": "黎巴嫩", "Libya": "利比亞", "Lithuania": "立陶宛", "Luxembourg": "盧森堡",
+  "Madagascar": "馬達加斯加", "Malta": "馬爾他", "Mauritius": "模里西斯", "Mexico": "墨西哥", "Monaco": "摩納哥",
+  "Morocco": "摩洛哥", "Myanmar": "緬甸", "Netherlands": "荷蘭", "Norway": "挪威", "Oman": "阿曼", "Palestine": "巴勒斯坦",
+  "Peru": "秘魯", "Poland": "波蘭", "Portugal": "葡萄牙", "Qatar": "卡達", "Romania": "羅馬尼亞", "Russia": "俄羅斯",
+  "San Marino": "聖馬利諾", "Saudi Arabia": "沙烏地阿拉伯", "Slovakia": "斯洛伐克", "Slovenia": "斯洛維尼亞",
+  "South Africa": "南非", "Spain": "西班牙", "Sweden": "瑞典", "Switzerland": "瑞士", "Thailand": "泰國", "Togo": "多哥",
+  "Turkey": "土耳其", "Ukraine": "烏克蘭", "United Arab Emirates": "阿拉伯聯合大公國", "United Kingdom": "英國",
+  "Great Britain": "英國", "United States": "美國", "Vatican": "梵蒂岡", "Vatican City": "梵蒂岡", "Gibraltar": "直布羅陀", "Syria": "敘利亞",
+};
+const REGIONS = {
+  "歐洲": "DE FR SK PT IT ES FI AT NL PL CH CZ BE MT TR RO GB IE SI GR RU HR HU LU MC VA BG LT IS CY DK NO SM SE AD EE GI XK LV UA",
+  "中東": "IQ SA KW QA AE JO OM BH LB PS SY",
+  "亞洲": "CN IN ID KH JP MM TH AM GE",
+  "美洲": "US AR BR CA CU MX CO HT PE",
+  "非洲": "MA EG ZA LY MG MU TG",
+  "大洋洲": "AU",
+};
+const regionOf = cc => Object.keys(REGIONS).find(r => REGIONS[r].split(" ").includes(cc)) || "其他";
+const TOP_COUNTRIES = 15;  // collapsed country list shows the biggest ones
+const zhCountry = c => COUNTRY_ZH[c] || c || "—";
+const LABEL_ZH = { "Print run": "發行量", "Serial no.": "序號", "Sold at": "販售點", "Nr.": "編號", "Type": "類型", "Series": "系列", "Availability": "供應狀態" };
+const VALUE_ZH = { "Still available": "仍可購得", "Sold out": "已售完", "Standard": "標準版", "Polymer": "塑膠鈔", "Specimen": "樣張", "colored": "彩色版", "unknown": "不明" };
+function zhValue(v) {
+  v = String(v ?? "");
+  if (VALUE_ZH[v]) return VALUE_ZH[v];
+  return v.replace(/^ANNIVERSARY (\d+)$/, "$1 週年紀念版").replace(/^under (.+)$/, "$1 以下")
+          .replace(/ Ex\.$/, " 張").replace(/range not disclosed/, "範圍未公開").replace(/Special series/, "特別系列");
+}
+// Sources write an unknown city as "", "unbekannt", "Inconnue", "NC" or dashes; all of them become one "?" city
+const cityKey = x => /^(unbekannt|inconnue|nc|-*)$/i.test(x.city) ? "?" : x.city;
+const zhCity = x => cityKey(x) === "?" ? "不明" : x.city_zh || x.city;
+// Chinese title first, original printed title underneath (machine translation may be imperfect)
+const titleHtml = x => x.name_zh && x.name_zh !== x.name
+  ? `<div class="title">${esc(x.name_zh)}</div><div class="orig">${esc(x.name)}</div>` : `<div class="title">${esc(x.name)}</div>`;
+const place = (country, x) => [zhCountry(country), zhCity(x)].filter(Boolean).join(" / ");
+const sectionKey = g => g.country + "|" + cityKey(g);
+
+// Merge both sources' fields; nulleuro supplies type/series/availability.
+function info(v) {
+  const f = Object.assign({}, ...v.sources.slice().reverse().map(s => s.fields));
+  return { print: f["Print run"], type: f.Type, serie: f.Series, avail: f.Availability };
+}
+
+function countryCounts() {
+  const m = new Map();
+  for (const g of GROUPS) {
+    const c = m.get(g.country) || { cc: g.cc, n: 0 };
+    c.n++; m.set(g.country, c);
+  }
+  return [...m];
+}
+
+function renderRegions() {
+  const n = {};
+  for (const [, c] of countryCounts()) n[regionOf(c.cc)] = (n[regionOf(c.cc)] || 0) + 1;
+  $("regions").innerHTML = `<button class="${state.region ? "" : "on"}" data-region="">全部地區</button>` +
+    Object.keys(n).sort((a, b) => n[b] - n[a]).map(r =>
+      `<button class="${r === state.region ? "on" : ""}" data-region="${r}">${r} ${n[r]}</button>`).join("");
+}
+
+function renderCountries() {
+  const list = countryCounts().filter(([, c]) => !state.region || regionOf(c.cc) === state.region)
+    .sort(state.csort === "count" ? (a, b) => b[1].n - a[1].n : (a, b) => zhCountry(a[0]).localeCompare(zhCountry(b[0]), "zh-Hant-TW"));
+  let shown = state.allCountries ? list : list.slice(0, TOP_COUNTRIES);
+  if (state.country && !shown.some(([name]) => name === state.country)) shown = [...shown, list.find(([name]) => name === state.country)];
+  const toggle = list.length <= TOP_COUNTRIES ? "" : `<button class="chip toggle" data-toggle>${state.allCountries ? "收合 ▴" : `顯示全部 ${list.length} 國 ▾`}</button>`;
+  const total = list.reduce((n, [, c]) => n + c.n, 0);
+  $("countries").innerHTML = `<button class="chip ${state.country ? "" : "on"}" data-country="">全部 <small>${total}</small></button>` +
+    shown.map(([name, c]) => `<button class="chip ${name === state.country ? "on" : ""}" data-country="${esc(name)}">
+      ${flag(c.cc)} ${esc(zhCountry(name))} <small>${c.n}</small></button>`).join("") + toggle;
+}
+
+function renderCities() {
+  $("cityRow").hidden = !state.country;
+  if (!state.country) return;
+  const m = new Map();
+  for (const g of GROUPS) if (g.country === state.country) {
+    const c = m.get(cityKey(g)) || { zh: zhCity(g), n: 0 };
+    c.n++; m.set(cityKey(g), c);
+  }
+  $("cities").innerHTML = `<button class="chip ${state.city ? "" : "on"}" data-city="">全部</button>` +
+    [...m].sort((a, b) => (a[0] === "?") - (b[0] === "?") || a[1].zh.localeCompare(b[1].zh, "zh-Hant-TW")).map(([city, c]) =>
+      `<button class="chip ${city === state.city ? "on" : ""}" data-city="${esc(city)}">${esc(c.zh || "—")} <small>${c.n}</small></button>`).join("");
+}
+
+function filtered() {
+  const q = $("q").value.trim().toLowerCase();
+  const list = GROUPS.filter(g => (!state.region || regionOf(g.cc) === state.region) && (!state.country || g.country === state.country) && (!state.city || cityKey(g) === state.city) &&
+    (!q || [g.code, g.city, g.city_zh, g.country, zhCountry(g.country), ...g.versions.flatMap(v => [v.name, v.name_zh])].join(" ").toLowerCase().includes(q)));
+  const sort = $("sort").value;
+  if (sort === "place") list.sort((a, b) => zhCountry(a.country).localeCompare(zhCountry(b.country), "zh-Hant-TW") ||
+    (cityKey(a) === "?") - (cityKey(b) === "?") || zhCity(a).localeCompare(zhCity(b), "zh-Hant-TW") || a.city.localeCompare(b.city) || a.name.localeCompare(b.name));
+  if (sort === "newest") list.sort((a, b) => yearOf(b) - yearOf(a));
+  if (sort === "versions") list.sort((a, b) => b.versions.length - a.versions.length);
+  if (sort === "name") list.sort((a, b) => (a.name_zh || a.name).localeCompare(b.name_zh || b.name, "zh-Hant-TW"));
+  return list;
+}
+
+function card(g) {
+  const v = g.versions[0], i = info(v);
+  return `<div class="card" data-code="${esc(g.code)}">
+    ${pic(v)}<span class="count">${g.versions.length} 版</span>
+    <div class="body">
+      <div class="nr">${esc(g.code)} · ${esc(v.edition)}</div>
+      ${titleHtml(g)}
+      <div class="place">${flag(g.cc)} ${esc(place(g.country, g))}</div>
+      <div class="meta"><span>📅 ${esc(v.edition)}</span>${i.print ? `<span>🔢 ${esc(zhValue(i.print))}</span>` : ""}</div>
+    </div>
+    <div class="foot">${badges(i)}</div>
+  </div>`;
+}
+
+function badges(i) {
+  const dot = i.avail ? `<span class="dot" title="${esc(zhValue(i.avail))}" style="background:var(${/available/i.test(i.avail) ? "--ok" : "--sold"})"></span>` : "";
+  return (i.type ? `<span class="badge b-type">${esc(zhValue(i.type))}</span>` : "") +
+    (i.serie ? `<span class="badge b-serie">${esc(i.serie)}</span>` : "") + dot;
+}
+
+function renderGrid() {
+  const list = filtered();
+  const notes = list.reduce((n, g) => n + g.versions.length, 0);
+  $("found").innerHTML = `<b>${list.length}</b> 個地點 · ${notes} 張`;
+  // Sorted by place: a heading before each country / city run of cards
+  const sections = $("sort").value === "place";
+  const size = new Map();
+  if (sections) for (const g of list) size.set(sectionKey(g), (size.get(sectionKey(g)) || 0) + 1);
+  $("grid").innerHTML = list.slice(0, state.shown).map((g, k) => {
+    if (!sections || (k && sectionKey(list[k - 1]) === sectionKey(g))) return card(g);
+    const orig = cityKey(g) !== "?" && zhCity(g) !== g.city ? `${g.city} · ` : "";
+    return `<div class="section">${flag(g.cc)} ${esc(place(g.country, g).replace(" / ", " › "))}
+      <small>${esc(orig)}${size.get(sectionKey(g))} 個地點</small></div>` + card(g);
+  }).join("");
+  $("more").textContent = list.length ? (state.shown < list.length ? "往下捲動載入更多…" : "") : "";
+  if (!list.length) $("grid").innerHTML = `<div class="empty">沒有符合的結果</div>`;
+}
+
+function openDetail(code, edition) {
+  const g = GROUPS.find(g => g.code === code);
+  if (!g) return;
+  const v = g.versions.find(x => x.edition === edition) || g.versions[0];
+  const sources = v.sources.map(s => `<div class="src">${esc(DATA.labels[s.src])}</div><dl>` +
+    Object.entries(s.fields).map(([k, val]) => `<dt>${esc(LABEL_ZH[k] || k)}</dt><dd>${esc(k === "Nr." || k === "Series" ? val : zhValue(val))}</dd>`).join("") +
+    `<dt>原始頁面</dt><dd><a href="${esc(s.url)}" target="_blank" rel="noopener">開啟</a></dd></dl>`).join("");
+  $("sheet").innerHTML = `<button class="close" id="close" aria-label="關閉">✕</button>
+    <div class="hero">
+      ${pic(v)}
+      <div>
+        <div class="nr">${esc(g.code)} · ${esc(v.edition)}</div>
+        <h2>${esc(v.name_zh || v.name)}</h2>${v.name_zh && v.name_zh !== v.name ? `<div class="orig">${esc(v.name)}</div>` : ""}
+        <div class="place">${flag(g.cc)} ${esc(place(g.country, v.city ? v : g))}</div>
+        <div class="vers">${g.versions.map((x, k) =>
+          `<button class="chip ${x === v ? "on" : ""}" data-ed="${esc(x.edition)}">${esc(x.edition)}${k === 0 ? "（最新）" : ""}</button>`).join("")}</div>
+        ${sources}
+      </div>
+    </div>
+    <h3>全部版本（${g.versions.length}）</h3>
+    <div class="grid mini">${g.versions.map(x => { const i = info(x); return `<div class="card ${x === v ? "on" : ""}" data-ed="${esc(x.edition)}">
+      ${pic(x)}<div class="body"><div class="nr">${esc(x.edition)}</div>${titleHtml(x)}</div>
+      <div class="foot">${badges(i)}</div></div>`; }).join("")}</div>`;
+  $("sheet").dataset.code = code;
+  $("overlay").classList.add("open");
+  document.body.style.overflow = "hidden";
+  history.replaceState(null, "", `#${encodeURIComponent(code)}/${encodeURIComponent(v.edition)}`);
+}
+
+function closeDetail() {
+  $("overlay").classList.remove("open");
+  document.body.style.overflow = "";
+  history.replaceState(null, "", location.pathname);
+}
+
+function refresh() { state.shown = PAGE; renderGrid(); }
+
+$("csort").addEventListener("click", e => {
+  const b = e.target.closest("[data-csort]"); if (!b) return;
+  state.csort = b.dataset.csort;
+  for (const x of $("csort").children) x.classList.toggle("on", x === b);
+  renderCountries();
+});
+$("regions").addEventListener("click", e => {
+  const b = e.target.closest("[data-region]"); if (!b) return;
+  state.region = b.dataset.region; state.country = state.city = "";
+  renderRegions(); renderCountries(); renderCities(); refresh();
+});
+$("countries").addEventListener("click", e => {
+  if (e.target.closest("[data-toggle]")) { state.allCountries = !state.allCountries; return renderCountries(); }
+  const b = e.target.closest("[data-country]"); if (!b) return;
+  state.country = b.dataset.country; state.city = "";
+  renderCountries(); renderCities(); refresh();
+});
+$("cities").addEventListener("click", e => {
+  const b = e.target.closest("[data-city]"); if (!b) return;
+  state.city = b.dataset.city; renderCities(); refresh();
+});
+$("q").addEventListener("input", refresh);
+$("sort").addEventListener("change", refresh);
+$("reset").addEventListener("click", () => {
+  state.country = state.city = state.region = ""; state.allCountries = false; $("q").value = ""; $("sort").value = "place";
+  renderRegions(); renderCountries(); renderCities(); refresh();
+});
+$("grid").addEventListener("click", e => { const c = e.target.closest(".card"); if (c) openDetail(c.dataset.code); });
+$("overlay").addEventListener("click", e => {
+  if (e.target.id === "overlay" || e.target.closest("#close")) return closeDetail();
+  const el = e.target.closest("[data-ed]");
+  if (el) { openDetail($("sheet").dataset.code, el.dataset.ed); $("overlay").scrollTo({ top: 0, behavior: "smooth" }); }
+});
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeDetail(); });
+new IntersectionObserver(entries => {
+  if (entries[0].isIntersecting && state.shown < filtered().length) { state.shown += PAGE; renderGrid(); }
+}, { rootMargin: "600px" }).observe($("more"));
+
+renderRegions(); renderCountries(); renderCities(); renderGrid();
+const [hCode, hEd] = location.hash.slice(1).split("/").map(decodeURIComponent);
+if (hCode) openDetail(hCode, hEd);
+</script>
+</body>
+</html>

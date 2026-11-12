@@ -1,0 +1,4525 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta name="google-site-verification" content="LjYRdR7g0LgYxQ01sJ_WxzpN5kLNPehj96CT6wQ70_g" />
+<link rel="icon" type="image/png" sizes="16x16" href="/static/favicon/favicon-16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/static/favicon/favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/static/favicon/favicon-180.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/static/favicon/favicon-192.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Katalog – 0-Euro Souvenir Notes</title>
+    
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --rot: #c8102e;
+            --dunkelrot: #9b0b22;
+            --grau: #f5f5f5;
+            --dunkelgrau: #333;
+            --mittelgrau: #666;
+            --rand: #ddd;
+            --gold: #c9a84c;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: #fff;
+            color: var(--dunkelgrau);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* NAV */
+        nav {
+            background: var(--rot);
+            color: white;
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 60px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+        .nav-brand {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .nav-brand span.badge {
+            background: white;
+            color: var(--rot);
+            font-size: 0.75rem;
+            padding: 2px 7px;
+            border-radius: 10px;
+            font-weight: 800;
+        }
+        .nav-links { display: flex; gap: 1rem; align-items: center; }
+        .nav-links a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            font-size: 0.9rem;
+            padding: 4px 10px;
+            border-radius: 4px;
+            transition: background 0.15s;
+        }
+        .nav-links a:hover { background: rgba(255,255,255,0.15); }
+        .nav-links a.active { background: rgba(255,255,255,0.2); font-weight: 600; }
+        .mobile-lang-switcher { display: none; }
+        .nav-toggle { display: none; background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; padding: 4px 8px; }
+        .bottom-nav { display: none; }
+        @media (max-width: 700px) {
+            nav { height: 50px; padding: 0 1rem; }
+            .mobile-lang-switcher { display: flex; gap: 2px; align-items: center; }
+            .nav-toggle { display: none; }
+            .nav-links { display: none !important; }
+            main { padding-bottom: 70px; }
+            .bottom-nav {
+                display: flex;
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: white;
+                border-top: 1px solid #e0e0e0;
+                z-index: 9999;
+                box-shadow: 0 -2px 8px rgba(0,0,0,0.08);
+                transform: translateZ(0);
+            }
+            .bottom-nav a {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                padding: 0.4rem 0;
+                font-size: 0.65rem;
+                color: #888;
+                text-decoration: none;
+                gap: 2px;
+            }
+            .bottom-nav a.aktiv { color: var(--rot); }
+            .bottom-nav a span.icon { font-size: 1.3rem; }
+        }
+
+        /* MAIN */
+        main { flex: 1; max-width: 1200px; margin: 0 auto; padding: 2rem; width: 100%; }
+
+        /* MESSAGES */
+        .messages { list-style: none; margin-bottom: 1rem; }
+        .messages li {
+            padding: 0.75rem 1rem;
+            border-radius: 6px;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+        .messages .success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .messages .error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+
+        /* FOOTER */
+        footer {
+            background: var(--dunkelgrau);
+            color: #aaa;
+            text-align: center;
+            padding: 1rem;
+            font-size: 0.8rem;
+        }
+        footer a { color: var(--gold); text-decoration: none; }
+
+        /* UTILS */
+        .btn {
+            display: inline-flex; align-items: center; gap: 0.4rem;
+            padding: 0.5rem 1.1rem; border-radius: 5px; font-size: 0.9rem;
+            font-weight: 600; border: none; cursor: pointer; text-decoration: none;
+            transition: all 0.15s;
+        }
+        .btn-rot { background: var(--rot); color: white; }
+        .btn-rot:hover { background: var(--dunkelrot); }
+        .btn-outline { background: white; color: var(--rot); border: 2px solid var(--rot); }
+        .btn-outline:hover { background: var(--rot); color: white; }
+        .btn-grau { background: var(--grau); color: var(--dunkelgrau); border: 1px solid var(--rand); }
+        .btn-grau:hover { background: #e8e8e8; }
+        .btn-gold { background: var(--gold); color: white; }
+        .btn-gold:hover { background: #b8903c; }
+
+        h1 { font-size: 1.6rem; margin-bottom: 1.5rem; color: var(--dunkelgrau); }
+        h2 { font-size: 1.25rem; margin-bottom: 1rem; }
+    </style>
+    
+<style>
+.tabs-gruppe { margin-bottom: 0.5rem; }
+.tabs-label { font-size: 0.75rem; font-weight: 600; color: #999; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.4rem; }
+.tab-buttons { display: flex; flex-wrap: nowrap; gap: 0.4rem; margin-bottom: 1rem; overflow-x: auto; padding-bottom: 4px; scrollbar-width: thin; -webkit-overflow-scrolling: touch; }
+.tab-btn {
+    padding: 0.35rem 0.9rem; border-radius: 20px; font-size: 0.82rem; font-weight: 600;
+    border: 2px solid #ddd; background: white; color: #555;
+    cursor: pointer; text-decoration: none; transition: all 0.15s; white-space: nowrap;
+@media (max-width: 700px) {
+    .vorschlag-btn { display: none !important; }
+}
+}
+.tab-btn:hover { border-color: var(--rot); color: var(--rot); }
+.tab-btn.aktiv { background: var(--rot); border-color: var(--rot); color: white; }
+.tab-btn.aktiv-land { background: #0066cc; border-color: #0066cc; color: white; }
+.tab-btn:hover.aktiv-land { background: #0052a3; }
+
+.filter-bar {
+    background: #f9f9f9; border: 1px solid #e0e0e0; border-radius: 8px;
+    padding: 1rem 1.25rem; margin-bottom: 1.5rem;
+    display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: flex-end;
+}
+.filter-bar label { font-size: 0.8rem; font-weight: 600; color: #555; display: block; margin-bottom: 3px; }
+.filter-bar select, .filter-bar input[type=text] {
+    padding: 0.4rem 0.7rem; border: 1px solid #ccc; border-radius: 5px;
+    font-size: 0.875rem; background: white; min-width: 140px;
+}
+.filter-actions { display: flex; gap: 0.5rem; align-items: flex-end; }
+.stats-bar { color: #666; font-size: 0.875rem; margin-bottom: 1rem; }
+.stats-bar strong { color: #333; }
+
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.25rem; }
+.karte {
+    display: flex; flex-direction: column;
+    border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;
+    background: white; transition: box-shadow 0.2s, transform 0.15s; position: relative;
+}
+.karte:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.12); transform: translateY(-2px); }
+.karte a.bild-link { display: block; }
+.karte img { width: 100%; aspect-ratio: 2/1; object-fit: cover; display: block; background: #f0f0f0; }
+.karte-body { padding: 0.75rem; flex: 1; }
+.karte-nr { font-size: 0.75rem; color: #999; font-weight: 600; letter-spacing: 0.05em; }
+.karte-titel { font-weight: 700; font-size: 0.95rem; margin: 2px 0 4px; line-height: 1.3; }
+.karte-ort { font-size: 0.8rem; color: #666; }
+.karte-meta { margin-top: 0.4rem; font-size: 0.78rem; color: #999; display: flex; gap: 0.75rem; flex-wrap: wrap; }
+.karte-footer {
+    padding: 0.5rem 0.75rem; border-top: 1px solid #f0f0f0;
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: nowrap; gap: 0.3rem; overflow: hidden; min-height: 2.2rem;
+}
+.badge { font-size: 0.7rem; padding: 2px 7px; border-radius: 10px; font-weight: 600; }
+.badge-kanton { background: #f0f0f0; color: #555; }
+.badge-land { background: #e8f0fe; color: #1a56a0; border: 1px solid #b3ccf5; }
+.badge-seeland { background: #c9a84c22; color: #8a6a00; border: 1px solid #c9a84c55; }
+.badge-serie { background: #f0f9f0; color: #1a6e1a; border: 1px solid #b3e0b3; }
+.sammlung-btn {
+    position: absolute; top: 8px; right: 8px; background: white; border: none;
+    border-radius: 50%; width: 32px; height: 32px; font-size: 1rem; cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15); display: flex; align-items: center;
+    justify-content: center; transition: transform 0.15s; line-height: 1;
+}
+.sammlung-btn:hover { transform: scale(1.15); }
+.sammlung-btn.aktiv { background: #ffe8e8; }
+.leer { text-align: center; padding: 3rem; color: #999; font-size: 1rem; }
+</style>
+<div id="scroll-spinner" style="display:none;text-align:center;padding:2rem;">
+    <div style="display:inline-flex;align-items:center;gap:0.75rem;background:white;border:1px solid #e0e0e0;border-radius:30px;padding:0.6rem 1.5rem;box-shadow:0 2px 8px rgba(0,0,0,0.1);">
+        <span style="font-size:1.5rem;animation:spin 1s linear infinite;display:inline-block;">⏳</span>
+        <span style="color:#666;font-size:0.9rem;font-weight:600;">Loading more notes...</span>
+    </div>
+</div>
+<style>@keyframes spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }</style>
+
+<script>
+var currentPage = 2;
+var hasNext = true;
+var loading = false;
+
+function buildUrl(page) {
+    const params = new URLSearchParams(window.location.search);
+    params.set('page', page);
+    return '/katalog/?' + params.toString();
+}
+
+async function loadMore() {
+    if (!hasNext || loading) return;
+    loading = true;
+    document.getElementById('scroll-spinner').style.display = 'block';
+    try {
+        const resp = await fetch(buildUrl(currentPage), {
+            headers: { 'X-Requested-With': 'XMLHttpRequest' }
+        });
+        const data = await resp.json();
+        document.querySelector('.grid').insertAdjacentHTML('beforeend', data.html);
+        hasNext = data.has_next;
+        currentPage = data.next_page;
+    } catch(e) {
+        console.error('Fehler beim Laden:', e);
+    }
+    loading = false;
+    document.getElementById('scroll-spinner').style.display = 'none';
+}
+
+window.addEventListener('scroll', function() {
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 400) {
+        loadMore();
+    }
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const liste = JSON.parse(localStorage.getItem('zuletzt') || '[]').slice(0, 3);
+    if (liste.length === 0) return;
+    const container = document.getElementById('zuletzt-gesehen');
+    const listEl = document.getElementById('zuletzt-liste');
+    if (!container || !listEl) return;
+    listEl.innerHTML = liste.map(s =>
+        `<a href="${s.url}" style="display:inline-block;background:#f0f0f0;border:1px solid #ddd;border-radius:20px;padding:2px 10px;font-size:0.78rem;color:#555;text-decoration:none;margin-right:4px;">${s.motiv}</a>`
+    ).join('');
+    container.style.display = 'block';
+});
+</script>
+
+</head>
+<body>
+<nav>
+    <a href="/" class="nav-brand">
+        <span class="badge">0 €</span>
+        Souvenirscheine Schweiz
+    </a>
+    <span class="mobile-lang-switcher">
+        <a href="?lang=de" style="font-size:0.72rem;padding:2px 5px;border-radius:3px;text-decoration:none;color:rgba(255,255,255,0.6);">DE</a><a href="?lang=fr" style="font-size:0.72rem;padding:2px 5px;border-radius:3px;text-decoration:none;color:rgba(255,255,255,0.6);">FR</a><a href="?lang=en" style="font-size:0.72rem;padding:2px 5px;border-radius:3px;text-decoration:none;background:rgba(255,255,255,0.3);color:white;font-weight:700;">EN</a>
+    </span>
+    <button class="nav-toggle" onclick="document.getElementById('nav-menu').classList.toggle('open')">☰</button>
+    <div class="nav-links" id="nav-menu">
+        <a href="/">Home</a>
+        <a href="/katalog/">Catalogue</a>
+        <a href="/#kontakt">Contact</a>
+            <a href="/tauschboerse/" >Exchange</a>
+            <a href="/statistik/">Statistics</a>
+        
+            <a href="/meine-sammlung/">My Collection</a>
+            <a href="/profil/">Profile</a>
+            <form method="post" action="/accounts/logout/" style="display:inline;"><input type="hidden" name="csrfmiddlewaretoken" value="grN4NcFaHSeV0iGF9MJBVOpA5wBRep3a41RNb9wuwMLkvCkO5ap7VQvGyVchjTj2"><button type="submit" style="background:none;border:none;color:rgba(255,255,255,0.9);font-size:0.9rem;padding:4px 10px;border-radius:4px;cursor:pointer;">Logout (Alex)</button></form>
+        
+        <span style="display:flex;gap:2px;align-items:center;margin-left:0.5rem;border-left:1px solid rgba(255,255,255,0.3);padding-left:0.5rem;">
+            <a href="?lang=de" style="font-size:0.78rem;padding:2px 6px;border-radius:3px;text-decoration:none;color:rgba(255,255,255,0.6);">DE</a><a href="?lang=fr" style="font-size:0.78rem;padding:2px 6px;border-radius:3px;text-decoration:none;color:rgba(255,255,255,0.6);">FR</a><a href="?lang=en" style="font-size:0.78rem;padding:2px 6px;border-radius:3px;text-decoration:none;background:rgba(255,255,255,0.3);color:white;font-weight:700;">EN</a>
+        </span>
+    </div>
+</nav>
+
+<main>
+    
+    
+<h1>0-Euro Souvenir Notes</h1>
+
+<div id="zuletzt-gesehen" style="display:none;margin-bottom:1rem;">
+    <span style="font-size:0.78rem;color:#999;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;">Recently viewed:</span>
+    <span id="zuletzt-liste" style="margin-left:0.5rem;"></span>
+</div>
+
+
+<div class="tabs-gruppe">
+    <div class="tabs-label">Series</div>
+    <div class="tab-buttons">
+        <a href="javascript:void(0)" onclick="clearFilter('serie')"
+           class="tab-btn aktiv">All</a>
+        
+        <a href="javascript:void(0)" onclick="toggleFilter('serie', '5')"
+           class="tab-btn ">EUROSOUVENIR</a>
+        
+        <a href="javascript:void(0)" onclick="toggleFilter('serie', '6')"
+           class="tab-btn ">MEMOEURO</a>
+        
+        <a href="javascript:void(0)" onclick="toggleFilter('serie', '7')"
+           class="tab-btn ">ZEROSOUVENIR</a>
+        
+        <a href="javascript:void(0)" onclick="toggleFilter('serie', '9')"
+           class="tab-btn ">ESCUDOSOUVENIR</a>
+        
+        <a href="javascript:void(0)" onclick="toggleFilter('serie', '8')"
+           class="tab-btn ">PENNY PRESS</a>
+        
+    </div>
+</div>
+
+
+<div class="tabs-gruppe">
+    <div class="tabs-label">Type</div>
+    <div class="tab-buttons">
+        <a href="javascript:void(0)" onclick="clearFilter('typ')"
+           class="tab-btn aktiv" style="border-color:#888;">All</a>
+        
+        <a href="javascript:void(0)" onclick="toggleFilter('typ', '4')"
+           class="tab-btn " style="border-color:#888;">ANNIVERSARY 10</a>
+        
+        <a href="javascript:void(0)" onclick="toggleFilter('typ', '5')"
+           class="tab-btn " style="border-color:#888;">ANNIVERSARY 5</a>
+        
+        <a href="javascript:void(0)" onclick="toggleFilter('typ', '6')"
+           class="tab-btn " style="border-color:#888;">Polymer</a>
+        
+        <a href="javascript:void(0)" onclick="toggleFilter('typ', '3')"
+           class="tab-btn " style="border-color:#888;">Specimen</a>
+        
+        <a href="javascript:void(0)" onclick="toggleFilter('typ', '1')"
+           class="tab-btn " style="border-color:#888;">Standard</a>
+        
+        <a href="javascript:void(0)" onclick="toggleFilter('typ', '2')"
+           class="tab-btn " style="border-color:#888;">colored</a>
+        
+    </div>
+</div>
+
+
+<div class="tabs-gruppe">
+    <div class="tabs-label">Country</div>
+    <div class="tab-buttons">
+        <a href="?suche=&serie=[]&jahr="
+           class="tab-btn aktiv-land aktiv">All</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('12')" 
+        <a href="javascript:void(0)" onclick="toggleLand('12')" 
+           class="tab-btn "><img src="https://flagcdn.com/ad.svg" alt="AD" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Andorra</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('13')" 
+        <a href="javascript:void(0)" onclick="toggleLand('13')" 
+           class="tab-btn "><img src="https://flagcdn.com/ar.svg" alt="AR" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Argentina</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('16')" 
+        <a href="javascript:void(0)" onclick="toggleLand('16')" 
+           class="tab-btn "><img src="https://flagcdn.com/am.svg" alt="AM" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Armenia</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('17')" 
+        <a href="javascript:void(0)" onclick="toggleLand('17')" 
+           class="tab-btn "><img src="https://flagcdn.com/au.svg" alt="AU" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Australia</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('75')" 
+        <a href="javascript:void(0)" onclick="toggleLand('75')" 
+           class="tab-btn "><img src="https://flagcdn.com/at.svg" alt="AT" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Austria</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('18')" 
+        <a href="javascript:void(0)" onclick="toggleLand('18')" 
+           class="tab-btn "><img src="https://flagcdn.com/bh.svg" alt="BH" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Bahrain</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('71')" 
+        <a href="javascript:void(0)" onclick="toggleLand('71')" 
+           class="tab-btn "><img src="https://flagcdn.com/be.svg" alt="BE" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Belgium</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('20')" 
+        <a href="javascript:void(0)" onclick="toggleLand('20')" 
+           class="tab-btn "><img src="https://flagcdn.com/br.svg" alt="BR" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Brazil</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('21')" 
+        <a href="javascript:void(0)" onclick="toggleLand('21')" 
+           class="tab-btn "><img src="https://flagcdn.com/bg.svg" alt="BG" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Bulgaria</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('22')" 
+        <a href="javascript:void(0)" onclick="toggleLand('22')" 
+           class="tab-btn "><img src="https://flagcdn.com/kh.svg" alt="KH" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Cambodia</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('23')" 
+        <a href="javascript:void(0)" onclick="toggleLand('23')" 
+           class="tab-btn "><img src="https://flagcdn.com/ca.svg" alt="CA" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Canada</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('31')" 
+        <a href="javascript:void(0)" onclick="toggleLand('31')" 
+           class="tab-btn "><img src="https://flagcdn.com/cn.svg" alt="CN" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> China</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('25')" 
+        <a href="javascript:void(0)" onclick="toggleLand('25')" 
+           class="tab-btn "><img src="https://flagcdn.com/hr.svg" alt="HR" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Croatia</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('26')" 
+        <a href="javascript:void(0)" onclick="toggleLand('26')" 
+           class="tab-btn "><img src="https://flagcdn.com/cu.svg" alt="CU" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Cuba</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('24')" 
+        <a href="javascript:void(0)" onclick="toggleLand('24')" 
+           class="tab-btn "><img src="https://flagcdn.com/cy.svg" alt="CY" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Cyprus</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('74')" 
+        <a href="javascript:void(0)" onclick="toggleLand('74')" 
+           class="tab-btn "><img src="https://flagcdn.com/cz.svg" alt="CZ" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Czech Republic</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('27')" 
+        <a href="javascript:void(0)" onclick="toggleLand('27')" 
+           class="tab-btn "><img src="https://flagcdn.com/dk.svg" alt="DK" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Denmark</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('11')" 
+        <a href="javascript:void(0)" onclick="toggleLand('11')" 
+           class="tab-btn "><img src="https://flagcdn.com/eg.svg" alt="EG" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Egypt</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('29')" 
+        <a href="javascript:void(0)" onclick="toggleLand('29')" 
+           class="tab-btn "><img src="https://flagcdn.com/ee.svg" alt="EE" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Estonia</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('10')" 
+        <a href="javascript:void(0)" onclick="toggleLand('10')" 
+           class="tab-btn "><img src="https://flagcdn.com/fi.svg" alt="FI" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Finland</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('79')" 
+        <a href="javascript:void(0)" onclick="toggleLand('79')" 
+           class="tab-btn "><img src="https://flagcdn.com/fr.svg" alt="FR" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> France</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('30')" 
+        <a href="javascript:void(0)" onclick="toggleLand('30')" 
+           class="tab-btn "><img src="https://flagcdn.com/ge.svg" alt="GE" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Georgia</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('80')" 
+        <a href="javascript:void(0)" onclick="toggleLand('80')" 
+           class="tab-btn "><img src="https://flagcdn.com/de.svg" alt="DE" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Germany</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('69')" 
+        <a href="javascript:void(0)" onclick="toggleLand('69')" 
+           class="tab-btn "><img src="https://flagcdn.com/gb.svg" alt="GB" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Great Britain</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('32')" 
+        <a href="javascript:void(0)" onclick="toggleLand('32')" 
+           class="tab-btn "><img src="https://flagcdn.com/gr.svg" alt="GR" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Greece</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('33')" 
+        <a href="javascript:void(0)" onclick="toggleLand('33')" 
+           class="tab-btn "><img src="https://flagcdn.com/ht.svg" alt="HT" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Haiti</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('66')" 
+        <a href="javascript:void(0)" onclick="toggleLand('66')" 
+           class="tab-btn "><img src="https://flagcdn.com/hu.svg" alt="HU" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Hungary</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('38')" 
+        <a href="javascript:void(0)" onclick="toggleLand('38')" 
+           class="tab-btn "><img src="https://flagcdn.com/is.svg" alt="IS" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Iceland</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('34')" 
+        <a href="javascript:void(0)" onclick="toggleLand('34')" 
+           class="tab-btn "><img src="https://flagcdn.com/in.svg" alt="IN" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> India</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('35')" 
+        <a href="javascript:void(0)" onclick="toggleLand('35')" 
+           class="tab-btn "><img src="https://flagcdn.com/id.svg" alt="ID" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Indonesia</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('36')" 
+        <a href="javascript:void(0)" onclick="toggleLand('36')" 
+           class="tab-btn "><img src="https://flagcdn.com/iq.svg" alt="IQ" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Iraq</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('37')" 
+        <a href="javascript:void(0)" onclick="toggleLand('37')" 
+           class="tab-btn "><img src="https://flagcdn.com/ie.svg" alt="IE" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Ireland</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('8')" 
+        <a href="javascript:void(0)" onclick="toggleLand('8')" 
+           class="tab-btn "><img src="https://flagcdn.com/it.svg" alt="IT" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Italy</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('39')" 
+        <a href="javascript:void(0)" onclick="toggleLand('39')" 
+           class="tab-btn "><img src="https://flagcdn.com/jp.svg" alt="JP" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Japan</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('40')" 
+        <a href="javascript:void(0)" onclick="toggleLand('40')" 
+           class="tab-btn "><img src="https://flagcdn.com/jo.svg" alt="JO" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Jordan</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('41')" 
+        <a href="javascript:void(0)" onclick="toggleLand('41')" 
+           class="tab-btn "><img src="https://flagcdn.com/xk.svg" alt="XK" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Kosovo</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('42')" 
+        <a href="javascript:void(0)" onclick="toggleLand('42')" 
+           class="tab-btn "><img src="https://flagcdn.com/kw.svg" alt="KW" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Kuwait</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('44')" 
+        <a href="javascript:void(0)" onclick="toggleLand('44')" 
+           class="tab-btn "><img src="https://flagcdn.com/lv.svg" alt="LV" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Latvia</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('45')" 
+        <a href="javascript:void(0)" onclick="toggleLand('45')" 
+           class="tab-btn "><img src="https://flagcdn.com/lb.svg" alt="LB" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Lebanon</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('46')" 
+        <a href="javascript:void(0)" onclick="toggleLand('46')" 
+           class="tab-btn "><img src="https://flagcdn.com/ly.svg" alt="LY" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Libya</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('43')" 
+        <a href="javascript:void(0)" onclick="toggleLand('43')" 
+           class="tab-btn "><img src="https://flagcdn.com/lt.svg" alt="LT" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Lithuania</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('47')" 
+        <a href="javascript:void(0)" onclick="toggleLand('47')" 
+           class="tab-btn "><img src="https://flagcdn.com/lu.svg" alt="LU" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Luxembourg</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('48')" 
+        <a href="javascript:void(0)" onclick="toggleLand('48')" 
+           class="tab-btn "><img src="https://flagcdn.com/mg.svg" alt="MG" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Madagascar</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('49')" 
+        <a href="javascript:void(0)" onclick="toggleLand('49')" 
+           class="tab-btn "><img src="https://flagcdn.com/mt.svg" alt="MT" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Malta</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('65')" 
+        <a href="javascript:void(0)" onclick="toggleLand('65')" 
+           class="tab-btn "><img src="https://flagcdn.com/mu.svg" alt="MU" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Mauritius</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('51')" 
+        <a href="javascript:void(0)" onclick="toggleLand('51')" 
+           class="tab-btn "><img src="https://flagcdn.com/mx.svg" alt="MX" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Mexico</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('61')" 
+        <a href="javascript:void(0)" onclick="toggleLand('61')" 
+           class="tab-btn "><img src="https://flagcdn.com/mc.svg" alt="MC" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Monaco</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('50')" 
+        <a href="javascript:void(0)" onclick="toggleLand('50')" 
+           class="tab-btn "><img src="https://flagcdn.com/ma.svg" alt="MA" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Morocco</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('19')" 
+        <a href="javascript:void(0)" onclick="toggleLand('19')" 
+           class="tab-btn "><img src="https://flagcdn.com/mm.svg" alt="MM" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Myanmar</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('72')" 
+        <a href="javascript:void(0)" onclick="toggleLand('72')" 
+           class="tab-btn "><img src="https://flagcdn.com/nl.svg" alt="NL" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Netherlands</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('52')" 
+        <a href="javascript:void(0)" onclick="toggleLand('52')" 
+           class="tab-btn "><img src="https://flagcdn.com/no.svg" alt="NO" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Norway</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('53')" 
+        <a href="javascript:void(0)" onclick="toggleLand('53')" 
+           class="tab-btn "><img src="https://flagcdn.com/om.svg" alt="OM" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Oman</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('54')" 
+        <a href="javascript:void(0)" onclick="toggleLand('54')" 
+           class="tab-btn "><img src="https://flagcdn.com/ps.svg" alt="PS" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Palestine</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('55')" 
+        <a href="javascript:void(0)" onclick="toggleLand('55')" 
+           class="tab-btn "><img src="https://flagcdn.com/pe.svg" alt="PE" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Peru</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('73')" 
+        <a href="javascript:void(0)" onclick="toggleLand('73')" 
+           class="tab-btn "><img src="https://flagcdn.com/pl.svg" alt="PL" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Poland</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('77')" 
+        <a href="javascript:void(0)" onclick="toggleLand('77')" 
+           class="tab-btn "><img src="https://flagcdn.com/pt.svg" alt="PT" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Portugal</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('56')" 
+        <a href="javascript:void(0)" onclick="toggleLand('56')" 
+           class="tab-btn "><img src="https://flagcdn.com/qa.svg" alt="QA" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Qatar</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('81')" 
+        <a href="javascript:void(0)" onclick="toggleLand('81')" 
+           class="tab-btn "><img src="https://flagcdn.com/re.svg" alt="RE" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Reunion</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('62')" 
+        <a href="javascript:void(0)" onclick="toggleLand('62')" 
+           class="tab-btn "><img src="https://flagcdn.com/ro.svg" alt="RO" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Romania</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('63')" 
+        <a href="javascript:void(0)" onclick="toggleLand('63')" 
+           class="tab-btn "><img src="https://flagcdn.com/ru.svg" alt="RU" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Russia</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('64')" 
+        <a href="javascript:void(0)" onclick="toggleLand('64')" 
+           class="tab-btn "><img src="https://flagcdn.com/sm.svg" alt="SM" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> San Marino</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('15')" 
+        <a href="javascript:void(0)" onclick="toggleLand('15')" 
+           class="tab-btn "><img src="https://flagcdn.com/sa.svg" alt="SA" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Saudi Arabia</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('78')" 
+        <a href="javascript:void(0)" onclick="toggleLand('78')" 
+           class="tab-btn "><img src="https://flagcdn.com/sk.svg" alt="SK" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Slovakia</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('70')" 
+        <a href="javascript:void(0)" onclick="toggleLand('70')" 
+           class="tab-btn "><img src="https://flagcdn.com/si.svg" alt="SI" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Slovenia</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('14')" 
+        <a href="javascript:void(0)" onclick="toggleLand('14')" 
+           class="tab-btn "><img src="https://flagcdn.com/za.svg" alt="ZA" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> South Africa</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('76')" 
+        <a href="javascript:void(0)" onclick="toggleLand('76')" 
+           class="tab-btn "><img src="https://flagcdn.com/es.svg" alt="ES" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Spain</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('57')" 
+        <a href="javascript:void(0)" onclick="toggleLand('57')" 
+           class="tab-btn "><img src="https://flagcdn.com/se.svg" alt="SE" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Sweden</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('6')" 
+        <a href="javascript:void(0)" onclick="toggleLand('6')" 
+           class="tab-btn "><img src="https://flagcdn.com/ch.svg" alt="CH" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Switzerland</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('58')" 
+        <a href="javascript:void(0)" onclick="toggleLand('58')" 
+           class="tab-btn "><img src="https://flagcdn.com/th.svg" alt="TH" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Thailand</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('59')" 
+        <a href="javascript:void(0)" onclick="toggleLand('59')" 
+           class="tab-btn "><img src="https://flagcdn.com/tg.svg" alt="TG" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Togo</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('9')" 
+        <a href="javascript:void(0)" onclick="toggleLand('9')" 
+           class="tab-btn "><img src="https://flagcdn.com/tr.svg" alt="TR" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Turkey</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('60')" 
+        <a href="javascript:void(0)" onclick="toggleLand('60')" 
+           class="tab-btn "><img src="https://flagcdn.com/ua.svg" alt="UA" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Ukraine</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('28')" 
+        <a href="javascript:void(0)" onclick="toggleLand('28')" 
+           class="tab-btn "><img src="https://flagcdn.com/ae.svg" alt="AE" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> United Arab Emirates</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('68')" 
+        <a href="javascript:void(0)" onclick="toggleLand('68')" 
+           class="tab-btn "><img src="https://flagcdn.com/us.svg" alt="US" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> USA</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('67')" 
+        <a href="javascript:void(0)" onclick="toggleLand('67')" 
+           class="tab-btn "><img src="https://flagcdn.com/va.svg" alt="VA" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Vatican</a>
+        
+    </div>
+</div>
+
+
+<form method="get" class="filter-bar">
+    
+    
+    
+    <div>
+        <label></label>
+        <div style="position:relative;">
+            <input type="text" name="suche" id="suche-input" value="" placeholder="Motive, place, issuer…" autocomplete="off" oninput="suchAutocomplete(this.value)">
+            <div id="autocomplete-list" style="display:none;position:absolute;top:100%;left:0;right:0;background:white;border:1px solid #ccc;border-radius:0 0 5px 5px;z-index:1000;box-shadow:0 4px 12px rgba(0,0,0,0.1);max-height:320px;overflow-y:auto;"></div>
+        </div>
+    </div>
+    <div>
+        <label>Year</label>
+        <select name="jahr">
+            <option value="">All Years</option>
+            
+                <option value="2015" >2015</option>
+            
+                <option value="2016" >2016</option>
+            
+                <option value="2017" >2017</option>
+            
+                <option value="2018" >2018</option>
+            
+                <option value="2019" >2019</option>
+            
+                <option value="2020" >2020</option>
+            
+                <option value="2021" >2021</option>
+            
+                <option value="2022" >2022</option>
+            
+                <option value="2023" >2023</option>
+            
+                <option value="2024" >2024</option>
+            
+                <option value="2025" >2025</option>
+            
+                <option value="2026" >2026</option>
+            
+                <option value="2027" >2027</option>
+            
+        </select>
+    </div>
+    <div>
+        <label>Sort by</label>
+        <select name="sort">
+            <option value="katalog_nr" selected>Catalogue number</option>
+            <option value="motiv" >Motive A–Z</option>
+            <option value="jahr_neu" >Year ↓</option>
+            <option value="jahr_alt" >Year ↑</option>
+            <option value="neu" >Recently added</option>
+        </select>
+    </div>
+    <div class="filter-actions">
+        <button type="submit" class="btn btn-rot">Apply</button>
+        <a href="/katalog/" class="btn btn-grau">Reset</a>
+        
+        <button type="button" onclick="document.getElementById('vorschlag-modal').style.display='flex'" class="btn btn-grau vorschlag-btn" style="margin-left:auto;white-space:nowrap;">💡 Suggest a note</button>
+        
+    </div>
+</form>
+
+<div style="display:flex;flex-wrap:wrap;gap:1rem;align-items:center;font-size:0.78rem;color:#888;background:#f8f8f8;border:1px solid #e8e8e8;border-radius:6px;padding:0.5rem 0.75rem;margin-bottom:0.75rem;">
+    <span>📅 Year of issue</span>
+    <span>🔢 Print run</span>
+    <span>👤 Number of collectors</span>
+    <span><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;vertical-align:middle;"></span> Still available</span>
+    <span><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#dc3545;vertical-align:middle;"></span> Sold out</span>
+    <span>📍 Location on map</span>
+    <span>🛒 Buy in shop</span>
+    <span class="badge badge-serie" style="font-size:0.75rem;">Series</span>
+    <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;font-size:0.75rem;">Type</span>
+</div>
+<p class="stats-bar"><strong>7096</strong> notes found</p>
+
+
+<div class="grid">
+    
+    <div class="karte" data-id="2852">
+        <a href="/schein/2852/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2852)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EEFQ-1</div>
+            <div class="karte-titel">Lehota</div>
+            <div class="karte-ort">Slovakia / Lehota</div>
+            <div class="karte-meta">
+                <span>📅 2023-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2853">
+        <a href="/schein/2853/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2853)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EEFR-1</div>
+            <div class="karte-titel">Nová Baňa</div>
+            <div class="karte-ort">Slovakia / Nová Baňa</div>
+            <div class="karte-meta">
+                <span>📅 2023-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2854">
+        <a href="/schein/2854/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2854)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EEFS-1</div>
+            <div class="karte-titel">Kúpeľné Mestečko Dudince</div>
+            <div class="karte-ort">Slovakia / Dudince</div>
+            <div class="karte-meta">
+                <span>📅 2023-1</span>
+                <span>🔢 10000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2855">
+        <a href="/schein/2855/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2855)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EEFT-1</div>
+            <div class="karte-titel">Mojmírova Bašta - Gbely</div>
+            <div class="karte-ort">Slovakia / Gbely</div>
+            <div class="karte-meta">
+                <span>📅 2024-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2856">
+        <a href="/schein/2856/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2856)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EEFU-1</div>
+            <div class="karte-titel">Rio de Klin</div>
+            <div class="karte-ort">Slovakia / Klin na Orave</div>
+            <div class="karte-meta">
+                <span>📅 2023-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2857">
+        <a href="/schein/2857/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2857)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EEFV-1</div>
+            <div class="karte-titel">Dubnický Kaštieľ</div>
+            <div class="karte-ort">Slovakia / Dubnica nad Vahom</div>
+            <div class="karte-meta">
+                <span>📅 2024-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2858">
+        <a href="/schein/2858/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2858)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EEFW-1</div>
+            <div class="karte-titel">Ján Pisančin</div>
+            <div class="karte-ort">Slovakia / Kosice</div>
+            <div class="karte-meta">
+                <span>📅 2024-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2859">
+        <a href="/schein/2859/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2859)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EEFX-1</div>
+            <div class="karte-titel">Mesto Sabinov</div>
+            <div class="karte-ort">Slovakia / Mesto Sabinov</div>
+            <div class="karte-meta">
+                <span>📅 2024-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2860">
+        <a href="/schein/2860/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2860)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EEFY-1</div>
+            <div class="karte-titel">90 Rokov Chemosvitu</div>
+            <div class="karte-ort">Slovakia / Svit</div>
+            <div class="karte-meta">
+                <span>📅 2024-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2861">
+        <a href="/schein/2861/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2861)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EEFZ-1</div>
+            <div class="karte-titel">Sysľovisko Obrovisko Murán</div>
+            <div class="karte-ort">Slovakia / Murán</div>
+            <div class="karte-meta">
+                <span>📅 2024-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#dc3545;" title="Sold out"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2862">
+        <a href="/schein/2862/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2862)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EEFZ-2</div>
+            <div class="karte-titel">Sysľovisko Obrovisko Murán</div>
+            <div class="karte-ort">Slovakia / Murán</div>
+            <div class="karte-meta">
+                <span>📅 2025-2</span>
+                <span>🔢 4000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2863">
+        <a href="/schein/2863/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2863)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EEFZ-2A</div>
+            <div class="karte-titel">Sysľovisko Obrovisko Murán ANNIVERSARY</div>
+            <div class="karte-ort">Slovakia / Murán</div>
+            <div class="karte-meta">
+                <span>📅 2025-2</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 10</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2864">
+        <a href="/schein/2864/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2864)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EEGA-1</div>
+            <div class="karte-titel">5Peňazí</div>
+            <div class="karte-ort">Slovakia / Bratislava</div>
+            <div class="karte-meta">
+                <span>📅 2024-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2865">
+        <a href="/schein/2865/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2865)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EEGB-1</div>
+            <div class="karte-titel">Tatranský Nosič</div>
+            <div class="karte-ort">Slovakia / Prybilina</div>
+            <div class="karte-meta">
+                <span>📅 2024-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2866">
+        <a href="/schein/2866/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2866)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EEGC-1</div>
+            <div class="karte-titel">Sokoliarstvo</div>
+            <div class="karte-ort">Slovakia / Bratislava</div>
+            <div class="karte-meta">
+                <span>📅 2024-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2867">
+        <a href="/schein/2867/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2867)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EEGD-1</div>
+            <div class="karte-titel">Demänová Rezort</div>
+            <div class="karte-ort">Slovakia / Liptovsky Mikulas</div>
+            <div class="karte-meta">
+                <span>📅 2024-1</span>
+                <span>🔢 10000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2868">
+        <a href="/schein/2868/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2868)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EEGE-1</div>
+            <div class="karte-titel">60. Zlatá Prilba SNP</div>
+            <div class="karte-ort">Slovakia / Žarnovica</div>
+            <div class="karte-meta">
+                <span>📅 2024-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2869">
+        <a href="/schein/2869/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2869)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EEGF-1</div>
+            <div class="karte-titel">Termálne Kúpalisko Podhájska</div>
+            <div class="karte-ort">Slovakia / Podhájska</div>
+            <div class="karte-meta">
+                <span>📅 2024-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2870">
+        <a href="/schein/2870/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2870)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EEGG-1</div>
+            <div class="karte-titel">Bojná</div>
+            <div class="karte-ort">Slovakia / Bojná</div>
+            <div class="karte-meta">
+                <span>📅 2024-1</span>
+                <span>🔢 10000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2871">
+        <a href="/schein/2871/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2871)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EEGH-1</div>
+            <div class="karte-titel">Biely Kostol</div>
+            <div class="karte-ort">Slovakia / Biely Kostol</div>
+            <div class="karte-meta">
+                <span>📅 2024-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2872">
+        <a href="/schein/2872/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2872)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EEGJ-1</div>
+            <div class="karte-titel">Kolárovo - Gúta</div>
+            <div class="karte-ort">Slovakia / Kolárovo</div>
+            <div class="karte-meta">
+                <span>📅 2024-1</span>
+                <span>🔢 10000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2873">
+        <a href="/schein/2873/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2873)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EEGK-1</div>
+            <div class="karte-titel">Peter Sagan - Richmond 2015</div>
+            <div class="karte-ort">Slovakia / unbekannt</div>
+            <div class="karte-meta">
+                <span>📅 2025-1</span>
+                <span>🔢 8000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2874">
+        <a href="/schein/2874/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2874)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EEGK-1A</div>
+            <div class="karte-titel">Peter Sagan - Richmond 2015 ANNIVERSARY</div>
+            <div class="karte-ort">Slovakia / unbekannt</div>
+            <div class="karte-meta">
+                <span>📅 2025-1</span>
+                <span>🔢 2000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 10</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2875">
+        <a href="/schein/2875/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2875)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EEGK-2</div>
+            <div class="karte-titel">SP Resort - Peter Sagan, Zilina - Slovensko</div>
+            <div class="karte-ort">Slovakia / Zilina</div>
+            <div class="karte-meta">
+                <span>📅 2025-2</span>
+                <span>🔢 8000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2876">
+        <a href="/schein/2876/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2876)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EEGK-2A</div>
+            <div class="karte-titel">SP Resort - Peter Sagan, Zilina - Slovensko ANNIVERSARY</div>
+            <div class="karte-ort">Slovakia / Zilina</div>
+            <div class="karte-meta">
+                <span>📅 2025-2</span>
+                <span>🔢 2000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 10</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2877">
+        <a href="/schein/2877/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2877)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EEGL-1</div>
+            <div class="karte-titel">Martin</div>
+            <div class="karte-ort">Slovakia / Martin</div>
+            <div class="karte-meta">
+                <span>📅 2025-1</span>
+                <span>🔢 4000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2878">
+        <a href="/schein/2878/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2878)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EEGL-1A</div>
+            <div class="karte-titel">Martin ANNIVERSARY</div>
+            <div class="karte-ort">Slovakia / Martin</div>
+            <div class="karte-meta">
+                <span>📅 2025-1</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 10</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2879">
+        <a href="/schein/2879/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2879)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EEGM-1</div>
+            <div class="karte-titel">25. Výročie Robocup Junior Slovakia</div>
+            <div class="karte-ort">Slovakia / Bratislava</div>
+            <div class="karte-meta">
+                <span>📅 2025-1</span>
+                <span>🔢 4000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2880">
+        <a href="/schein/2880/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2880)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EEGM-1A</div>
+            <div class="karte-titel">25. Výročie Robocup Junior Slovakia ANNIVERSARY</div>
+            <div class="karte-ort">Slovakia / Bratislava</div>
+            <div class="karte-meta">
+                <span>📅 2025-1</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 10</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2881">
+        <a href="/schein/2881/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2881)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EEGN-1</div>
+            <div class="karte-titel">Helena Vondráčková</div>
+            <div class="karte-ort">Slovakia / Kosice</div>
+            <div class="karte-meta">
+                <span>📅 2025-1</span>
+                <span>🔢 2000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#dc3545;" title="Sold out"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2882">
+        <a href="/schein/2882/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2882)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EEGN-1A</div>
+            <div class="karte-titel">Helena Vondráčková ANNIVERSARY</div>
+            <div class="karte-ort">Slovakia / Kosice</div>
+            <div class="karte-meta">
+                <span>📅 2025-1</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 10</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#dc3545;" title="Sold out"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2883">
+        <a href="/schein/2883/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2883)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EEGN-2</div>
+            <div class="karte-titel">Karol Duchon</div>
+            <div class="karte-ort">Slovakia / Bratislava</div>
+            <div class="karte-meta">
+                <span>📅 2025-2</span>
+                <span>🔢 4000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#dc3545;" title="Sold out"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2884">
+        <a href="/schein/2884/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2884)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EEGN-2A</div>
+            <div class="karte-titel">Karol Duchon ANNIVERSARY</div>
+            <div class="karte-ort">Slovakia / Bratislava</div>
+            <div class="karte-meta">
+                <span>📅 2025-2</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 10</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#dc3545;" title="Sold out"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2885">
+        <a href="/schein/2885/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2885)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EEGN-3</div>
+            <div class="karte-titel">Marian Kochanský</div>
+            <div class="karte-ort">Slovakia / unbekannt</div>
+            <div class="karte-meta">
+                <span>📅 2025-3</span>
+                <span>🔢 4000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2886">
+        <a href="/schein/2886/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2886)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EEGN-3A</div>
+            <div class="karte-titel">Marian Kochanský ANNIVERSARY</div>
+            <div class="karte-ort">Slovakia / unbekannt</div>
+            <div class="karte-meta">
+                <span>📅 2025-3</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 10</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2887">
+        <a href="/schein/2887/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2887)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EEGP-1</div>
+            <div class="karte-titel">Prvá Rajecká Anča</div>
+            <div class="karte-ort">Slovakia / Zilina</div>
+            <div class="karte-meta">
+                <span>📅 2025-1</span>
+                <span>🔢 4000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2888">
+        <a href="/schein/2888/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2888)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EEGP-1A</div>
+            <div class="karte-titel">Prvá Rajecká Anča ANNIVERSARY</div>
+            <div class="karte-ort">Slovakia / Zilina</div>
+            <div class="karte-meta">
+                <span>📅 2025-1</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 10</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2889">
+        <a href="/schein/2889/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2889)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EEGQ-1</div>
+            <div class="karte-titel">Špacince</div>
+            <div class="karte-ort">Slovakia / Špacince</div>
+            <div class="karte-meta">
+                <span>📅 2025-1</span>
+                <span>🔢 4000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2890">
+        <a href="/schein/2890/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2890)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EEGQ-1A</div>
+            <div class="karte-titel">Špacince ANNIVERSARY</div>
+            <div class="karte-ort">Slovakia / Špacince</div>
+            <div class="karte-meta">
+                <span>📅 2025-1</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 10</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2891">
+        <a href="/schein/2891/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2891)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EEGR-1</div>
+            <div class="karte-titel">Cesta Hrdinov SNP</div>
+            <div class="karte-ort">Slovakia / Kružlová</div>
+            <div class="karte-meta">
+                <span>📅 2025-1</span>
+                <span>🔢 4000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2892">
+        <a href="/schein/2892/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2892)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EEGR-1A</div>
+            <div class="karte-titel">Cesta Hrdinov SNP ANNIVERSARY</div>
+            <div class="karte-ort">Slovakia / Kružlová</div>
+            <div class="karte-meta">
+                <span>📅 2025-1</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 10</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2893">
+        <a href="/schein/2893/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2893)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EEGS-1</div>
+            <div class="karte-titel">70. Folklórny Festival Východná</div>
+            <div class="karte-ort">Slovakia / Východná</div>
+            <div class="karte-meta">
+                <span>📅 2025-1</span>
+                <span>🔢 4000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2894">
+        <a href="/schein/2894/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2894)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EEGS-1A</div>
+            <div class="karte-titel">70. Folklórny Festival Východná ANNIVERSARY</div>
+            <div class="karte-ort">Slovakia / Východná</div>
+            <div class="karte-meta">
+                <span>📅 2025-1</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 10</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2895">
+        <a href="/schein/2895/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2895)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EEGT-1</div>
+            <div class="karte-titel">Legendarium</div>
+            <div class="karte-ort">Slovakia / Presov</div>
+            <div class="karte-meta">
+                <span>📅 2025-1</span>
+                <span>🔢 4000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2896">
+        <a href="/schein/2896/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2896)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EEGT-1A</div>
+            <div class="karte-titel">Legendarium ANNIVERSARY</div>
+            <div class="karte-ort">Slovakia / Presov</div>
+            <div class="karte-meta">
+                <span>📅 2025-1</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 10</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2897">
+        <a href="/schein/2897/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2897)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EEGU-1</div>
+            <div class="karte-titel">Kráľová pri Senci</div>
+            <div class="karte-ort">Slovakia / Kráľová pri Senci</div>
+            <div class="karte-meta">
+                <span>📅 2025-1</span>
+                <span>🔢 4000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2898">
+        <a href="/schein/2898/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2898)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EEGU-1A</div>
+            <div class="karte-titel">Kráľová pri Senci ANNIVERSARY</div>
+            <div class="karte-ort">Slovakia / Kráľová pri Senci</div>
+            <div class="karte-meta">
+                <span>📅 2025-1</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 10</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2899">
+        <a href="/schein/2899/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2899)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EEGV-1</div>
+            <div class="karte-titel">Spišská Teplica</div>
+            <div class="karte-ort">Slovakia / Spisska Teplica</div>
+            <div class="karte-meta">
+                <span>📅 2025-1</span>
+                <span>🔢 4000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2900">
+        <a href="/schein/2900/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2900)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EEGV-1A</div>
+            <div class="karte-titel">Spišská Teplica ANNIVERSARY</div>
+            <div class="karte-ort">Slovakia / Spisska Teplica</div>
+            <div class="karte-meta">
+                <span>📅 2025-1</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 10</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2901">
+        <a href="/schein/2901/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2901)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EEGW-1</div>
+            <div class="karte-titel">Dopravný Podnik Bratislava - 130 Rokov MHD</div>
+            <div class="karte-ort">Slovakia / Bratislava</div>
+            <div class="karte-meta">
+                <span>📅 2025-1</span>
+                <span>🔢 4000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2902">
+        <a href="/schein/2902/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2902)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EEGW-1A</div>
+            <div class="karte-titel">Dopravný Podnik Bratislava - 130 Rokov MHD ANNIVERSARY</div>
+            <div class="karte-ort">Slovakia / Bratislava</div>
+            <div class="karte-meta">
+                <span>📅 2025-1</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 10</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2903">
+        <a href="/schein/2903/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2903)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EEGX-1</div>
+            <div class="karte-titel">Zámok Smolenice</div>
+            <div class="karte-ort">Slovakia / Smolenice</div>
+            <div class="karte-meta">
+                <span>📅 2025-1</span>
+                <span>🔢 4000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2904">
+        <a href="/schein/2904/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2904)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EEGX-1A</div>
+            <div class="karte-titel">Zámok Smolenice ANNIVERSARY</div>
+            <div class="karte-ort">Slovakia / Smolenice</div>
+            <div class="karte-meta">
+                <span>📅 2025-1</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 10</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2905">
+        <a href="/schein/2905/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2905)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EEGY-1</div>
+            <div class="karte-titel">Kallarovci</div>
+            <div class="karte-ort">Slovakia / unbekannt</div>
+            <div class="karte-meta">
+                <span>📅 2025-1</span>
+                <span>🔢 4000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2906">
+        <a href="/schein/2906/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2906)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EEGY-1A</div>
+            <div class="karte-titel">Kallarovci ANNIVERSARY</div>
+            <div class="karte-ort">Slovakia / unbekannt</div>
+            <div class="karte-meta">
+                <span>📅 2025-1</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 10</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2907">
+        <a href="/schein/2907/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2907)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EEGZ-1</div>
+            <div class="karte-titel">Zuzana Chalupová</div>
+            <div class="karte-ort">Slovakia / Kosice</div>
+            <div class="karte-meta">
+                <span>📅 2025-1</span>
+                <span>🔢 4000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2908">
+        <a href="/schein/2908/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2908)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EEGZ-1A</div>
+            <div class="karte-titel">Zuzana Chalupová ANNIVERSARY</div>
+            <div class="karte-ort">Slovakia / Kosice</div>
+            <div class="karte-meta">
+                <span>📅 2025-1</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 10</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2909">
+        <a href="/schein/2909/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2909)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EEHA-1</div>
+            <div class="karte-titel">Obec Zavar</div>
+            <div class="karte-ort">Slovakia / Zavar</div>
+            <div class="karte-meta">
+                <span>📅 2025-1</span>
+                <span>🔢 4000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2910">
+        <a href="/schein/2910/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2910)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EEHA-1A</div>
+            <div class="karte-titel">Obec Zavar ANNIVERSARY</div>
+            <div class="karte-ort">Slovakia / Zavar</div>
+            <div class="karte-meta">
+                <span>📅 2025-1</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 10</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2911">
+        <a href="/schein/2911/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2911)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EEHB-1</div>
+            <div class="karte-titel">Tvrdosovce - Tardoskedd</div>
+            <div class="karte-ort">Slovakia / Tvrdosovce</div>
+            <div class="karte-meta">
+                <span>📅 2025-1</span>
+                <span>🔢 4000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2912">
+        <a href="/schein/2912/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2912)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EEHB-1A</div>
+            <div class="karte-titel">Tvrdosovce - Tardoskedd ANNIVERSARY</div>
+            <div class="karte-ort">Slovakia / Tvrdosovce</div>
+            <div class="karte-meta">
+                <span>📅 2025-1</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 10</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2913">
+        <a href="/schein/2913/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2913)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EEHC-1</div>
+            <div class="karte-titel">Hrad Lietava</div>
+            <div class="karte-ort">Slovakia / Lietava</div>
+            <div class="karte-meta">
+                <span>📅 2025-1</span>
+                <span>🔢 4000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2914">
+        <a href="/schein/2914/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2914)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EEHC-1A</div>
+            <div class="karte-titel">Hrad Lietava ANNIVERSARY</div>
+            <div class="karte-ort">Slovakia / Lietava</div>
+            <div class="karte-meta">
+                <span>📅 2025-1</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 10</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2915">
+        <a href="/schein/2915/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2915)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EEHD-1</div>
+            <div class="karte-titel">Muzeum Minci a Madaili v Kremnici</div>
+            <div class="karte-ort">Slovakia / Kremnica</div>
+            <div class="karte-meta">
+                <span>📅 2025-1</span>
+                <span>🔢 4000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2916">
+        <a href="/schein/2916/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2916)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EEHD-1A</div>
+            <div class="karte-titel">Muzeum Minci a Madaili v Kremnici ANNIVERSARY</div>
+            <div class="karte-ort">Slovakia / Kremnica</div>
+            <div class="karte-meta">
+                <span>📅 2025-1</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 10</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2917">
+        <a href="/schein/2917/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2917)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EEHE-1</div>
+            <div class="karte-titel">Zamok Kunerad</div>
+            <div class="karte-ort">Slovakia / Kunerad</div>
+            <div class="karte-meta">
+                <span>📅 2025-1</span>
+                <span>🔢 4000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2918">
+        <a href="/schein/2918/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2918)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EEHE-1A</div>
+            <div class="karte-titel">Zamok Kunerad ANNIVERSARY</div>
+            <div class="karte-ort">Slovakia / Kunerad</div>
+            <div class="karte-meta">
+                <span>📅 2025-1</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 10</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2919">
+        <a href="/schein/2919/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2919)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EEHF-1</div>
+            <div class="karte-titel">Pezinok</div>
+            <div class="karte-ort">Slovakia / Pezinok</div>
+            <div class="karte-meta">
+                <span>📅 2025-1</span>
+                <span>🔢 4000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2920">
+        <a href="/schein/2920/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2920)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EEHF-1A</div>
+            <div class="karte-titel">Pezinok ANNIVERSARY</div>
+            <div class="karte-ort">Slovakia / Pezinok</div>
+            <div class="karte-meta">
+                <span>📅 2025-1</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 10</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2921">
+        <a href="/schein/2921/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2921)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EEHG-1</div>
+            <div class="karte-titel">Ako sa Menia Vlaky ZSSK</div>
+            <div class="karte-ort">Slovakia / unbekannt</div>
+            <div class="karte-meta">
+                <span>📅 2026-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2922">
+        <a href="/schein/2922/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2922)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EEHG-2</div>
+            <div class="karte-titel">Ako sa Menia Vlaky ZSSK</div>
+            <div class="karte-ort">Slovakia / unbekannt</div>
+            <div class="karte-meta">
+                <span>📅 2026-2</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2923">
+        <a href="/schein/2923/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2923)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EEHH-1</div>
+            <div class="karte-titel">Vrable</div>
+            <div class="karte-ort">Slovakia / Vrable</div>
+            <div class="karte-meta">
+                <span>📅 2026-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2924">
+        <a href="/schein/2924/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2924)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EEHJ-1</div>
+            <div class="karte-titel">Šachový Klub Cífer</div>
+            <div class="karte-ort">Slovakia / Cifer</div>
+            <div class="karte-meta">
+                <span>📅 2026-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2925">
+        <a href="/schein/2925/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2925)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EEHJ-2</div>
+            <div class="karte-titel">Šachový Klub Cífer</div>
+            <div class="karte-ort">Slovakia / Cifer</div>
+            <div class="karte-meta">
+                <span>📅 2026-2</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2926">
+        <a href="/schein/2926/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2926)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EEHK-1</div>
+            <div class="karte-titel">Prievidza</div>
+            <div class="karte-ort">Slovakia / Prievidza</div>
+            <div class="karte-meta">
+                <span>📅 2026-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="304">
+        <a href="/schein/304/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 304)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EGAA-1</div>
+            <div class="karte-titel">EGYPT - PYRAMIDS OF GIZA</div>
+            <div class="karte-ort">Egypt / Giza</div>
+            <div class="karte-meta">
+                <span>📅 2019-1</span>
+                <span>🔢 5000 Ex.</span>
+                <span title="1 Number of collectors">👤 1</span>
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="305">
+        <a href="/schein/305/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/Egypt_Cleopatra_-_AB_-_2019-1_-_R_resultat_lz5zzw" alt="EGYPT - CLEOPATRA" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 305)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EGAB-1</div>
+            <div class="karte-titel">EGYPT - CLEOPATRA</div>
+            <div class="karte-ort">Egypt / Giza</div>
+            <div class="karte-meta">
+                <span>📅 2019-1</span>
+                <span>🔢 5000 Ex.</span>
+                <span title="1 Number of collectors">👤 1</span>
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="7086">
+        <a href="/schein/7086/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/EVO-1_1_ergebnis_qyox9j" alt="Evora" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 7086)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">EVO-1</div>
+            <div class="karte-titel">Evora</div>
+            <div class="karte-ort">Portugal / Evora</div>
+            <div class="karte-meta">
+                <span>📅 2026</span>
+                
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">ESCUDOSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="5747">
+        <a href="/schein/5747/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 5747)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">FCOF-1</div>
+            <div class="karte-titel">Fco Oberthur</div>
+            <div class="karte-ort">France / Chantepie</div>
+            <div class="karte-meta">
+                <span>📅 2024-3</span>
+                
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#dc3545;" title="Sold out"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="7087">
+        <a href="/schein/7087/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/FDB-1_1_ergebnis_ewo2av" alt="Festas do Bodo - Pombal Nossa Sra. do Cardal" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 7087)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">FDB-1</div>
+            <div class="karte-titel">Festas do Bodo - Pombal Nossa Sra. do Cardal</div>
+            <div class="karte-ort">Portugal / Pombal</div>
+            <div class="karte-meta">
+                <span>📅 2025</span>
+                
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">ESCUDOSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="7088">
+        <a href="/schein/7088/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/FDF-1_1_ergebnis_smx9ki" alt="Figueira da Foz" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 7088)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">FDF-1</div>
+            <div class="karte-titel">Figueira da Foz</div>
+            <div class="karte-ort">Portugal / Figueira da Foz</div>
+            <div class="karte-meta">
+                <span>📅 2025</span>
+                
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">ESCUDOSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="558">
+        <a href="/schein/558/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 558)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">FEAA-1</div>
+            <div class="karte-titel">Valletta Malta</div>
+            <div class="karte-ort">Malta / Valletta</div>
+            <div class="karte-meta">
+                <span>📅 2018-1</span>
+                <span>🔢 5000 Ex.</span>
+                <span title="1 Number of collectors">👤 1</span>
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="559">
+        <a href="/schein/559/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/FEAA-2_resultat_jzw43u" alt="Mother Teresa of Calcutta" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 559)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">FEAA-2</div>
+            <div class="karte-titel">Mother Teresa of Calcutta</div>
+            <div class="karte-ort">Malta / Valletta</div>
+            <div class="karte-meta">
+                <span>📅 2019-2</span>
+                <span>🔢 5000 Ex.</span>
+                <span title="1 Number of collectors">👤 1</span>
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="560">
+        <a href="/schein/560/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 560)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">FEAB-1</div>
+            <div class="karte-titel">Mahatma Gandhi</div>
+            <div class="karte-ort">Malta / unbekannt</div>
+            <div class="karte-meta">
+                <span>📅 2019-1</span>
+                <span>🔢 10000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="561">
+        <a href="/schein/561/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/FEAB-2_resultat_hdx7kk" alt="Mahatma Gandhi" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 561)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">FEAB-2</div>
+            <div class="karte-titel">Mahatma Gandhi</div>
+            <div class="karte-ort">Malta / unbekannt</div>
+            <div class="karte-meta">
+                <span>📅 2023-2</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="715">
+        <a href="/schein/715/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 715)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">FEAC-1</div>
+            <div class="karte-titel">Mockba - Moscow</div>
+            <div class="karte-ort">Russia / Moskau</div>
+            <div class="karte-meta">
+                <span>📅 2019-1</span>
+                <span>🔢 5000 Ex.</span>
+                <span title="1 Number of collectors">👤 1</span>
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="562">
+        <a href="/schein/562/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 562)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">FEAD-1</div>
+            <div class="karte-titel">United Arab Emirates</div>
+            <div class="karte-ort">Malta / unbekannt</div>
+            <div class="karte-meta">
+                <span>📅 2019-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="563">
+        <a href="/schein/563/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/FEAE-1_resultat_dbmyfv" alt="Mdina Malta" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 563)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">FEAE-1</div>
+            <div class="karte-titel">Mdina Malta</div>
+            <div class="karte-ort">Malta / Mdina</div>
+            <div class="karte-meta">
+                <span>📅 2019-1</span>
+                <span>🔢 5000 Ex.</span>
+                <span title="1 Number of collectors">👤 1</span>
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="564">
+        <a href="/schein/564/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/FEAF-1_resultat_ozlpmr" alt="Vintage Transport - Malta Buses" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 564)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">FEAF-1</div>
+            <div class="karte-titel">Vintage Transport - Malta Buses</div>
+            <div class="karte-ort">Malta / unbekannt</div>
+            <div class="karte-meta">
+                <span>📅 2019-1</span>
+                <span>🔢 5000 Ex.</span>
+                <span title="2 Number of collectors">👤 2</span>
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="565">
+        <a href="/schein/565/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/FEAG-1_resultat_whti2e" alt="Caravaggio in Malta" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 565)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">FEAG-1</div>
+            <div class="karte-titel">Caravaggio in Malta</div>
+            <div class="karte-ort">Malta / Valletta</div>
+            <div class="karte-meta">
+                <span>📅 2019-1</span>
+                <span>🔢 10000 Ex.</span>
+                <span title="1 Number of collectors">👤 1</span>
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="566">
+        <a href="/schein/566/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/FEAH-1_resultat_cn60rw" alt="Malta - Grand Harbour" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 566)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">FEAH-1</div>
+            <div class="karte-titel">Malta - Grand Harbour</div>
+            <div class="karte-ort">Malta / Valletta</div>
+            <div class="karte-meta">
+                <span>📅 2019-1</span>
+                <span>🔢 5000 Ex.</span>
+                <span title="1 Number of collectors">👤 1</span>
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="567">
+        <a href="/schein/567/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/FEAJ-1_resultat_t9d8dj" alt="Malta - Gozo Harbour" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 567)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">FEAJ-1</div>
+            <div class="karte-titel">Malta - Gozo Harbour</div>
+            <div class="karte-ort">Malta / Mgarr</div>
+            <div class="karte-meta">
+                <span>📅 2019-1</span>
+                <span>🔢 5000 Ex.</span>
+                <span title="1 Number of collectors">👤 1</span>
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="568">
+        <a href="/schein/568/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/FEAK-1_resultat_x15bsl" alt="George Cross Island" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 568)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">FEAK-1</div>
+            <div class="karte-titel">George Cross Island</div>
+            <div class="karte-ort">Malta / Valletta</div>
+            <div class="karte-meta">
+                <span>📅 2020-1</span>
+                <span>🔢 4000 Ex.</span>
+                <span title="1 Number of collectors">👤 1</span>
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="569">
+        <a href="/schein/569/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/FEAK-1A_resultat_m0cdcm" alt="George Cross Island ANNIVERSARY" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 569)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">FEAK-1A</div>
+            <div class="karte-titel">George Cross Island ANNIVERSARY</div>
+            <div class="karte-ort">Malta / Valletta</div>
+            <div class="karte-meta">
+                <span>📅 2020-1</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 5</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="570">
+        <a href="/schein/570/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/FEAL-1_resultat_uair0t" alt="Merry Christmas" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 570)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">FEAL-1</div>
+            <div class="karte-titel">Merry Christmas</div>
+            <div class="karte-ort">Malta / Valletta</div>
+            <div class="karte-meta">
+                <span>📅 2020-1</span>
+                <span>🔢 4000 Ex.</span>
+                <span title="1 Number of collectors">👤 1</span>
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="571">
+        <a href="/schein/571/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/FEAL-1A_resultat_rp6vks" alt="Merry Christmas ANNIVERSARY" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 571)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">FEAL-1A</div>
+            <div class="karte-titel">Merry Christmas ANNIVERSARY</div>
+            <div class="karte-ort">Malta / Valletta</div>
+            <div class="karte-meta">
+                <span>📅 2020-1</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 5</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="572">
+        <a href="/schein/572/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/FEAM-1_resultat_n9c28p" alt="Napoleon Bonaparte" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 572)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">FEAM-1</div>
+            <div class="karte-titel">Napoleon Bonaparte</div>
+            <div class="karte-ort">Malta / Valletta</div>
+            <div class="karte-meta">
+                <span>📅 2021-1</span>
+                <span>🔢 2000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="573">
+        <a href="/schein/573/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/FEAM-1A_resultat_mviek0" alt="Napoleon Bonaparte ANNIVERSARY" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 573)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">FEAM-1A</div>
+            <div class="karte-titel">Napoleon Bonaparte ANNIVERSARY</div>
+            <div class="karte-ort">Malta / Valletta</div>
+            <div class="karte-meta">
+                <span>📅 2021-1</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 5</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="574">
+        <a href="/schein/574/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 574)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">FEAN-1</div>
+            <div class="karte-titel">Valletta Città Umilissima ERROR</div>
+            <div class="karte-ort">Malta / Valletta</div>
+            <div class="karte-meta">
+                <span>📅 2021-1</span>
+                <span>🔢 2000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="575">
+        <a href="/schein/575/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/FEAN-1A_resultat_kklcoe" alt="Valletta Città Umilissima ERROR ANNIVERSARY" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 575)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">FEAN-1A</div>
+            <div class="karte-titel">Valletta Città Umilissima ERROR ANNIVERSARY</div>
+            <div class="karte-ort">Malta / Valletta</div>
+            <div class="karte-meta">
+                <span>📅 2021-1</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 5</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+</div>
+
+
+<script>
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let c of cookies) {
+            c = c.trim();
+            if (c.startsWith(name + '=')) { cookieValue = decodeURIComponent(c.substring(name.length + 1)); break; }
+        }
+    }
+    return cookieValue;
+}
+async function toggleSammlung(btn, id) {
+    const resp = await fetch(`/schein/${id}/toggle/`, {
+        method: 'POST', headers: { 'X-CSRFToken': getCookie('csrftoken') }
+    });
+    const data = await resp.json();
+    btn.textContent = data.in_sammlung ? '★' : '☆';
+    btn.classList.toggle('aktiv', data.in_sammlung);
+    btn.title = data.in_sammlung ? 'Aus Sammlung entfernen' : 'Zu Sammlung hinzufügen';
+}
+
+async function suchAutocomplete(q) {
+    const list = document.getElementById('autocomplete-list');
+    if (q.length < 2) { list.style.display = 'none'; return; }
+    const resp = await fetch(`/autocomplete/?q=${encodeURIComponent(q)}`);
+    const data = await resp.json();
+    if (!data.results.length) { list.style.display = 'none'; return; }
+    list.innerHTML = data.results.map(r => `
+        <a href="${r.url}" style="display:flex;align-items:center;gap:0.75rem;padding:0.6rem 0.8rem;text-decoration:none;color:#333;border-bottom:1px solid #f0f0f0;">
+            <span style="font-size:0.72rem;color:#999;font-weight:600;min-width:60px;">${r.katalog_nr}</span>
+            <span style="flex:1;">
+                <span style="font-weight:600;font-size:0.875rem;">${r.label}</span>
+                <span style="font-size:0.78rem;color:#888;display:block;">${r.ort}</span>
+            </span>
+        </a>
+    `).join('');
+    list.style.display = 'block';
+}
+
+document.addEventListener('click', function(e) {
+    const list = document.getElementById('autocomplete-list');
+    if (list && !list.contains(e.target) && e.target.id !== 'suche-input') {
+        list.style.display = 'none';
+    }
+});
+</script>
+<script>
+function toggleFilter(key, val) {
+    var params = new URLSearchParams(window.location.search);
+    var vals = params.getAll(key);
+    var idx = vals.indexOf(String(val));
+    if (idx !== -1) { vals.splice(idx, 1); } else { vals.push(String(val)); }
+    params.delete(key);
+    vals.forEach(function(v) { params.append(key, v); });
+    params.delete('page');
+    window.location.search = params.toString();
+}
+function clearFilter(key) {
+    var params = new URLSearchParams(window.location.search);
+    params.delete(key);
+    params.delete('page');
+    window.location.search = params.toString();
+}
+function toggleLand(landId) {
+    var params = new URLSearchParams(window.location.search);
+    var laender = params.getAll('land');
+    var idx = laender.indexOf(String(landId));
+    if (idx !== -1) {
+        laender.splice(idx, 1);
+    } else {
+        laender.push(String(landId));
+    }
+    params.delete('land');
+    laender.forEach(function(l) { params.append('land', l); });
+    params.delete('page');
+    window.location.search = params.toString();
+}
+</script>
+
+
+
+<div id="vorschlag-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:9999;align-items:center;justify-content:center;padding:1rem;">
+    <div style="background:white;border-radius:10px;padding:2rem;max-width:520px;width:100%;max-height:90vh;overflow-y:auto;position:relative;">
+        <button onclick="document.getElementById('vorschlag-modal').style.display='none'" style="position:absolute;top:1rem;right:1rem;background:none;border:none;font-size:1.3rem;cursor:pointer;">&#x2715;</button>
+        <h2 style="font-size:1.1rem;font-weight:800;margin-bottom:1.25rem;">💡 Suggest a note</h2>
+        
+        <form method="post" enctype="multipart/form-data">
+            <input type="hidden" name="csrfmiddlewaretoken" value="grN4NcFaHSeV0iGF9MJBVOpA5wBRep3a41RNb9wuwMLkvCkO5ap7VQvGyVchjTj2">
+            <input type="hidden" name="schein_vorschlagen" value="1">
+            <div style="margin-bottom:0.75rem;">
+                <label style="font-size:0.8rem;font-weight:600;color:#555;display:block;margin-bottom:3px;">Motive / Name *</label>
+                <input type="text" name="motiv" required style="width:100%;padding:0.4rem 0.6rem;border:1px solid #ccc;border-radius:5px;font-size:0.85rem;box-sizing:border-box;">
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:0.75rem;">
+                <div>
+                    <label style="font-size:0.8rem;font-weight:600;color:#555;display:block;margin-bottom:3px;">Country</label>
+                    <input type="text" name="land" style="width:100%;padding:0.4rem 0.6rem;border:1px solid #ccc;border-radius:5px;font-size:0.85rem;box-sizing:border-box;">
+                </div>
+                <div>
+                    <label style="font-size:0.8rem;font-weight:600;color:#555;display:block;margin-bottom:3px;">Location</label>
+                    <input type="text" name="ort" style="width:100%;padding:0.4rem 0.6rem;border:1px solid #ccc;border-radius:5px;font-size:0.85rem;box-sizing:border-box;">
+                </div>
+            </div>
+            <div style="margin-bottom:0.75rem;">
+                <label style="font-size:0.8rem;font-weight:600;color:#555;display:block;margin-bottom:3px;">Additional information (sales location, series, etc.)</label>
+                <textarea name="info" rows="3" style="width:100%;padding:0.4rem 0.6rem;border:1px solid #ccc;border-radius:5px;font-size:0.85rem;box-sizing:border-box;resize:vertical;"></textarea>
+            </div>
+            <div style="margin-bottom:1rem;">
+                <label style="font-size:0.8rem;font-weight:600;color:#555;display:block;margin-bottom:3px;">Image file</label>
+                <input type="file" name="bilder" accept="image/*" multiple style="width:100%;border:1px solid #ccc;padding:0.3rem;border-radius:5px;font-size:0.82rem;">
+            </div>
+            <button type="submit" class="btn btn-rot">💡 Submit suggestion</button>
+        </form>
+        
+    </div>
+</div>
+
+
+
+</main>
+
+<footer>
+    <p>0-Euro Souvenirscheine Schweiz &mdash; <a href="https://www.collectionseeland.ch" target="_blank">Collection Seeland</a></p>
+</footer>
+<nav class="bottom-nav">
+    <a href="/" >
+        <span class="icon">🏠</span>
+        <span>Home</span>
+    </a>
+    <a href="/katalog/" class="aktiv">
+        <span class="icon">📋</span>
+        <span>Catalogue</span>
+    </a>
+    
+    <a href="/meine-sammlung/" >
+        <span class="icon">⭐</span>
+        <span>My Collection</span>
+    </a>
+    <a href="/tauschboerse/" >
+        <span class="icon">🔄</span>
+        <span>Exchange</span>
+    </a>
+    
+            <a href="/statistik/" >
+        <span class="icon">📊</span>
+        <span>Statistics</span>
+    </a>
+    
+    <a href="/profil/" >
+        <span class="icon">👤</span>
+        <span>Profile</span>
+    </a>
+    
+</nav>
+<button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})"
+    style="display:none;position:fixed;bottom:2rem;right:2rem;background:var(--rot);color:white;border:none;border-radius:50%;width:44px;height:44px;font-size:1.2rem;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,0.2);z-index:999;">↑</button>
+<script>
+window.addEventListener('scroll', function() {
+    document.getElementById('back-to-top').style.display = window.scrollY > 400 ? 'block' : 'none';
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,4525 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta name="google-site-verification" content="LjYRdR7g0LgYxQ01sJ_WxzpN5kLNPehj96CT6wQ70_g" />
+<link rel="icon" type="image/png" sizes="16x16" href="/static/favicon/favicon-16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/static/favicon/favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/static/favicon/favicon-180.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/static/favicon/favicon-192.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Katalog – 0-Euro Souvenir Notes</title>
+    
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --rot: #c8102e;
+            --dunkelrot: #9b0b22;
+            --grau: #f5f5f5;
+            --dunkelgrau: #333;
+            --mittelgrau: #666;
+            --rand: #ddd;
+            --gold: #c9a84c;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: #fff;
+            color: var(--dunkelgrau);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* NAV */
+        nav {
+            background: var(--rot);
+            color: white;
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 60px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+        .nav-brand {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .nav-brand span.badge {
+            background: white;
+            color: var(--rot);
+            font-size: 0.75rem;
+            padding: 2px 7px;
+            border-radius: 10px;
+            font-weight: 800;
+        }
+        .nav-links { display: flex; gap: 1rem; align-items: center; }
+        .nav-links a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            font-size: 0.9rem;
+            padding: 4px 10px;
+            border-radius: 4px;
+            transition: background 0.15s;
+        }
+        .nav-links a:hover { background: rgba(255,255,255,0.15); }
+        .nav-links a.active { background: rgba(255,255,255,0.2); font-weight: 600; }
+        .mobile-lang-switcher { display: none; }
+        .nav-toggle { display: none; background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; padding: 4px 8px; }
+        .bottom-nav { display: none; }
+        @media (max-width: 700px) {
+            nav { height: 50px; padding: 0 1rem; }
+            .mobile-lang-switcher { display: flex; gap: 2px; align-items: center; }
+            .nav-toggle { display: none; }
+            .nav-links { display: none !important; }
+            main { padding-bottom: 70px; }
+            .bottom-nav {
+                display: flex;
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: white;
+                border-top: 1px solid #e0e0e0;
+                z-index: 9999;
+                box-shadow: 0 -2px 8px rgba(0,0,0,0.08);
+                transform: translateZ(0);
+            }
+            .bottom-nav a {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                padding: 0.4rem 0;
+                font-size: 0.65rem;
+                color: #888;
+                text-decoration: none;
+                gap: 2px;
+            }
+            .bottom-nav a.aktiv { color: var(--rot); }
+            .bottom-nav a span.icon { font-size: 1.3rem; }
+        }
+
+        /* MAIN */
+        main { flex: 1; max-width: 1200px; margin: 0 auto; padding: 2rem; width: 100%; }
+
+        /* MESSAGES */
+        .messages { list-style: none; margin-bottom: 1rem; }
+        .messages li {
+            padding: 0.75rem 1rem;
+            border-radius: 6px;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+        .messages .success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .messages .error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+
+        /* FOOTER */
+        footer {
+            background: var(--dunkelgrau);
+            color: #aaa;
+            text-align: center;
+            padding: 1rem;
+            font-size: 0.8rem;
+        }
+        footer a { color: var(--gold); text-decoration: none; }
+
+        /* UTILS */
+        .btn {
+            display: inline-flex; align-items: center; gap: 0.4rem;
+            padding: 0.5rem 1.1rem; border-radius: 5px; font-size: 0.9rem;
+            font-weight: 600; border: none; cursor: pointer; text-decoration: none;
+            transition: all 0.15s;
+        }
+        .btn-rot { background: var(--rot); color: white; }
+        .btn-rot:hover { background: var(--dunkelrot); }
+        .btn-outline { background: white; color: var(--rot); border: 2px solid var(--rot); }
+        .btn-outline:hover { background: var(--rot); color: white; }
+        .btn-grau { background: var(--grau); color: var(--dunkelgrau); border: 1px solid var(--rand); }
+        .btn-grau:hover { background: #e8e8e8; }
+        .btn-gold { background: var(--gold); color: white; }
+        .btn-gold:hover { background: #b8903c; }
+
+        h1 { font-size: 1.6rem; margin-bottom: 1.5rem; color: var(--dunkelgrau); }
+        h2 { font-size: 1.25rem; margin-bottom: 1rem; }
+    </style>
+    
+<style>
+.tabs-gruppe { margin-bottom: 0.5rem; }
+.tabs-label { font-size: 0.75rem; font-weight: 600; color: #999; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.4rem; }
+.tab-buttons { display: flex; flex-wrap: nowrap; gap: 0.4rem; margin-bottom: 1rem; overflow-x: auto; padding-bottom: 4px; scrollbar-width: thin; -webkit-overflow-scrolling: touch; }
+.tab-btn {
+    padding: 0.35rem 0.9rem; border-radius: 20px; font-size: 0.82rem; font-weight: 600;
+    border: 2px solid #ddd; background: white; color: #555;
+    cursor: pointer; text-decoration: none; transition: all 0.15s; white-space: nowrap;
+@media (max-width: 700px) {
+    .vorschlag-btn { display: none !important; }
+}
+}
+.tab-btn:hover { border-color: var(--rot); color: var(--rot); }
+.tab-btn.aktiv { background: var(--rot); border-color: var(--rot); color: white; }
+.tab-btn.aktiv-land { background: #0066cc; border-color: #0066cc; color: white; }
+.tab-btn:hover.aktiv-land { background: #0052a3; }
+
+.filter-bar {
+    background: #f9f9f9; border: 1px solid #e0e0e0; border-radius: 8px;
+    padding: 1rem 1.25rem; margin-bottom: 1.5rem;
+    display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: flex-end;
+}
+.filter-bar label { font-size: 0.8rem; font-weight: 600; color: #555; display: block; margin-bottom: 3px; }
+.filter-bar select, .filter-bar input[type=text] {
+    padding: 0.4rem 0.7rem; border: 1px solid #ccc; border-radius: 5px;
+    font-size: 0.875rem; background: white; min-width: 140px;
+}
+.filter-actions { display: flex; gap: 0.5rem; align-items: flex-end; }
+.stats-bar { color: #666; font-size: 0.875rem; margin-bottom: 1rem; }
+.stats-bar strong { color: #333; }
+
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.25rem; }
+.karte {
+    display: flex; flex-direction: column;
+    border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;
+    background: white; transition: box-shadow 0.2s, transform 0.15s; position: relative;
+}
+.karte:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.12); transform: translateY(-2px); }
+.karte a.bild-link { display: block; }
+.karte img { width: 100%; aspect-ratio: 2/1; object-fit: cover; display: block; background: #f0f0f0; }
+.karte-body { padding: 0.75rem; flex: 1; }
+.karte-nr { font-size: 0.75rem; color: #999; font-weight: 600; letter-spacing: 0.05em; }
+.karte-titel { font-weight: 700; font-size: 0.95rem; margin: 2px 0 4px; line-height: 1.3; }
+.karte-ort { font-size: 0.8rem; color: #666; }
+.karte-meta { margin-top: 0.4rem; font-size: 0.78rem; color: #999; display: flex; gap: 0.75rem; flex-wrap: wrap; }
+.karte-footer {
+    padding: 0.5rem 0.75rem; border-top: 1px solid #f0f0f0;
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: nowrap; gap: 0.3rem; overflow: hidden; min-height: 2.2rem;
+}
+.badge { font-size: 0.7rem; padding: 2px 7px; border-radius: 10px; font-weight: 600; }
+.badge-kanton { background: #f0f0f0; color: #555; }
+.badge-land { background: #e8f0fe; color: #1a56a0; border: 1px solid #b3ccf5; }
+.badge-seeland { background: #c9a84c22; color: #8a6a00; border: 1px solid #c9a84c55; }
+.badge-serie { background: #f0f9f0; color: #1a6e1a; border: 1px solid #b3e0b3; }
+.sammlung-btn {
+    position: absolute; top: 8px; right: 8px; background: white; border: none;
+    border-radius: 50%; width: 32px; height: 32px; font-size: 1rem; cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15); display: flex; align-items: center;
+    justify-content: center; transition: transform 0.15s; line-height: 1;
+}
+.sammlung-btn:hover { transform: scale(1.15); }
+.sammlung-btn.aktiv { background: #ffe8e8; }
+.leer { text-align: center; padding: 3rem; color: #999; font-size: 1rem; }
+</style>
+<div id="scroll-spinner" style="display:none;text-align:center;padding:2rem;">
+    <div style="display:inline-flex;align-items:center;gap:0.75rem;background:white;border:1px solid #e0e0e0;border-radius:30px;padding:0.6rem 1.5rem;box-shadow:0 2px 8px rgba(0,0,0,0.1);">
+        <span style="font-size:1.5rem;animation:spin 1s linear infinite;display:inline-block;">⏳</span>
+        <span style="color:#666;font-size:0.9rem;font-weight:600;">Loading more notes...</span>
+    </div>
+</div>
+<style>@keyframes spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }</style>
+
+<script>
+var currentPage = 2;
+var hasNext = true;
+var loading = false;
+
+function buildUrl(page) {
+    const params = new URLSearchParams(window.location.search);
+    params.set('page', page);
+    return '/katalog/?' + params.toString();
+}
+
+async function loadMore() {
+    if (!hasNext || loading) return;
+    loading = true;
+    document.getElementById('scroll-spinner').style.display = 'block';
+    try {
+        const resp = await fetch(buildUrl(currentPage), {
+            headers: { 'X-Requested-With': 'XMLHttpRequest' }
+        });
+        const data = await resp.json();
+        document.querySelector('.grid').insertAdjacentHTML('beforeend', data.html);
+        hasNext = data.has_next;
+        currentPage = data.next_page;
+    } catch(e) {
+        console.error('Fehler beim Laden:', e);
+    }
+    loading = false;
+    document.getElementById('scroll-spinner').style.display = 'none';
+}
+
+window.addEventListener('scroll', function() {
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 400) {
+        loadMore();
+    }
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const liste = JSON.parse(localStorage.getItem('zuletzt') || '[]').slice(0, 3);
+    if (liste.length === 0) return;
+    const container = document.getElementById('zuletzt-gesehen');
+    const listEl = document.getElementById('zuletzt-liste');
+    if (!container || !listEl) return;
+    listEl.innerHTML = liste.map(s =>
+        `<a href="${s.url}" style="display:inline-block;background:#f0f0f0;border:1px solid #ddd;border-radius:20px;padding:2px 10px;font-size:0.78rem;color:#555;text-decoration:none;margin-right:4px;">${s.motiv}</a>`
+    ).join('');
+    container.style.display = 'block';
+});
+</script>
+
+</head>
+<body>
+<nav>
+    <a href="/" class="nav-brand">
+        <span class="badge">0 €</span>
+        Souvenirscheine Schweiz
+    </a>
+    <span class="mobile-lang-switcher">
+        <a href="?lang=de" style="font-size:0.72rem;padding:2px 5px;border-radius:3px;text-decoration:none;color:rgba(255,255,255,0.6);">DE</a><a href="?lang=fr" style="font-size:0.72rem;padding:2px 5px;border-radius:3px;text-decoration:none;color:rgba(255,255,255,0.6);">FR</a><a href="?lang=en" style="font-size:0.72rem;padding:2px 5px;border-radius:3px;text-decoration:none;background:rgba(255,255,255,0.3);color:white;font-weight:700;">EN</a>
+    </span>
+    <button class="nav-toggle" onclick="document.getElementById('nav-menu').classList.toggle('open')">☰</button>
+    <div class="nav-links" id="nav-menu">
+        <a href="/">Home</a>
+        <a href="/katalog/">Catalogue</a>
+        <a href="/#kontakt">Contact</a>
+            <a href="/tauschboerse/" >Exchange</a>
+            <a href="/statistik/">Statistics</a>
+        
+            <a href="/meine-sammlung/">My Collection</a>
+            <a href="/profil/">Profile</a>
+            <form method="post" action="/accounts/logout/" style="display:inline;"><input type="hidden" name="csrfmiddlewaretoken" value="fGiiFPBiS28ui1HqIhZsbPxZvpCWz3yKynKt2jY5wLihvwcF3zQVo6I2kTUroQNT"><button type="submit" style="background:none;border:none;color:rgba(255,255,255,0.9);font-size:0.9rem;padding:4px 10px;border-radius:4px;cursor:pointer;">Logout (Alex)</button></form>
+        
+        <span style="display:flex;gap:2px;align-items:center;margin-left:0.5rem;border-left:1px solid rgba(255,255,255,0.3);padding-left:0.5rem;">
+            <a href="?lang=de" style="font-size:0.78rem;padding:2px 6px;border-radius:3px;text-decoration:none;color:rgba(255,255,255,0.6);">DE</a><a href="?lang=fr" style="font-size:0.78rem;padding:2px 6px;border-radius:3px;text-decoration:none;color:rgba(255,255,255,0.6);">FR</a><a href="?lang=en" style="font-size:0.78rem;padding:2px 6px;border-radius:3px;text-decoration:none;background:rgba(255,255,255,0.3);color:white;font-weight:700;">EN</a>
+        </span>
+    </div>
+</nav>
+
+<main>
+    
+    
+<h1>0-Euro Souvenir Notes</h1>
+
+<div id="zuletzt-gesehen" style="display:none;margin-bottom:1rem;">
+    <span style="font-size:0.78rem;color:#999;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;">Recently viewed:</span>
+    <span id="zuletzt-liste" style="margin-left:0.5rem;"></span>
+</div>
+
+
+<div class="tabs-gruppe">
+    <div class="tabs-label">Series</div>
+    <div class="tab-buttons">
+        <a href="javascript:void(0)" onclick="clearFilter('serie')"
+           class="tab-btn aktiv">All</a>
+        
+        <a href="javascript:void(0)" onclick="toggleFilter('serie', '5')"
+           class="tab-btn ">EUROSOUVENIR</a>
+        
+        <a href="javascript:void(0)" onclick="toggleFilter('serie', '6')"
+           class="tab-btn ">MEMOEURO</a>
+        
+        <a href="javascript:void(0)" onclick="toggleFilter('serie', '7')"
+           class="tab-btn ">ZEROSOUVENIR</a>
+        
+        <a href="javascript:void(0)" onclick="toggleFilter('serie', '9')"
+           class="tab-btn ">ESCUDOSOUVENIR</a>
+        
+        <a href="javascript:void(0)" onclick="toggleFilter('serie', '8')"
+           class="tab-btn ">PENNY PRESS</a>
+        
+    </div>
+</div>
+
+
+<div class="tabs-gruppe">
+    <div class="tabs-label">Type</div>
+    <div class="tab-buttons">
+        <a href="javascript:void(0)" onclick="clearFilter('typ')"
+           class="tab-btn aktiv" style="border-color:#888;">All</a>
+        
+        <a href="javascript:void(0)" onclick="toggleFilter('typ', '4')"
+           class="tab-btn " style="border-color:#888;">ANNIVERSARY 10</a>
+        
+        <a href="javascript:void(0)" onclick="toggleFilter('typ', '5')"
+           class="tab-btn " style="border-color:#888;">ANNIVERSARY 5</a>
+        
+        <a href="javascript:void(0)" onclick="toggleFilter('typ', '6')"
+           class="tab-btn " style="border-color:#888;">Polymer</a>
+        
+        <a href="javascript:void(0)" onclick="toggleFilter('typ', '3')"
+           class="tab-btn " style="border-color:#888;">Specimen</a>
+        
+        <a href="javascript:void(0)" onclick="toggleFilter('typ', '1')"
+           class="tab-btn " style="border-color:#888;">Standard</a>
+        
+        <a href="javascript:void(0)" onclick="toggleFilter('typ', '2')"
+           class="tab-btn " style="border-color:#888;">colored</a>
+        
+    </div>
+</div>
+
+
+<div class="tabs-gruppe">
+    <div class="tabs-label">Country</div>
+    <div class="tab-buttons">
+        <a href="?suche=&serie=[]&jahr="
+           class="tab-btn aktiv-land aktiv">All</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('12')" 
+        <a href="javascript:void(0)" onclick="toggleLand('12')" 
+           class="tab-btn "><img src="https://flagcdn.com/ad.svg" alt="AD" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Andorra</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('13')" 
+        <a href="javascript:void(0)" onclick="toggleLand('13')" 
+           class="tab-btn "><img src="https://flagcdn.com/ar.svg" alt="AR" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Argentina</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('16')" 
+        <a href="javascript:void(0)" onclick="toggleLand('16')" 
+           class="tab-btn "><img src="https://flagcdn.com/am.svg" alt="AM" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Armenia</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('17')" 
+        <a href="javascript:void(0)" onclick="toggleLand('17')" 
+           class="tab-btn "><img src="https://flagcdn.com/au.svg" alt="AU" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Australia</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('75')" 
+        <a href="javascript:void(0)" onclick="toggleLand('75')" 
+           class="tab-btn "><img src="https://flagcdn.com/at.svg" alt="AT" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Austria</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('18')" 
+        <a href="javascript:void(0)" onclick="toggleLand('18')" 
+           class="tab-btn "><img src="https://flagcdn.com/bh.svg" alt="BH" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Bahrain</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('71')" 
+        <a href="javascript:void(0)" onclick="toggleLand('71')" 
+           class="tab-btn "><img src="https://flagcdn.com/be.svg" alt="BE" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Belgium</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('20')" 
+        <a href="javascript:void(0)" onclick="toggleLand('20')" 
+           class="tab-btn "><img src="https://flagcdn.com/br.svg" alt="BR" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Brazil</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('21')" 
+        <a href="javascript:void(0)" onclick="toggleLand('21')" 
+           class="tab-btn "><img src="https://flagcdn.com/bg.svg" alt="BG" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Bulgaria</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('22')" 
+        <a href="javascript:void(0)" onclick="toggleLand('22')" 
+           class="tab-btn "><img src="https://flagcdn.com/kh.svg" alt="KH" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Cambodia</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('23')" 
+        <a href="javascript:void(0)" onclick="toggleLand('23')" 
+           class="tab-btn "><img src="https://flagcdn.com/ca.svg" alt="CA" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Canada</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('31')" 
+        <a href="javascript:void(0)" onclick="toggleLand('31')" 
+           class="tab-btn "><img src="https://flagcdn.com/cn.svg" alt="CN" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> China</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('25')" 
+        <a href="javascript:void(0)" onclick="toggleLand('25')" 
+           class="tab-btn "><img src="https://flagcdn.com/hr.svg" alt="HR" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Croatia</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('26')" 
+        <a href="javascript:void(0)" onclick="toggleLand('26')" 
+           class="tab-btn "><img src="https://flagcdn.com/cu.svg" alt="CU" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Cuba</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('24')" 
+        <a href="javascript:void(0)" onclick="toggleLand('24')" 
+           class="tab-btn "><img src="https://flagcdn.com/cy.svg" alt="CY" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Cyprus</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('74')" 
+        <a href="javascript:void(0)" onclick="toggleLand('74')" 
+           class="tab-btn "><img src="https://flagcdn.com/cz.svg" alt="CZ" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Czech Republic</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('27')" 
+        <a href="javascript:void(0)" onclick="toggleLand('27')" 
+           class="tab-btn "><img src="https://flagcdn.com/dk.svg" alt="DK" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Denmark</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('11')" 
+        <a href="javascript:void(0)" onclick="toggleLand('11')" 
+           class="tab-btn "><img src="https://flagcdn.com/eg.svg" alt="EG" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Egypt</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('29')" 
+        <a href="javascript:void(0)" onclick="toggleLand('29')" 
+           class="tab-btn "><img src="https://flagcdn.com/ee.svg" alt="EE" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Estonia</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('10')" 
+        <a href="javascript:void(0)" onclick="toggleLand('10')" 
+           class="tab-btn "><img src="https://flagcdn.com/fi.svg" alt="FI" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Finland</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('79')" 
+        <a href="javascript:void(0)" onclick="toggleLand('79')" 
+           class="tab-btn "><img src="https://flagcdn.com/fr.svg" alt="FR" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> France</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('30')" 
+        <a href="javascript:void(0)" onclick="toggleLand('30')" 
+           class="tab-btn "><img src="https://flagcdn.com/ge.svg" alt="GE" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Georgia</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('80')" 
+        <a href="javascript:void(0)" onclick="toggleLand('80')" 
+           class="tab-btn "><img src="https://flagcdn.com/de.svg" alt="DE" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Germany</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('69')" 
+        <a href="javascript:void(0)" onclick="toggleLand('69')" 
+           class="tab-btn "><img src="https://flagcdn.com/gb.svg" alt="GB" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Great Britain</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('32')" 
+        <a href="javascript:void(0)" onclick="toggleLand('32')" 
+           class="tab-btn "><img src="https://flagcdn.com/gr.svg" alt="GR" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Greece</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('33')" 
+        <a href="javascript:void(0)" onclick="toggleLand('33')" 
+           class="tab-btn "><img src="https://flagcdn.com/ht.svg" alt="HT" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Haiti</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('66')" 
+        <a href="javascript:void(0)" onclick="toggleLand('66')" 
+           class="tab-btn "><img src="https://flagcdn.com/hu.svg" alt="HU" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Hungary</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('38')" 
+        <a href="javascript:void(0)" onclick="toggleLand('38')" 
+           class="tab-btn "><img src="https://flagcdn.com/is.svg" alt="IS" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Iceland</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('34')" 
+        <a href="javascript:void(0)" onclick="toggleLand('34')" 
+           class="tab-btn "><img src="https://flagcdn.com/in.svg" alt="IN" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> India</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('35')" 
+        <a href="javascript:void(0)" onclick="toggleLand('35')" 
+           class="tab-btn "><img src="https://flagcdn.com/id.svg" alt="ID" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Indonesia</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('36')" 
+        <a href="javascript:void(0)" onclick="toggleLand('36')" 
+           class="tab-btn "><img src="https://flagcdn.com/iq.svg" alt="IQ" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Iraq</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('37')" 
+        <a href="javascript:void(0)" onclick="toggleLand('37')" 
+           class="tab-btn "><img src="https://flagcdn.com/ie.svg" alt="IE" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Ireland</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('8')" 
+        <a href="javascript:void(0)" onclick="toggleLand('8')" 
+           class="tab-btn "><img src="https://flagcdn.com/it.svg" alt="IT" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Italy</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('39')" 
+        <a href="javascript:void(0)" onclick="toggleLand('39')" 
+           class="tab-btn "><img src="https://flagcdn.com/jp.svg" alt="JP" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Japan</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('40')" 
+        <a href="javascript:void(0)" onclick="toggleLand('40')" 
+           class="tab-btn "><img src="https://flagcdn.com/jo.svg" alt="JO" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Jordan</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('41')" 
+        <a href="javascript:void(0)" onclick="toggleLand('41')" 
+           class="tab-btn "><img src="https://flagcdn.com/xk.svg" alt="XK" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Kosovo</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('42')" 
+        <a href="javascript:void(0)" onclick="toggleLand('42')" 
+           class="tab-btn "><img src="https://flagcdn.com/kw.svg" alt="KW" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Kuwait</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('44')" 
+        <a href="javascript:void(0)" onclick="toggleLand('44')" 
+           class="tab-btn "><img src="https://flagcdn.com/lv.svg" alt="LV" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Latvia</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('45')" 
+        <a href="javascript:void(0)" onclick="toggleLand('45')" 
+           class="tab-btn "><img src="https://flagcdn.com/lb.svg" alt="LB" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Lebanon</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('46')" 
+        <a href="javascript:void(0)" onclick="toggleLand('46')" 
+           class="tab-btn "><img src="https://flagcdn.com/ly.svg" alt="LY" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Libya</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('43')" 
+        <a href="javascript:void(0)" onclick="toggleLand('43')" 
+           class="tab-btn "><img src="https://flagcdn.com/lt.svg" alt="LT" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Lithuania</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('47')" 
+        <a href="javascript:void(0)" onclick="toggleLand('47')" 
+           class="tab-btn "><img src="https://flagcdn.com/lu.svg" alt="LU" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Luxembourg</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('48')" 
+        <a href="javascript:void(0)" onclick="toggleLand('48')" 
+           class="tab-btn "><img src="https://flagcdn.com/mg.svg" alt="MG" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Madagascar</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('49')" 
+        <a href="javascript:void(0)" onclick="toggleLand('49')" 
+           class="tab-btn "><img src="https://flagcdn.com/mt.svg" alt="MT" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Malta</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('65')" 
+        <a href="javascript:void(0)" onclick="toggleLand('65')" 
+           class="tab-btn "><img src="https://flagcdn.com/mu.svg" alt="MU" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Mauritius</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('51')" 
+        <a href="javascript:void(0)" onclick="toggleLand('51')" 
+           class="tab-btn "><img src="https://flagcdn.com/mx.svg" alt="MX" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Mexico</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('61')" 
+        <a href="javascript:void(0)" onclick="toggleLand('61')" 
+           class="tab-btn "><img src="https://flagcdn.com/mc.svg" alt="MC" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Monaco</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('50')" 
+        <a href="javascript:void(0)" onclick="toggleLand('50')" 
+           class="tab-btn "><img src="https://flagcdn.com/ma.svg" alt="MA" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Morocco</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('19')" 
+        <a href="javascript:void(0)" onclick="toggleLand('19')" 
+           class="tab-btn "><img src="https://flagcdn.com/mm.svg" alt="MM" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Myanmar</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('72')" 
+        <a href="javascript:void(0)" onclick="toggleLand('72')" 
+           class="tab-btn "><img src="https://flagcdn.com/nl.svg" alt="NL" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Netherlands</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('52')" 
+        <a href="javascript:void(0)" onclick="toggleLand('52')" 
+           class="tab-btn "><img src="https://flagcdn.com/no.svg" alt="NO" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Norway</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('53')" 
+        <a href="javascript:void(0)" onclick="toggleLand('53')" 
+           class="tab-btn "><img src="https://flagcdn.com/om.svg" alt="OM" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Oman</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('54')" 
+        <a href="javascript:void(0)" onclick="toggleLand('54')" 
+           class="tab-btn "><img src="https://flagcdn.com/ps.svg" alt="PS" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Palestine</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('55')" 
+        <a href="javascript:void(0)" onclick="toggleLand('55')" 
+           class="tab-btn "><img src="https://flagcdn.com/pe.svg" alt="PE" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Peru</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('73')" 
+        <a href="javascript:void(0)" onclick="toggleLand('73')" 
+           class="tab-btn "><img src="https://flagcdn.com/pl.svg" alt="PL" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Poland</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('77')" 
+        <a href="javascript:void(0)" onclick="toggleLand('77')" 
+           class="tab-btn "><img src="https://flagcdn.com/pt.svg" alt="PT" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Portugal</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('56')" 
+        <a href="javascript:void(0)" onclick="toggleLand('56')" 
+           class="tab-btn "><img src="https://flagcdn.com/qa.svg" alt="QA" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Qatar</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('81')" 
+        <a href="javascript:void(0)" onclick="toggleLand('81')" 
+           class="tab-btn "><img src="https://flagcdn.com/re.svg" alt="RE" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Reunion</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('62')" 
+        <a href="javascript:void(0)" onclick="toggleLand('62')" 
+           class="tab-btn "><img src="https://flagcdn.com/ro.svg" alt="RO" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Romania</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('63')" 
+        <a href="javascript:void(0)" onclick="toggleLand('63')" 
+           class="tab-btn "><img src="https://flagcdn.com/ru.svg" alt="RU" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Russia</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('64')" 
+        <a href="javascript:void(0)" onclick="toggleLand('64')" 
+           class="tab-btn "><img src="https://flagcdn.com/sm.svg" alt="SM" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> San Marino</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('15')" 
+        <a href="javascript:void(0)" onclick="toggleLand('15')" 
+           class="tab-btn "><img src="https://flagcdn.com/sa.svg" alt="SA" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Saudi Arabia</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('78')" 
+        <a href="javascript:void(0)" onclick="toggleLand('78')" 
+           class="tab-btn "><img src="https://flagcdn.com/sk.svg" alt="SK" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Slovakia</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('70')" 
+        <a href="javascript:void(0)" onclick="toggleLand('70')" 
+           class="tab-btn "><img src="https://flagcdn.com/si.svg" alt="SI" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Slovenia</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('14')" 
+        <a href="javascript:void(0)" onclick="toggleLand('14')" 
+           class="tab-btn "><img src="https://flagcdn.com/za.svg" alt="ZA" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> South Africa</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('76')" 
+        <a href="javascript:void(0)" onclick="toggleLand('76')" 
+           class="tab-btn "><img src="https://flagcdn.com/es.svg" alt="ES" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Spain</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('57')" 
+        <a href="javascript:void(0)" onclick="toggleLand('57')" 
+           class="tab-btn "><img src="https://flagcdn.com/se.svg" alt="SE" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Sweden</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('6')" 
+        <a href="javascript:void(0)" onclick="toggleLand('6')" 
+           class="tab-btn "><img src="https://flagcdn.com/ch.svg" alt="CH" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Switzerland</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('58')" 
+        <a href="javascript:void(0)" onclick="toggleLand('58')" 
+           class="tab-btn "><img src="https://flagcdn.com/th.svg" alt="TH" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Thailand</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('59')" 
+        <a href="javascript:void(0)" onclick="toggleLand('59')" 
+           class="tab-btn "><img src="https://flagcdn.com/tg.svg" alt="TG" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Togo</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('9')" 
+        <a href="javascript:void(0)" onclick="toggleLand('9')" 
+           class="tab-btn "><img src="https://flagcdn.com/tr.svg" alt="TR" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Turkey</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('60')" 
+        <a href="javascript:void(0)" onclick="toggleLand('60')" 
+           class="tab-btn "><img src="https://flagcdn.com/ua.svg" alt="UA" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Ukraine</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('28')" 
+        <a href="javascript:void(0)" onclick="toggleLand('28')" 
+           class="tab-btn "><img src="https://flagcdn.com/ae.svg" alt="AE" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> United Arab Emirates</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('68')" 
+        <a href="javascript:void(0)" onclick="toggleLand('68')" 
+           class="tab-btn "><img src="https://flagcdn.com/us.svg" alt="US" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> USA</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('67')" 
+        <a href="javascript:void(0)" onclick="toggleLand('67')" 
+           class="tab-btn "><img src="https://flagcdn.com/va.svg" alt="VA" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Vatican</a>
+        
+    </div>
+</div>
+
+
+<form method="get" class="filter-bar">
+    
+    
+    
+    <div>
+        <label></label>
+        <div style="position:relative;">
+            <input type="text" name="suche" id="suche-input" value="" placeholder="Motive, place, issuer…" autocomplete="off" oninput="suchAutocomplete(this.value)">
+            <div id="autocomplete-list" style="display:none;position:absolute;top:100%;left:0;right:0;background:white;border:1px solid #ccc;border-radius:0 0 5px 5px;z-index:1000;box-shadow:0 4px 12px rgba(0,0,0,0.1);max-height:320px;overflow-y:auto;"></div>
+        </div>
+    </div>
+    <div>
+        <label>Year</label>
+        <select name="jahr">
+            <option value="">All Years</option>
+            
+                <option value="2015" >2015</option>
+            
+                <option value="2016" >2016</option>
+            
+                <option value="2017" >2017</option>
+            
+                <option value="2018" >2018</option>
+            
+                <option value="2019" >2019</option>
+            
+                <option value="2020" >2020</option>
+            
+                <option value="2021" >2021</option>
+            
+                <option value="2022" >2022</option>
+            
+                <option value="2023" >2023</option>
+            
+                <option value="2024" >2024</option>
+            
+                <option value="2025" >2025</option>
+            
+                <option value="2026" >2026</option>
+            
+                <option value="2027" >2027</option>
+            
+        </select>
+    </div>
+    <div>
+        <label>Sort by</label>
+        <select name="sort">
+            <option value="katalog_nr" selected>Catalogue number</option>
+            <option value="motiv" >Motive A–Z</option>
+            <option value="jahr_neu" >Year ↓</option>
+            <option value="jahr_alt" >Year ↑</option>
+            <option value="neu" >Recently added</option>
+        </select>
+    </div>
+    <div class="filter-actions">
+        <button type="submit" class="btn btn-rot">Apply</button>
+        <a href="/katalog/" class="btn btn-grau">Reset</a>
+        
+        <button type="button" onclick="document.getElementById('vorschlag-modal').style.display='flex'" class="btn btn-grau vorschlag-btn" style="margin-left:auto;white-space:nowrap;">💡 Suggest a note</button>
+        
+    </div>
+</form>
+
+<div style="display:flex;flex-wrap:wrap;gap:1rem;align-items:center;font-size:0.78rem;color:#888;background:#f8f8f8;border:1px solid #e8e8e8;border-radius:6px;padding:0.5rem 0.75rem;margin-bottom:0.75rem;">
+    <span>📅 Year of issue</span>
+    <span>🔢 Print run</span>
+    <span>👤 Number of collectors</span>
+    <span><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;vertical-align:middle;"></span> Still available</span>
+    <span><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#dc3545;vertical-align:middle;"></span> Sold out</span>
+    <span>📍 Location on map</span>
+    <span>🛒 Buy in shop</span>
+    <span class="badge badge-serie" style="font-size:0.75rem;">Series</span>
+    <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;font-size:0.75rem;">Type</span>
+</div>
+<p class="stats-bar"><strong>7096</strong> notes found</p>
+
+
+<div class="grid">
+    
+    <div class="karte" data-id="2177">
+        <a href="/schein/2177/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2177)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MEAS-1</div>
+            <div class="karte-titel">Praia da Alagoa</div>
+            <div class="karte-ort">Portugal / Porto da Cruz</div>
+            <div class="karte-meta">
+                <span>📅 2018-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2178">
+        <a href="/schein/2178/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2178)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MEAT-1</div>
+            <div class="karte-titel">Estádio do Marítimo</div>
+            <div class="karte-ort">Portugal / Madeira</div>
+            <div class="karte-meta">
+                <span>📅 2018-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2179">
+        <a href="/schein/2179/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/MEAU-1_resultat_u5rx3o" alt="Arco da Porta Nova" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2179)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MEAU-1</div>
+            <div class="karte-titel">Arco da Porta Nova</div>
+            <div class="karte-ort">Portugal / Braga</div>
+            <div class="karte-meta">
+                <span>📅 2020-1</span>
+                <span>🔢 4000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2180">
+        <a href="/schein/2180/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2180)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MEAU-1A</div>
+            <div class="karte-titel">Arco da Porta Nova ANNIVERSARY</div>
+            <div class="karte-ort">Portugal / Braga</div>
+            <div class="karte-meta">
+                <span>📅 2020-1</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 5</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2181">
+        <a href="/schein/2181/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/MEAV-1_resultat_fvodoi" alt="Largo de São Gonçalo" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2181)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MEAV-1</div>
+            <div class="karte-titel">Largo de São Gonçalo</div>
+            <div class="karte-ort">Portugal / Amarante</div>
+            <div class="karte-meta">
+                <span>📅 2020-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2182">
+        <a href="/schein/2182/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2182)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MEAX-1</div>
+            <div class="karte-titel">Nossa Senhora do Sameiro</div>
+            <div class="karte-ort">Portugal / Braga</div>
+            <div class="karte-meta">
+                <span>📅 2020-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2183">
+        <a href="/schein/2183/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2183)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MEAX-2</div>
+            <div class="karte-titel">Nossa Senhora do Sameiro</div>
+            <div class="karte-ort">Portugal / Braga</div>
+            <div class="karte-meta">
+                <span>📅 2023-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2184">
+        <a href="/schein/2184/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2184)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MEAY-1</div>
+            <div class="karte-titel">Fonte de Gouvaes do Douro</div>
+            <div class="karte-ort">Portugal / Gouvaes do Douro</div>
+            <div class="karte-meta">
+                <span>📅 2023-1</span>
+                <span>🔢 3000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2185">
+        <a href="/schein/2185/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2185)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MEAZ-1</div>
+            <div class="karte-titel">Castelo de Marvão</div>
+            <div class="karte-ort">Portugal / Marvão</div>
+            <div class="karte-meta">
+                <span>📅 2018-1</span>
+                <span>🔢 10000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2186">
+        <a href="/schein/2186/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2186)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MEBA-1</div>
+            <div class="karte-titel">Fernando Pessoa</div>
+            <div class="karte-ort">Portugal / Lissabon</div>
+            <div class="karte-meta">
+                <span>📅 2018-1</span>
+                <span>🔢 5000 Ex.</span>
+                <span title="1 Number of collectors">👤 1</span>
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2187">
+        <a href="/schein/2187/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2187)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MEBB-1</div>
+            <div class="karte-titel">Centro Helen Keller</div>
+            <div class="karte-ort">Portugal / Lissabon</div>
+            <div class="karte-meta">
+                <span>📅 2018-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2188">
+        <a href="/schein/2188/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2188)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MEBC-1</div>
+            <div class="karte-titel">Porto Bridge Climb</div>
+            <div class="karte-ort">Portugal / Porto</div>
+            <div class="karte-meta">
+                <span>📅 2018-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2189">
+        <a href="/schein/2189/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/MEBD-1_resultat_lxiwn5" alt="Moinhos" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2189)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MEBD-1</div>
+            <div class="karte-titel">Moinhos</div>
+            <div class="karte-ort">Portugal / Torres Vedras</div>
+            <div class="karte-meta">
+                <span>📅 2018-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2190">
+        <a href="/schein/2190/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/MEBE-1_resultat_gzprlj" alt="20 Anos do Euro" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2190)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MEBE-1</div>
+            <div class="karte-titel">20 Anos do Euro</div>
+            <div class="karte-ort">Portugal / unbekannt</div>
+            <div class="karte-meta">
+                <span>📅 2022-1</span>
+                <span>🔢 2000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2191">
+        <a href="/schein/2191/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2191)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MEBE-1A</div>
+            <div class="karte-titel">20 Anos do Euro ANNIVERSARY</div>
+            <div class="karte-ort">Portugal / unbekannt</div>
+            <div class="karte-meta">
+                <span>📅 2022-1</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 5</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2192">
+        <a href="/schein/2192/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2192)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MEBF-1</div>
+            <div class="karte-titel">Fernando Peyroteo</div>
+            <div class="karte-ort">Portugal / Lissabon</div>
+            <div class="karte-meta">
+                <span>📅 2018-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#dc3545;" title="Sold out"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2193">
+        <a href="/schein/2193/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2193)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MEBF-2</div>
+            <div class="karte-titel">Sporting Clube de Portugal</div>
+            <div class="karte-ort">Portugal / Lissabon</div>
+            <div class="karte-meta">
+                <span>📅 2018-2</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#dc3545;" title="Sold out"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2194">
+        <a href="/schein/2194/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/MEBF-3_resultat_e5axwq" alt="Cinco Violinos" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2194)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MEBF-3</div>
+            <div class="karte-titel">Cinco Violinos</div>
+            <div class="karte-ort">Portugal / Lissabon</div>
+            <div class="karte-meta">
+                <span>📅 2019-3</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2195">
+        <a href="/schein/2195/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2195)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MEBF-4</div>
+            <div class="karte-titel">Estádio José Alvalade</div>
+            <div class="karte-ort">Portugal / Lissabon</div>
+            <div class="karte-meta">
+                <span>📅 2020-4</span>
+                <span>🔢 2000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2196">
+        <a href="/schein/2196/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2196)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MEBF-4A</div>
+            <div class="karte-titel">Estádio José Alvalade ANNIVERSARY</div>
+            <div class="karte-ort">Portugal / Lissabon</div>
+            <div class="karte-meta">
+                <span>📅 2020-4</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 5</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2197">
+        <a href="/schein/2197/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/MEBF-5_resultat_lyyhml" alt="Sporting Clube de Portugal" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2197)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MEBF-5</div>
+            <div class="karte-titel">Sporting Clube de Portugal</div>
+            <div class="karte-ort">Portugal / Lissabon</div>
+            <div class="karte-meta">
+                <span>📅 2021-5</span>
+                <span>🔢 2000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2198">
+        <a href="/schein/2198/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/MEBF-5A_resultat_nhlxys" alt="Sporting Clube de Portugal ANNIVERSARY" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2198)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MEBF-5A</div>
+            <div class="karte-titel">Sporting Clube de Portugal ANNIVERSARY</div>
+            <div class="karte-ort">Portugal / Lissabon</div>
+            <div class="karte-meta">
+                <span>📅 2021-5</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 5</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2199">
+        <a href="/schein/2199/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/MEBF-6_resultat_q6hym9" alt="Sporting Clube de Portugal" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2199)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MEBF-6</div>
+            <div class="karte-titel">Sporting Clube de Portugal</div>
+            <div class="karte-ort">Portugal / Lissabon</div>
+            <div class="karte-meta">
+                <span>📅 2021-6</span>
+                <span>🔢 2000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2200">
+        <a href="/schein/2200/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/MEBF-6A_resultat_wpjfak" alt="Sporting Clube de Portugal ANNIVERSARY" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2200)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MEBF-6A</div>
+            <div class="karte-titel">Sporting Clube de Portugal ANNIVERSARY</div>
+            <div class="karte-ort">Portugal / Lissabon</div>
+            <div class="karte-meta">
+                <span>📅 2021-6</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 5</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2201">
+        <a href="/schein/2201/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2201)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MEBF-7</div>
+            <div class="karte-titel">SCP - Estádio José Alvalade</div>
+            <div class="karte-ort">Portugal / Lissabon</div>
+            <div class="karte-meta">
+                <span>📅 2022-7</span>
+                <span>🔢 2000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2202">
+        <a href="/schein/2202/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2202)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MEBF-7A</div>
+            <div class="karte-titel">SCP - Estádio José Alvalade ANNIVERSARY</div>
+            <div class="karte-ort">Portugal / Lissabon</div>
+            <div class="karte-meta">
+                <span>📅 2022-7</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 5</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2203">
+        <a href="/schein/2203/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/MEBF-8_resultat_lfprjm" alt="Sporting Clube de Portugal" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2203)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MEBF-8</div>
+            <div class="karte-titel">Sporting Clube de Portugal</div>
+            <div class="karte-ort">Portugal / Lissabon</div>
+            <div class="karte-meta">
+                <span>📅 2023-8</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2204">
+        <a href="/schein/2204/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/MEBF-9_resultat_dexd0s" alt="Sporting Clube de Portugal" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2204)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MEBF-9</div>
+            <div class="karte-titel">Sporting Clube de Portugal</div>
+            <div class="karte-ort">Portugal / Lissabon</div>
+            <div class="karte-meta">
+                <span>📅 2024-8</span>
+                <span>🔢 10000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2205">
+        <a href="/schein/2205/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2205)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MEBG-1</div>
+            <div class="karte-titel">Feliz Páscoa</div>
+            <div class="karte-ort">Portugal / Braga</div>
+            <div class="karte-meta">
+                <span>📅 2022-1</span>
+                <span>🔢 3000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2206">
+        <a href="/schein/2206/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2206)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MEBH-1</div>
+            <div class="karte-titel">Zoo de Lagos</div>
+            <div class="karte-ort">Portugal / Barão de São João</div>
+            <div class="karte-meta">
+                <span>📅 2018-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#dc3545;" title="Sold out"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2207">
+        <a href="/schein/2207/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/MEBH-2_resultat_tfjoxr" alt="Zoo de Lagos" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2207)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MEBH-2</div>
+            <div class="karte-titel">Zoo de Lagos</div>
+            <div class="karte-ort">Portugal / Barão de São João</div>
+            <div class="karte-meta">
+                <span>📅 2020-2</span>
+                <span>🔢 4000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#dc3545;" title="Sold out"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2208">
+        <a href="/schein/2208/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2208)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MEBH-2A</div>
+            <div class="karte-titel">Zoo de Lagos ANNIVERSARY</div>
+            <div class="karte-ort">Portugal / Barão de São João</div>
+            <div class="karte-meta">
+                <span>📅 2020-2</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 5</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#dc3545;" title="Sold out"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2209">
+        <a href="/schein/2209/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/MEBH-3_resultat_kfcwto" alt="Zoo de Lagos" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2209)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MEBH-3</div>
+            <div class="karte-titel">Zoo de Lagos</div>
+            <div class="karte-ort">Portugal / Barão de São João</div>
+            <div class="karte-meta">
+                <span>📅 2023-3</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2210">
+        <a href="/schein/2210/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/MEBK-1_resultat_sspfxp" alt="Transportes Aéreos Portugueses" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2210)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MEBK-1</div>
+            <div class="karte-titel">Transportes Aéreos Portugueses</div>
+            <div class="karte-ort">Portugal / Lissabon</div>
+            <div class="karte-meta">
+                <span>📅 2019-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2211">
+        <a href="/schein/2211/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/MEBK-2_resultat_ehch9a" alt="Douglas DC-3" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2211)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MEBK-2</div>
+            <div class="karte-titel">Douglas DC-3</div>
+            <div class="karte-ort">Portugal / Lissabon</div>
+            <div class="karte-meta">
+                <span>📅 2019-2</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2212">
+        <a href="/schein/2212/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/MEBK-3_resultat_qcefn0" alt="Primeiro Voo do A330NEO" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2212)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MEBK-3</div>
+            <div class="karte-titel">Primeiro Voo do A330NEO</div>
+            <div class="karte-ort">Portugal / Lissabon</div>
+            <div class="karte-meta">
+                <span>📅 2019-3</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2213">
+        <a href="/schein/2213/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/MEBK-4_resultat_mjelb8" alt="Avião Caravela a Sobrevoar Lisboa" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2213)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MEBK-4</div>
+            <div class="karte-titel">Avião Caravela a Sobrevoar Lisboa</div>
+            <div class="karte-ort">Portugal / Lissabon</div>
+            <div class="karte-meta">
+                <span>📅 2021-4</span>
+                <span>🔢 2000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2214">
+        <a href="/schein/2214/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/MEBK-4A_resultat_zoj0vx" alt="Avião Caravela a Sobrevoar Lisboa ANNIVERSARY" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2214)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MEBK-4A</div>
+            <div class="karte-titel">Avião Caravela a Sobrevoar Lisboa ANNIVERSARY</div>
+            <div class="karte-ort">Portugal / Lissabon</div>
+            <div class="karte-meta">
+                <span>📅 2021-4</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 5</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2215">
+        <a href="/schein/2215/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/MEBK-5_resultat_lho7vz" alt="TAP Air Portugal" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2215)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MEBK-5</div>
+            <div class="karte-titel">TAP Air Portugal</div>
+            <div class="karte-ort">Portugal / Lissabon</div>
+            <div class="karte-meta">
+                <span>📅 2022-5</span>
+                <span>🔢 2000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2216">
+        <a href="/schein/2216/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/MEBK-5A_resultat_vhykpq" alt="TAP Air Portugal ANNIVERSARY" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2216)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MEBK-5A</div>
+            <div class="karte-titel">TAP Air Portugal ANNIVERSARY</div>
+            <div class="karte-ort">Portugal / Lissabon</div>
+            <div class="karte-meta">
+                <span>📅 2022-5</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 5</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2217">
+        <a href="/schein/2217/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2217)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MEBL-1</div>
+            <div class="karte-titel">Zoomarine Algarve</div>
+            <div class="karte-ort">Portugal / Albufeira</div>
+            <div class="karte-meta">
+                <span>📅 2019-1</span>
+                <span>🔢 10000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#dc3545;" title="Sold out"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2218">
+        <a href="/schein/2218/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2218)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MEBL-2</div>
+            <div class="karte-titel">Zoomarine Algarve</div>
+            <div class="karte-ort">Portugal / Albufeira</div>
+            <div class="karte-meta">
+                <span>📅 2020-2</span>
+                <span>🔢 8000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#dc3545;" title="Sold out"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2219">
+        <a href="/schein/2219/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2219)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MEBL-2A</div>
+            <div class="karte-titel">Zoomarine Algarve ANNIVERSARY</div>
+            <div class="karte-ort">Portugal / Albufeira</div>
+            <div class="karte-meta">
+                <span>📅 2020-2</span>
+                <span>🔢 2000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 5</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#dc3545;" title="Sold out"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2220">
+        <a href="/schein/2220/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2220)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MEBL-3</div>
+            <div class="karte-titel">Zoomarine Algarve</div>
+            <div class="karte-ort">Portugal / Albufeira</div>
+            <div class="karte-meta">
+                <span>📅 2024-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2221">
+        <a href="/schein/2221/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2221)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MEBL-4</div>
+            <div class="karte-titel">Zoomarine Algarve</div>
+            <div class="karte-ort">Portugal / Albufeira</div>
+            <div class="karte-meta">
+                <span>📅 2024-2</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2222">
+        <a href="/schein/2222/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2222)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MEBL-5</div>
+            <div class="karte-titel">Zoomarine Algarve</div>
+            <div class="karte-ort">Portugal / Albufeira</div>
+            <div class="karte-meta">
+                <span>📅 2026-2</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2223">
+        <a href="/schein/2223/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2223)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MEBL-6</div>
+            <div class="karte-titel">Zoomarine Algarve</div>
+            <div class="karte-ort">Portugal / Albufeira</div>
+            <div class="karte-meta">
+                <span>📅 2026-3</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2224">
+        <a href="/schein/2224/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2224)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MEBM-1</div>
+            <div class="karte-titel">Galo de Barcelos</div>
+            <div class="karte-ort">Portugal / Barcelos</div>
+            <div class="karte-meta">
+                <span>📅 2019-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#dc3545;" title="Sold out"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2225">
+        <a href="/schein/2225/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/MEBM-2_resultat_fkvwzu" alt="Galo de Barcelos" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2225)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MEBM-2</div>
+            <div class="karte-titel">Galo de Barcelos</div>
+            <div class="karte-ort">Portugal / Barcelos</div>
+            <div class="karte-meta">
+                <span>📅 2020-1</span>
+                <span>🔢 8000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2226">
+        <a href="/schein/2226/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2226)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MEBM-2A</div>
+            <div class="karte-titel">Galo de Barcelos ANNIVERSARY</div>
+            <div class="karte-ort">Portugal / Barcelos</div>
+            <div class="karte-meta">
+                <span>📅 2020-1</span>
+                <span>🔢 2000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 5</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2227">
+        <a href="/schein/2227/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2227)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MEBN-1</div>
+            <div class="karte-titel">Lisboa</div>
+            <div class="karte-ort">Portugal / Lissabon</div>
+            <div class="karte-meta">
+                <span>📅 2019-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#dc3545;" title="Sold out"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2228">
+        <a href="/schein/2228/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2228)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MEBN-2</div>
+            <div class="karte-titel">Lisboa</div>
+            <div class="karte-ort">Portugal / Lissabon</div>
+            <div class="karte-meta">
+                <span>📅 2025-1</span>
+                <span>🔢 4000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2229">
+        <a href="/schein/2229/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2229)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MEBN-2A</div>
+            <div class="karte-titel">Lisboa ANNIVERSARY</div>
+            <div class="karte-ort">Portugal / Lissabon</div>
+            <div class="karte-meta">
+                <span>📅 2025-1</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 10</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2230">
+        <a href="/schein/2230/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2230)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MEBP-1</div>
+            <div class="karte-titel">Santo António</div>
+            <div class="karte-ort">Portugal / Lissabon</div>
+            <div class="karte-meta">
+                <span>📅 2019-1</span>
+                <span>🔢 5000 Ex.</span>
+                <span title="1 Number of collectors">👤 1</span>
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2231">
+        <a href="/schein/2231/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2231)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MEBQ-1</div>
+            <div class="karte-titel">Cabo São Vicente</div>
+            <div class="karte-ort">Portugal / Sagres</div>
+            <div class="karte-meta">
+                <span>📅 2019-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#dc3545;" title="Sold out"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2232">
+        <a href="/schein/2232/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2232)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MEBQ-2</div>
+            <div class="karte-titel">Cabo São Vicente</div>
+            <div class="karte-ort">Portugal / Sagres</div>
+            <div class="karte-meta">
+                <span>📅 2019-2</span>
+                <span>🔢 10000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#dc3545;" title="Sold out"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2233">
+        <a href="/schein/2233/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2233)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MEBQ-3</div>
+            <div class="karte-titel">Cabo São Vicente</div>
+            <div class="karte-ort">Portugal / Sagres</div>
+            <div class="karte-meta">
+                <span>📅 2022-3</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2234">
+        <a href="/schein/2234/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2234)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MEBR-1</div>
+            <div class="karte-titel">Elvas</div>
+            <div class="karte-ort">Portugal / Elvas</div>
+            <div class="karte-meta">
+                <span>📅 2019-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2235">
+        <a href="/schein/2235/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2235)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MEBS-1</div>
+            <div class="karte-titel">Paço dos Duques de Bragança</div>
+            <div class="karte-ort">Portugal / Guimarães</div>
+            <div class="karte-meta">
+                <span>📅 2019-1</span>
+                <span>🔢 10000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2236">
+        <a href="/schein/2236/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2236)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MEBS-2</div>
+            <div class="karte-titel">Paço dos Duques de Bragança</div>
+            <div class="karte-ort">Portugal / Guimarães</div>
+            <div class="karte-meta">
+                <span>📅 2023-2</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2237">
+        <a href="/schein/2237/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2237)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MEBS-3</div>
+            <div class="karte-titel">Paço dos Duques de Bragança</div>
+            <div class="karte-ort">Portugal / Guimarães</div>
+            <div class="karte-meta">
+                <span>📅 2026-2</span>
+                <span>🔢 10000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2238">
+        <a href="/schein/2238/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2238)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MEBT-1</div>
+            <div class="karte-titel">Sea Life Porto</div>
+            <div class="karte-ort">Portugal / Porto</div>
+            <div class="karte-meta">
+                <span>📅 2019-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2239">
+        <a href="/schein/2239/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2239)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MEBT-2</div>
+            <div class="karte-titel">Sea Life Porto</div>
+            <div class="karte-ort">Portugal / Porto</div>
+            <div class="karte-meta">
+                <span>📅 2020-2</span>
+                <span>🔢 4000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2240">
+        <a href="/schein/2240/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2240)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MEBT-2A</div>
+            <div class="karte-titel">Sea Life Porto ANNIVERSARY</div>
+            <div class="karte-ort">Portugal / Porto</div>
+            <div class="karte-meta">
+                <span>📅 2020-2</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 5</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2241">
+        <a href="/schein/2241/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2241)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MEBT-3</div>
+            <div class="karte-titel">Sea Life Porto</div>
+            <div class="karte-ort">Portugal / Porto</div>
+            <div class="karte-meta">
+                <span>📅 2022-3</span>
+                <span>🔢 4000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2242">
+        <a href="/schein/2242/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2242)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MEBT-3A</div>
+            <div class="karte-titel">Sea Life Porto ANNIVERSARY</div>
+            <div class="karte-ort">Portugal / Porto</div>
+            <div class="karte-meta">
+                <span>📅 2022-3</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 5</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2243">
+        <a href="/schein/2243/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2243)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MEBU-1</div>
+            <div class="karte-titel">500 Anos da Circum-Navegação</div>
+            <div class="karte-ort">Portugal / Sabrosa</div>
+            <div class="karte-meta">
+                <span>📅 2019-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2244">
+        <a href="/schein/2244/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/MEBV-1_resultat_xao11x" alt="Fado" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2244)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MEBV-1</div>
+            <div class="karte-titel">Fado</div>
+            <div class="karte-ort">Portugal / Lissabon</div>
+            <div class="karte-meta">
+                <span>📅 2019-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2245">
+        <a href="/schein/2245/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/MEBW-1_resultat_oucsqa" alt="Sardinhas" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2245)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MEBW-1</div>
+            <div class="karte-titel">Sardinhas</div>
+            <div class="karte-ort">Portugal / Viana do Castelo</div>
+            <div class="karte-meta">
+                <span>📅 2019-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2246">
+        <a href="/schein/2246/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/MEBX-1_resultat_yv1ksn" alt="Azulejos" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2246)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MEBX-1</div>
+            <div class="karte-titel">Azulejos</div>
+            <div class="karte-ort">Portugal / Viana do Castelo</div>
+            <div class="karte-meta">
+                <span>📅 2019-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2247">
+        <a href="/schein/2247/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2247)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MEBY-1</div>
+            <div class="karte-titel">Sintra</div>
+            <div class="karte-ort">Portugal / Sintra</div>
+            <div class="karte-meta">
+                <span>📅 2019-1</span>
+                <span>🔢 5000 Ex.</span>
+                <span title="1 Number of collectors">👤 1</span>
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2248">
+        <a href="/schein/2248/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2248)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MEBZ-1</div>
+            <div class="karte-titel">Jose Saramago</div>
+            <div class="karte-ort">Portugal / Lissabon</div>
+            <div class="karte-meta">
+                <span>📅 2022-1</span>
+                <span>🔢 2000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2249">
+        <a href="/schein/2249/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2249)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MEBZ-1A</div>
+            <div class="karte-titel">Jose Saramago ANNIVERSARY</div>
+            <div class="karte-ort">Portugal / Lissabon</div>
+            <div class="karte-meta">
+                <span>📅 2022-1</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 5</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2250">
+        <a href="/schein/2250/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2250)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MECA-1</div>
+            <div class="karte-titel">Ponte Romana de Trajano</div>
+            <div class="karte-ort">Portugal / Chaves</div>
+            <div class="karte-meta">
+                <span>📅 2020-1</span>
+                <span>🔢 2000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2251">
+        <a href="/schein/2251/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2251)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MECA-1A</div>
+            <div class="karte-titel">Ponte Romana de Trajano ANNIVERSARY</div>
+            <div class="karte-ort">Portugal / Chaves</div>
+            <div class="karte-meta">
+                <span>📅 2020-1</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 5</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2252">
+        <a href="/schein/2252/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2252)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MECB-1</div>
+            <div class="karte-titel">Cascais</div>
+            <div class="karte-ort">Portugal / Cascais</div>
+            <div class="karte-meta">
+                <span>📅 2019-1</span>
+                <span>🔢 10000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2253">
+        <a href="/schein/2253/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2253)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MECC-1</div>
+            <div class="karte-titel">Grutas de Mira de Aire</div>
+            <div class="karte-ort">Portugal / Porto de Mós</div>
+            <div class="karte-meta">
+                <span>📅 2019-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2254">
+        <a href="/schein/2254/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2254)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MECC-2</div>
+            <div class="karte-titel">Grutas de Mira de Aire</div>
+            <div class="karte-ort">Portugal / Porto de Mós</div>
+            <div class="karte-meta">
+                <span>📅 2023-2</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2255">
+        <a href="/schein/2255/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2255)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MECD-1</div>
+            <div class="karte-titel">Jardim Zoológico</div>
+            <div class="karte-ort">Portugal / Lissabon</div>
+            <div class="karte-meta">
+                <span>📅 2019-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#dc3545;" title="Sold out"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2256">
+        <a href="/schein/2256/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/MECD-2_resultat_vo96ww" alt="Jardim Zoológico" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2256)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MECD-2</div>
+            <div class="karte-titel">Jardim Zoológico</div>
+            <div class="karte-ort">Portugal / Lissabon</div>
+            <div class="karte-meta">
+                <span>📅 2021-3</span>
+                <span>🔢 4000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#dc3545;" title="Sold out"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2257">
+        <a href="/schein/2257/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/MECD-2A_resultat_adbbwk" alt="Jardim Zoológico ANNIVERSARY" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2257)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MECD-2A</div>
+            <div class="karte-titel">Jardim Zoológico ANNIVERSARY</div>
+            <div class="karte-ort">Portugal / Lissabon</div>
+            <div class="karte-meta">
+                <span>📅 2021-3</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 5</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#dc3545;" title="Sold out"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2258">
+        <a href="/schein/2258/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2258)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MECD-3</div>
+            <div class="karte-titel">Jardim Zoológico</div>
+            <div class="karte-ort">Portugal / Lissabon</div>
+            <div class="karte-meta">
+                <span>📅 2024-2</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2259">
+        <a href="/schein/2259/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2259)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MECD-4</div>
+            <div class="karte-titel">Jardim Zoológico</div>
+            <div class="karte-ort">Portugal / Lissabon</div>
+            <div class="karte-meta">
+                <span>📅 2026-2</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2260">
+        <a href="/schein/2260/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2260)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MECE-1</div>
+            <div class="karte-titel">Viana do Castelo</div>
+            <div class="karte-ort">Portugal / Viana do Castelo</div>
+            <div class="karte-meta">
+                <span>📅 2019-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2261">
+        <a href="/schein/2261/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2261)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MECF-1</div>
+            <div class="karte-titel">Caminho Português de Santiago</div>
+            <div class="karte-ort">Portugal / Viana do Castelo</div>
+            <div class="karte-meta">
+                <span>📅 2019-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2262">
+        <a href="/schein/2262/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/MECG-1_resultat_t7suts" alt="Dino Parque Lourinhã" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2262)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MECG-1</div>
+            <div class="karte-titel">Dino Parque Lourinhã</div>
+            <div class="karte-ort">Portugal / Lourinhã</div>
+            <div class="karte-meta">
+                <span>📅 2020-1</span>
+                <span>🔢 4000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2263">
+        <a href="/schein/2263/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2263)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MECG-1A</div>
+            <div class="karte-titel">Dino Parque Lourinhã ANNIVERSARY</div>
+            <div class="karte-ort">Portugal / Lourinhã</div>
+            <div class="karte-meta">
+                <span>📅 2020-1</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 5</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2264">
+        <a href="/schein/2264/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2264)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MECG-2</div>
+            <div class="karte-titel">Dinopark Münchehagen - Dino Parque Lourinhã</div>
+            <div class="karte-ort">Portugal / Lourinhã</div>
+            <div class="karte-meta">
+                <span>📅 2020-2</span>
+                <span>🔢 8000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2265">
+        <a href="/schein/2265/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2265)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MECG-2A</div>
+            <div class="karte-titel">Dinopark Münchehagen - Dino Parque Lourinhã ANNIVERSARY</div>
+            <div class="karte-ort">Portugal / Lourinhã</div>
+            <div class="karte-meta">
+                <span>📅 2020-2</span>
+                <span>🔢 2000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 5</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2266">
+        <a href="/schein/2266/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2266)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MECG-3</div>
+            <div class="karte-titel">Dinopark Münchehagen - Dino Parque Lourinhã</div>
+            <div class="karte-ort">Portugal / Lourinhã</div>
+            <div class="karte-meta">
+                <span>📅 2022-3</span>
+                <span>🔢 10000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2267">
+        <a href="/schein/2267/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2267)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MECG-4</div>
+            <div class="karte-titel">Dinopark Münchehagen - Dino Parque Lourinhã</div>
+            <div class="karte-ort">Portugal / Lourinhã</div>
+            <div class="karte-meta">
+                <span>📅 2025-4</span>
+                <span>🔢 8000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2268">
+        <a href="/schein/2268/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2268)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MECG-4A</div>
+            <div class="karte-titel">Dinopark Münchehagen - Dino Parque Lourinhã ANNIVERSARY</div>
+            <div class="karte-ort">Portugal / Lourinhã</div>
+            <div class="karte-meta">
+                <span>📅 2025-4</span>
+                <span>🔢 2000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 10</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2269">
+        <a href="/schein/2269/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2269)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MECH-1</div>
+            <div class="karte-titel">Bom Jesus do Monte</div>
+            <div class="karte-ort">Portugal / Braga</div>
+            <div class="karte-meta">
+                <span>📅 2019-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#dc3545;" title="Sold out"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2270">
+        <a href="/schein/2270/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/MECH-2_resultat_xwnmtl" alt="Bom Jesus do Monte" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2270)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MECH-2</div>
+            <div class="karte-titel">Bom Jesus do Monte</div>
+            <div class="karte-ort">Portugal / Braga</div>
+            <div class="karte-meta">
+                <span>📅 2024-2</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2271">
+        <a href="/schein/2271/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2271)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MECJ-1</div>
+            <div class="karte-titel">Santa Luzia</div>
+            <div class="karte-ort">Portugal / Viana do Castelo</div>
+            <div class="karte-meta">
+                <span>📅 2020-1</span>
+                <span>🔢 4000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#dc3545;" title="Sold out"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2272">
+        <a href="/schein/2272/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2272)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MECJ-1A</div>
+            <div class="karte-titel">Santa Luzia ANNIVERSARY</div>
+            <div class="karte-ort">Portugal / Viana do Castelo</div>
+            <div class="karte-meta">
+                <span>📅 2020-1</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 5</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#dc3545;" title="Sold out"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2273">
+        <a href="/schein/2273/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2273)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MECJ-2</div>
+            <div class="karte-titel">Santa Luzia</div>
+            <div class="karte-ort">Portugal / Viana do Castelo</div>
+            <div class="karte-meta">
+                <span>📅 2022-2</span>
+                <span>🔢 4000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2274">
+        <a href="/schein/2274/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2274)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MECJ-2A</div>
+            <div class="karte-titel">Santa Luzia ANNIVERSARY</div>
+            <div class="karte-ort">Portugal / Viana do Castelo</div>
+            <div class="karte-meta">
+                <span>📅 2022-2</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 5</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2275">
+        <a href="/schein/2275/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2275)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MECJ-3</div>
+            <div class="karte-titel">Santa Luzia</div>
+            <div class="karte-ort">Portugal / Viana do Castelo</div>
+            <div class="karte-meta">
+                <span>📅 2024-1</span>
+                <span>🔢 4000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="2276">
+        <a href="/schein/2276/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 2276)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">MECJ-3A</div>
+            <div class="karte-titel">Santa Luzia ANNIVERSARY</div>
+            <div class="karte-ort">Portugal / Viana do Castelo</div>
+            <div class="karte-meta">
+                <span>📅 2024-1</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 5</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+</div>
+
+
+<script>
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let c of cookies) {
+            c = c.trim();
+            if (c.startsWith(name + '=')) { cookieValue = decodeURIComponent(c.substring(name.length + 1)); break; }
+        }
+    }
+    return cookieValue;
+}
+async function toggleSammlung(btn, id) {
+    const resp = await fetch(`/schein/${id}/toggle/`, {
+        method: 'POST', headers: { 'X-CSRFToken': getCookie('csrftoken') }
+    });
+    const data = await resp.json();
+    btn.textContent = data.in_sammlung ? '★' : '☆';
+    btn.classList.toggle('aktiv', data.in_sammlung);
+    btn.title = data.in_sammlung ? 'Aus Sammlung entfernen' : 'Zu Sammlung hinzufügen';
+}
+
+async function suchAutocomplete(q) {
+    const list = document.getElementById('autocomplete-list');
+    if (q.length < 2) { list.style.display = 'none'; return; }
+    const resp = await fetch(`/autocomplete/?q=${encodeURIComponent(q)}`);
+    const data = await resp.json();
+    if (!data.results.length) { list.style.display = 'none'; return; }
+    list.innerHTML = data.results.map(r => `
+        <a href="${r.url}" style="display:flex;align-items:center;gap:0.75rem;padding:0.6rem 0.8rem;text-decoration:none;color:#333;border-bottom:1px solid #f0f0f0;">
+            <span style="font-size:0.72rem;color:#999;font-weight:600;min-width:60px;">${r.katalog_nr}</span>
+            <span style="flex:1;">
+                <span style="font-weight:600;font-size:0.875rem;">${r.label}</span>
+                <span style="font-size:0.78rem;color:#888;display:block;">${r.ort}</span>
+            </span>
+        </a>
+    `).join('');
+    list.style.display = 'block';
+}
+
+document.addEventListener('click', function(e) {
+    const list = document.getElementById('autocomplete-list');
+    if (list && !list.contains(e.target) && e.target.id !== 'suche-input') {
+        list.style.display = 'none';
+    }
+});
+</script>
+<script>
+function toggleFilter(key, val) {
+    var params = new URLSearchParams(window.location.search);
+    var vals = params.getAll(key);
+    var idx = vals.indexOf(String(val));
+    if (idx !== -1) { vals.splice(idx, 1); } else { vals.push(String(val)); }
+    params.delete(key);
+    vals.forEach(function(v) { params.append(key, v); });
+    params.delete('page');
+    window.location.search = params.toString();
+}
+function clearFilter(key) {
+    var params = new URLSearchParams(window.location.search);
+    params.delete(key);
+    params.delete('page');
+    window.location.search = params.toString();
+}
+function toggleLand(landId) {
+    var params = new URLSearchParams(window.location.search);
+    var laender = params.getAll('land');
+    var idx = laender.indexOf(String(landId));
+    if (idx !== -1) {
+        laender.splice(idx, 1);
+    } else {
+        laender.push(String(landId));
+    }
+    params.delete('land');
+    laender.forEach(function(l) { params.append('land', l); });
+    params.delete('page');
+    window.location.search = params.toString();
+}
+</script>
+
+
+
+<div id="vorschlag-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:9999;align-items:center;justify-content:center;padding:1rem;">
+    <div style="background:white;border-radius:10px;padding:2rem;max-width:520px;width:100%;max-height:90vh;overflow-y:auto;position:relative;">
+        <button onclick="document.getElementById('vorschlag-modal').style.display='none'" style="position:absolute;top:1rem;right:1rem;background:none;border:none;font-size:1.3rem;cursor:pointer;">&#x2715;</button>
+        <h2 style="font-size:1.1rem;font-weight:800;margin-bottom:1.25rem;">💡 Suggest a note</h2>
+        
+        <form method="post" enctype="multipart/form-data">
+            <input type="hidden" name="csrfmiddlewaretoken" value="fGiiFPBiS28ui1HqIhZsbPxZvpCWz3yKynKt2jY5wLihvwcF3zQVo6I2kTUroQNT">
+            <input type="hidden" name="schein_vorschlagen" value="1">
+            <div style="margin-bottom:0.75rem;">
+                <label style="font-size:0.8rem;font-weight:600;color:#555;display:block;margin-bottom:3px;">Motive / Name *</label>
+                <input type="text" name="motiv" required style="width:100%;padding:0.4rem 0.6rem;border:1px solid #ccc;border-radius:5px;font-size:0.85rem;box-sizing:border-box;">
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:0.75rem;">
+                <div>
+                    <label style="font-size:0.8rem;font-weight:600;color:#555;display:block;margin-bottom:3px;">Country</label>
+                    <input type="text" name="land" style="width:100%;padding:0.4rem 0.6rem;border:1px solid #ccc;border-radius:5px;font-size:0.85rem;box-sizing:border-box;">
+                </div>
+                <div>
+                    <label style="font-size:0.8rem;font-weight:600;color:#555;display:block;margin-bottom:3px;">Location</label>
+                    <input type="text" name="ort" style="width:100%;padding:0.4rem 0.6rem;border:1px solid #ccc;border-radius:5px;font-size:0.85rem;box-sizing:border-box;">
+                </div>
+            </div>
+            <div style="margin-bottom:0.75rem;">
+                <label style="font-size:0.8rem;font-weight:600;color:#555;display:block;margin-bottom:3px;">Additional information (sales location, series, etc.)</label>
+                <textarea name="info" rows="3" style="width:100%;padding:0.4rem 0.6rem;border:1px solid #ccc;border-radius:5px;font-size:0.85rem;box-sizing:border-box;resize:vertical;"></textarea>
+            </div>
+            <div style="margin-bottom:1rem;">
+                <label style="font-size:0.8rem;font-weight:600;color:#555;display:block;margin-bottom:3px;">Image file</label>
+                <input type="file" name="bilder" accept="image/*" multiple style="width:100%;border:1px solid #ccc;padding:0.3rem;border-radius:5px;font-size:0.82rem;">
+            </div>
+            <button type="submit" class="btn btn-rot">💡 Submit suggestion</button>
+        </form>
+        
+    </div>
+</div>
+
+
+
+</main>
+
+<footer>
+    <p>0-Euro Souvenirscheine Schweiz &mdash; <a href="https://www.collectionseeland.ch" target="_blank">Collection Seeland</a></p>
+</footer>
+<nav class="bottom-nav">
+    <a href="/" >
+        <span class="icon">🏠</span>
+        <span>Home</span>
+    </a>
+    <a href="/katalog/" class="aktiv">
+        <span class="icon">📋</span>
+        <span>Catalogue</span>
+    </a>
+    
+    <a href="/meine-sammlung/" >
+        <span class="icon">⭐</span>
+        <span>My Collection</span>
+    </a>
+    <a href="/tauschboerse/" >
+        <span class="icon">🔄</span>
+        <span>Exchange</span>
+    </a>
+    
+            <a href="/statistik/" >
+        <span class="icon">📊</span>
+        <span>Statistics</span>
+    </a>
+    
+    <a href="/profil/" >
+        <span class="icon">👤</span>
+        <span>Profile</span>
+    </a>
+    
+</nav>
+<button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})"
+    style="display:none;position:fixed;bottom:2rem;right:2rem;background:var(--rot);color:white;border:none;border-radius:50%;width:44px;height:44px;font-size:1.2rem;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,0.2);z-index:999;">↑</button>
+<script>
+window.addEventListener('scroll', function() {
+    document.getElementById('back-to-top').style.display = window.scrollY > 400 ? 'block' : 'none';
+});
+</script>
+</body>
+</html>

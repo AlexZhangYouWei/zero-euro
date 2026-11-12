@@ -1,0 +1,4525 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta name="google-site-verification" content="LjYRdR7g0LgYxQ01sJ_WxzpN5kLNPehj96CT6wQ70_g" />
+<link rel="icon" type="image/png" sizes="16x16" href="/static/favicon/favicon-16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/static/favicon/favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/static/favicon/favicon-180.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/static/favicon/favicon-192.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Katalog – 0-Euro Souvenir Notes</title>
+    
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --rot: #c8102e;
+            --dunkelrot: #9b0b22;
+            --grau: #f5f5f5;
+            --dunkelgrau: #333;
+            --mittelgrau: #666;
+            --rand: #ddd;
+            --gold: #c9a84c;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: #fff;
+            color: var(--dunkelgrau);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* NAV */
+        nav {
+            background: var(--rot);
+            color: white;
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 60px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+        .nav-brand {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .nav-brand span.badge {
+            background: white;
+            color: var(--rot);
+            font-size: 0.75rem;
+            padding: 2px 7px;
+            border-radius: 10px;
+            font-weight: 800;
+        }
+        .nav-links { display: flex; gap: 1rem; align-items: center; }
+        .nav-links a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            font-size: 0.9rem;
+            padding: 4px 10px;
+            border-radius: 4px;
+            transition: background 0.15s;
+        }
+        .nav-links a:hover { background: rgba(255,255,255,0.15); }
+        .nav-links a.active { background: rgba(255,255,255,0.2); font-weight: 600; }
+        .mobile-lang-switcher { display: none; }
+        .nav-toggle { display: none; background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; padding: 4px 8px; }
+        .bottom-nav { display: none; }
+        @media (max-width: 700px) {
+            nav { height: 50px; padding: 0 1rem; }
+            .mobile-lang-switcher { display: flex; gap: 2px; align-items: center; }
+            .nav-toggle { display: none; }
+            .nav-links { display: none !important; }
+            main { padding-bottom: 70px; }
+            .bottom-nav {
+                display: flex;
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: white;
+                border-top: 1px solid #e0e0e0;
+                z-index: 9999;
+                box-shadow: 0 -2px 8px rgba(0,0,0,0.08);
+                transform: translateZ(0);
+            }
+            .bottom-nav a {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                padding: 0.4rem 0;
+                font-size: 0.65rem;
+                color: #888;
+                text-decoration: none;
+                gap: 2px;
+            }
+            .bottom-nav a.aktiv { color: var(--rot); }
+            .bottom-nav a span.icon { font-size: 1.3rem; }
+        }
+
+        /* MAIN */
+        main { flex: 1; max-width: 1200px; margin: 0 auto; padding: 2rem; width: 100%; }
+
+        /* MESSAGES */
+        .messages { list-style: none; margin-bottom: 1rem; }
+        .messages li {
+            padding: 0.75rem 1rem;
+            border-radius: 6px;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+        .messages .success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .messages .error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+
+        /* FOOTER */
+        footer {
+            background: var(--dunkelgrau);
+            color: #aaa;
+            text-align: center;
+            padding: 1rem;
+            font-size: 0.8rem;
+        }
+        footer a { color: var(--gold); text-decoration: none; }
+
+        /* UTILS */
+        .btn {
+            display: inline-flex; align-items: center; gap: 0.4rem;
+            padding: 0.5rem 1.1rem; border-radius: 5px; font-size: 0.9rem;
+            font-weight: 600; border: none; cursor: pointer; text-decoration: none;
+            transition: all 0.15s;
+        }
+        .btn-rot { background: var(--rot); color: white; }
+        .btn-rot:hover { background: var(--dunkelrot); }
+        .btn-outline { background: white; color: var(--rot); border: 2px solid var(--rot); }
+        .btn-outline:hover { background: var(--rot); color: white; }
+        .btn-grau { background: var(--grau); color: var(--dunkelgrau); border: 1px solid var(--rand); }
+        .btn-grau:hover { background: #e8e8e8; }
+        .btn-gold { background: var(--gold); color: white; }
+        .btn-gold:hover { background: #b8903c; }
+
+        h1 { font-size: 1.6rem; margin-bottom: 1.5rem; color: var(--dunkelgrau); }
+        h2 { font-size: 1.25rem; margin-bottom: 1rem; }
+    </style>
+    
+<style>
+.tabs-gruppe { margin-bottom: 0.5rem; }
+.tabs-label { font-size: 0.75rem; font-weight: 600; color: #999; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.4rem; }
+.tab-buttons { display: flex; flex-wrap: nowrap; gap: 0.4rem; margin-bottom: 1rem; overflow-x: auto; padding-bottom: 4px; scrollbar-width: thin; -webkit-overflow-scrolling: touch; }
+.tab-btn {
+    padding: 0.35rem 0.9rem; border-radius: 20px; font-size: 0.82rem; font-weight: 600;
+    border: 2px solid #ddd; background: white; color: #555;
+    cursor: pointer; text-decoration: none; transition: all 0.15s; white-space: nowrap;
+@media (max-width: 700px) {
+    .vorschlag-btn { display: none !important; }
+}
+}
+.tab-btn:hover { border-color: var(--rot); color: var(--rot); }
+.tab-btn.aktiv { background: var(--rot); border-color: var(--rot); color: white; }
+.tab-btn.aktiv-land { background: #0066cc; border-color: #0066cc; color: white; }
+.tab-btn:hover.aktiv-land { background: #0052a3; }
+
+.filter-bar {
+    background: #f9f9f9; border: 1px solid #e0e0e0; border-radius: 8px;
+    padding: 1rem 1.25rem; margin-bottom: 1.5rem;
+    display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: flex-end;
+}
+.filter-bar label { font-size: 0.8rem; font-weight: 600; color: #555; display: block; margin-bottom: 3px; }
+.filter-bar select, .filter-bar input[type=text] {
+    padding: 0.4rem 0.7rem; border: 1px solid #ccc; border-radius: 5px;
+    font-size: 0.875rem; background: white; min-width: 140px;
+}
+.filter-actions { display: flex; gap: 0.5rem; align-items: flex-end; }
+.stats-bar { color: #666; font-size: 0.875rem; margin-bottom: 1rem; }
+.stats-bar strong { color: #333; }
+
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.25rem; }
+.karte {
+    display: flex; flex-direction: column;
+    border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;
+    background: white; transition: box-shadow 0.2s, transform 0.15s; position: relative;
+}
+.karte:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.12); transform: translateY(-2px); }
+.karte a.bild-link { display: block; }
+.karte img { width: 100%; aspect-ratio: 2/1; object-fit: cover; display: block; background: #f0f0f0; }
+.karte-body { padding: 0.75rem; flex: 1; }
+.karte-nr { font-size: 0.75rem; color: #999; font-weight: 600; letter-spacing: 0.05em; }
+.karte-titel { font-weight: 700; font-size: 0.95rem; margin: 2px 0 4px; line-height: 1.3; }
+.karte-ort { font-size: 0.8rem; color: #666; }
+.karte-meta { margin-top: 0.4rem; font-size: 0.78rem; color: #999; display: flex; gap: 0.75rem; flex-wrap: wrap; }
+.karte-footer {
+    padding: 0.5rem 0.75rem; border-top: 1px solid #f0f0f0;
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: nowrap; gap: 0.3rem; overflow: hidden; min-height: 2.2rem;
+}
+.badge { font-size: 0.7rem; padding: 2px 7px; border-radius: 10px; font-weight: 600; }
+.badge-kanton { background: #f0f0f0; color: #555; }
+.badge-land { background: #e8f0fe; color: #1a56a0; border: 1px solid #b3ccf5; }
+.badge-seeland { background: #c9a84c22; color: #8a6a00; border: 1px solid #c9a84c55; }
+.badge-serie { background: #f0f9f0; color: #1a6e1a; border: 1px solid #b3e0b3; }
+.sammlung-btn {
+    position: absolute; top: 8px; right: 8px; background: white; border: none;
+    border-radius: 50%; width: 32px; height: 32px; font-size: 1rem; cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15); display: flex; align-items: center;
+    justify-content: center; transition: transform 0.15s; line-height: 1;
+}
+.sammlung-btn:hover { transform: scale(1.15); }
+.sammlung-btn.aktiv { background: #ffe8e8; }
+.leer { text-align: center; padding: 3rem; color: #999; font-size: 1rem; }
+</style>
+<div id="scroll-spinner" style="display:none;text-align:center;padding:2rem;">
+    <div style="display:inline-flex;align-items:center;gap:0.75rem;background:white;border:1px solid #e0e0e0;border-radius:30px;padding:0.6rem 1.5rem;box-shadow:0 2px 8px rgba(0,0,0,0.1);">
+        <span style="font-size:1.5rem;animation:spin 1s linear infinite;display:inline-block;">⏳</span>
+        <span style="color:#666;font-size:0.9rem;font-weight:600;">Loading more notes...</span>
+    </div>
+</div>
+<style>@keyframes spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }</style>
+
+<script>
+var currentPage = 2;
+var hasNext = true;
+var loading = false;
+
+function buildUrl(page) {
+    const params = new URLSearchParams(window.location.search);
+    params.set('page', page);
+    return '/katalog/?' + params.toString();
+}
+
+async function loadMore() {
+    if (!hasNext || loading) return;
+    loading = true;
+    document.getElementById('scroll-spinner').style.display = 'block';
+    try {
+        const resp = await fetch(buildUrl(currentPage), {
+            headers: { 'X-Requested-With': 'XMLHttpRequest' }
+        });
+        const data = await resp.json();
+        document.querySelector('.grid').insertAdjacentHTML('beforeend', data.html);
+        hasNext = data.has_next;
+        currentPage = data.next_page;
+    } catch(e) {
+        console.error('Fehler beim Laden:', e);
+    }
+    loading = false;
+    document.getElementById('scroll-spinner').style.display = 'none';
+}
+
+window.addEventListener('scroll', function() {
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 400) {
+        loadMore();
+    }
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const liste = JSON.parse(localStorage.getItem('zuletzt') || '[]').slice(0, 3);
+    if (liste.length === 0) return;
+    const container = document.getElementById('zuletzt-gesehen');
+    const listEl = document.getElementById('zuletzt-liste');
+    if (!container || !listEl) return;
+    listEl.innerHTML = liste.map(s =>
+        `<a href="${s.url}" style="display:inline-block;background:#f0f0f0;border:1px solid #ddd;border-radius:20px;padding:2px 10px;font-size:0.78rem;color:#555;text-decoration:none;margin-right:4px;">${s.motiv}</a>`
+    ).join('');
+    container.style.display = 'block';
+});
+</script>
+
+</head>
+<body>
+<nav>
+    <a href="/" class="nav-brand">
+        <span class="badge">0 €</span>
+        Souvenirscheine Schweiz
+    </a>
+    <span class="mobile-lang-switcher">
+        <a href="?lang=de" style="font-size:0.72rem;padding:2px 5px;border-radius:3px;text-decoration:none;color:rgba(255,255,255,0.6);">DE</a><a href="?lang=fr" style="font-size:0.72rem;padding:2px 5px;border-radius:3px;text-decoration:none;color:rgba(255,255,255,0.6);">FR</a><a href="?lang=en" style="font-size:0.72rem;padding:2px 5px;border-radius:3px;text-decoration:none;background:rgba(255,255,255,0.3);color:white;font-weight:700;">EN</a>
+    </span>
+    <button class="nav-toggle" onclick="document.getElementById('nav-menu').classList.toggle('open')">☰</button>
+    <div class="nav-links" id="nav-menu">
+        <a href="/">Home</a>
+        <a href="/katalog/">Catalogue</a>
+        <a href="/#kontakt">Contact</a>
+            <a href="/tauschboerse/" >Exchange</a>
+            <a href="/statistik/">Statistics</a>
+        
+            <a href="/meine-sammlung/">My Collection</a>
+            <a href="/profil/">Profile</a>
+            <form method="post" action="/accounts/logout/" style="display:inline;"><input type="hidden" name="csrfmiddlewaretoken" value="vUCUqbS5MPMZEZ1YG4f2tEy3Hekqvnx8IaxXud3hu8Awd4o7lV2kLjhhpyZIYjLn"><button type="submit" style="background:none;border:none;color:rgba(255,255,255,0.9);font-size:0.9rem;padding:4px 10px;border-radius:4px;cursor:pointer;">Logout (Alex)</button></form>
+        
+        <span style="display:flex;gap:2px;align-items:center;margin-left:0.5rem;border-left:1px solid rgba(255,255,255,0.3);padding-left:0.5rem;">
+            <a href="?lang=de" style="font-size:0.78rem;padding:2px 6px;border-radius:3px;text-decoration:none;color:rgba(255,255,255,0.6);">DE</a><a href="?lang=fr" style="font-size:0.78rem;padding:2px 6px;border-radius:3px;text-decoration:none;color:rgba(255,255,255,0.6);">FR</a><a href="?lang=en" style="font-size:0.78rem;padding:2px 6px;border-radius:3px;text-decoration:none;background:rgba(255,255,255,0.3);color:white;font-weight:700;">EN</a>
+        </span>
+    </div>
+</nav>
+
+<main>
+    
+    
+<h1>0-Euro Souvenir Notes</h1>
+
+<div id="zuletzt-gesehen" style="display:none;margin-bottom:1rem;">
+    <span style="font-size:0.78rem;color:#999;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;">Recently viewed:</span>
+    <span id="zuletzt-liste" style="margin-left:0.5rem;"></span>
+</div>
+
+
+<div class="tabs-gruppe">
+    <div class="tabs-label">Series</div>
+    <div class="tab-buttons">
+        <a href="javascript:void(0)" onclick="clearFilter('serie')"
+           class="tab-btn aktiv">All</a>
+        
+        <a href="javascript:void(0)" onclick="toggleFilter('serie', '5')"
+           class="tab-btn ">EUROSOUVENIR</a>
+        
+        <a href="javascript:void(0)" onclick="toggleFilter('serie', '6')"
+           class="tab-btn ">MEMOEURO</a>
+        
+        <a href="javascript:void(0)" onclick="toggleFilter('serie', '7')"
+           class="tab-btn ">ZEROSOUVENIR</a>
+        
+        <a href="javascript:void(0)" onclick="toggleFilter('serie', '9')"
+           class="tab-btn ">ESCUDOSOUVENIR</a>
+        
+        <a href="javascript:void(0)" onclick="toggleFilter('serie', '8')"
+           class="tab-btn ">PENNY PRESS</a>
+        
+    </div>
+</div>
+
+
+<div class="tabs-gruppe">
+    <div class="tabs-label">Type</div>
+    <div class="tab-buttons">
+        <a href="javascript:void(0)" onclick="clearFilter('typ')"
+           class="tab-btn aktiv" style="border-color:#888;">All</a>
+        
+        <a href="javascript:void(0)" onclick="toggleFilter('typ', '4')"
+           class="tab-btn " style="border-color:#888;">ANNIVERSARY 10</a>
+        
+        <a href="javascript:void(0)" onclick="toggleFilter('typ', '5')"
+           class="tab-btn " style="border-color:#888;">ANNIVERSARY 5</a>
+        
+        <a href="javascript:void(0)" onclick="toggleFilter('typ', '6')"
+           class="tab-btn " style="border-color:#888;">Polymer</a>
+        
+        <a href="javascript:void(0)" onclick="toggleFilter('typ', '3')"
+           class="tab-btn " style="border-color:#888;">Specimen</a>
+        
+        <a href="javascript:void(0)" onclick="toggleFilter('typ', '1')"
+           class="tab-btn " style="border-color:#888;">Standard</a>
+        
+        <a href="javascript:void(0)" onclick="toggleFilter('typ', '2')"
+           class="tab-btn " style="border-color:#888;">colored</a>
+        
+    </div>
+</div>
+
+
+<div class="tabs-gruppe">
+    <div class="tabs-label">Country</div>
+    <div class="tab-buttons">
+        <a href="?suche=&serie=[]&jahr="
+           class="tab-btn aktiv-land aktiv">All</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('12')" 
+        <a href="javascript:void(0)" onclick="toggleLand('12')" 
+           class="tab-btn "><img src="https://flagcdn.com/ad.svg" alt="AD" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Andorra</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('13')" 
+        <a href="javascript:void(0)" onclick="toggleLand('13')" 
+           class="tab-btn "><img src="https://flagcdn.com/ar.svg" alt="AR" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Argentina</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('16')" 
+        <a href="javascript:void(0)" onclick="toggleLand('16')" 
+           class="tab-btn "><img src="https://flagcdn.com/am.svg" alt="AM" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Armenia</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('17')" 
+        <a href="javascript:void(0)" onclick="toggleLand('17')" 
+           class="tab-btn "><img src="https://flagcdn.com/au.svg" alt="AU" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Australia</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('75')" 
+        <a href="javascript:void(0)" onclick="toggleLand('75')" 
+           class="tab-btn "><img src="https://flagcdn.com/at.svg" alt="AT" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Austria</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('18')" 
+        <a href="javascript:void(0)" onclick="toggleLand('18')" 
+           class="tab-btn "><img src="https://flagcdn.com/bh.svg" alt="BH" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Bahrain</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('71')" 
+        <a href="javascript:void(0)" onclick="toggleLand('71')" 
+           class="tab-btn "><img src="https://flagcdn.com/be.svg" alt="BE" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Belgium</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('20')" 
+        <a href="javascript:void(0)" onclick="toggleLand('20')" 
+           class="tab-btn "><img src="https://flagcdn.com/br.svg" alt="BR" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Brazil</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('21')" 
+        <a href="javascript:void(0)" onclick="toggleLand('21')" 
+           class="tab-btn "><img src="https://flagcdn.com/bg.svg" alt="BG" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Bulgaria</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('22')" 
+        <a href="javascript:void(0)" onclick="toggleLand('22')" 
+           class="tab-btn "><img src="https://flagcdn.com/kh.svg" alt="KH" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Cambodia</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('23')" 
+        <a href="javascript:void(0)" onclick="toggleLand('23')" 
+           class="tab-btn "><img src="https://flagcdn.com/ca.svg" alt="CA" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Canada</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('31')" 
+        <a href="javascript:void(0)" onclick="toggleLand('31')" 
+           class="tab-btn "><img src="https://flagcdn.com/cn.svg" alt="CN" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> China</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('25')" 
+        <a href="javascript:void(0)" onclick="toggleLand('25')" 
+           class="tab-btn "><img src="https://flagcdn.com/hr.svg" alt="HR" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Croatia</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('26')" 
+        <a href="javascript:void(0)" onclick="toggleLand('26')" 
+           class="tab-btn "><img src="https://flagcdn.com/cu.svg" alt="CU" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Cuba</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('24')" 
+        <a href="javascript:void(0)" onclick="toggleLand('24')" 
+           class="tab-btn "><img src="https://flagcdn.com/cy.svg" alt="CY" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Cyprus</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('74')" 
+        <a href="javascript:void(0)" onclick="toggleLand('74')" 
+           class="tab-btn "><img src="https://flagcdn.com/cz.svg" alt="CZ" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Czech Republic</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('27')" 
+        <a href="javascript:void(0)" onclick="toggleLand('27')" 
+           class="tab-btn "><img src="https://flagcdn.com/dk.svg" alt="DK" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Denmark</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('11')" 
+        <a href="javascript:void(0)" onclick="toggleLand('11')" 
+           class="tab-btn "><img src="https://flagcdn.com/eg.svg" alt="EG" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Egypt</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('29')" 
+        <a href="javascript:void(0)" onclick="toggleLand('29')" 
+           class="tab-btn "><img src="https://flagcdn.com/ee.svg" alt="EE" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Estonia</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('10')" 
+        <a href="javascript:void(0)" onclick="toggleLand('10')" 
+           class="tab-btn "><img src="https://flagcdn.com/fi.svg" alt="FI" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Finland</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('79')" 
+        <a href="javascript:void(0)" onclick="toggleLand('79')" 
+           class="tab-btn "><img src="https://flagcdn.com/fr.svg" alt="FR" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> France</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('30')" 
+        <a href="javascript:void(0)" onclick="toggleLand('30')" 
+           class="tab-btn "><img src="https://flagcdn.com/ge.svg" alt="GE" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Georgia</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('80')" 
+        <a href="javascript:void(0)" onclick="toggleLand('80')" 
+           class="tab-btn "><img src="https://flagcdn.com/de.svg" alt="DE" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Germany</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('69')" 
+        <a href="javascript:void(0)" onclick="toggleLand('69')" 
+           class="tab-btn "><img src="https://flagcdn.com/gb.svg" alt="GB" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Great Britain</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('32')" 
+        <a href="javascript:void(0)" onclick="toggleLand('32')" 
+           class="tab-btn "><img src="https://flagcdn.com/gr.svg" alt="GR" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Greece</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('33')" 
+        <a href="javascript:void(0)" onclick="toggleLand('33')" 
+           class="tab-btn "><img src="https://flagcdn.com/ht.svg" alt="HT" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Haiti</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('66')" 
+        <a href="javascript:void(0)" onclick="toggleLand('66')" 
+           class="tab-btn "><img src="https://flagcdn.com/hu.svg" alt="HU" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Hungary</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('38')" 
+        <a href="javascript:void(0)" onclick="toggleLand('38')" 
+           class="tab-btn "><img src="https://flagcdn.com/is.svg" alt="IS" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Iceland</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('34')" 
+        <a href="javascript:void(0)" onclick="toggleLand('34')" 
+           class="tab-btn "><img src="https://flagcdn.com/in.svg" alt="IN" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> India</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('35')" 
+        <a href="javascript:void(0)" onclick="toggleLand('35')" 
+           class="tab-btn "><img src="https://flagcdn.com/id.svg" alt="ID" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Indonesia</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('36')" 
+        <a href="javascript:void(0)" onclick="toggleLand('36')" 
+           class="tab-btn "><img src="https://flagcdn.com/iq.svg" alt="IQ" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Iraq</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('37')" 
+        <a href="javascript:void(0)" onclick="toggleLand('37')" 
+           class="tab-btn "><img src="https://flagcdn.com/ie.svg" alt="IE" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Ireland</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('8')" 
+        <a href="javascript:void(0)" onclick="toggleLand('8')" 
+           class="tab-btn "><img src="https://flagcdn.com/it.svg" alt="IT" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Italy</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('39')" 
+        <a href="javascript:void(0)" onclick="toggleLand('39')" 
+           class="tab-btn "><img src="https://flagcdn.com/jp.svg" alt="JP" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Japan</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('40')" 
+        <a href="javascript:void(0)" onclick="toggleLand('40')" 
+           class="tab-btn "><img src="https://flagcdn.com/jo.svg" alt="JO" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Jordan</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('41')" 
+        <a href="javascript:void(0)" onclick="toggleLand('41')" 
+           class="tab-btn "><img src="https://flagcdn.com/xk.svg" alt="XK" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Kosovo</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('42')" 
+        <a href="javascript:void(0)" onclick="toggleLand('42')" 
+           class="tab-btn "><img src="https://flagcdn.com/kw.svg" alt="KW" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Kuwait</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('44')" 
+        <a href="javascript:void(0)" onclick="toggleLand('44')" 
+           class="tab-btn "><img src="https://flagcdn.com/lv.svg" alt="LV" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Latvia</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('45')" 
+        <a href="javascript:void(0)" onclick="toggleLand('45')" 
+           class="tab-btn "><img src="https://flagcdn.com/lb.svg" alt="LB" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Lebanon</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('46')" 
+        <a href="javascript:void(0)" onclick="toggleLand('46')" 
+           class="tab-btn "><img src="https://flagcdn.com/ly.svg" alt="LY" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Libya</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('43')" 
+        <a href="javascript:void(0)" onclick="toggleLand('43')" 
+           class="tab-btn "><img src="https://flagcdn.com/lt.svg" alt="LT" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Lithuania</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('47')" 
+        <a href="javascript:void(0)" onclick="toggleLand('47')" 
+           class="tab-btn "><img src="https://flagcdn.com/lu.svg" alt="LU" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Luxembourg</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('48')" 
+        <a href="javascript:void(0)" onclick="toggleLand('48')" 
+           class="tab-btn "><img src="https://flagcdn.com/mg.svg" alt="MG" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Madagascar</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('49')" 
+        <a href="javascript:void(0)" onclick="toggleLand('49')" 
+           class="tab-btn "><img src="https://flagcdn.com/mt.svg" alt="MT" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Malta</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('65')" 
+        <a href="javascript:void(0)" onclick="toggleLand('65')" 
+           class="tab-btn "><img src="https://flagcdn.com/mu.svg" alt="MU" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Mauritius</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('51')" 
+        <a href="javascript:void(0)" onclick="toggleLand('51')" 
+           class="tab-btn "><img src="https://flagcdn.com/mx.svg" alt="MX" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Mexico</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('61')" 
+        <a href="javascript:void(0)" onclick="toggleLand('61')" 
+           class="tab-btn "><img src="https://flagcdn.com/mc.svg" alt="MC" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Monaco</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('50')" 
+        <a href="javascript:void(0)" onclick="toggleLand('50')" 
+           class="tab-btn "><img src="https://flagcdn.com/ma.svg" alt="MA" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Morocco</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('19')" 
+        <a href="javascript:void(0)" onclick="toggleLand('19')" 
+           class="tab-btn "><img src="https://flagcdn.com/mm.svg" alt="MM" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Myanmar</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('72')" 
+        <a href="javascript:void(0)" onclick="toggleLand('72')" 
+           class="tab-btn "><img src="https://flagcdn.com/nl.svg" alt="NL" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Netherlands</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('52')" 
+        <a href="javascript:void(0)" onclick="toggleLand('52')" 
+           class="tab-btn "><img src="https://flagcdn.com/no.svg" alt="NO" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Norway</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('53')" 
+        <a href="javascript:void(0)" onclick="toggleLand('53')" 
+           class="tab-btn "><img src="https://flagcdn.com/om.svg" alt="OM" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Oman</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('54')" 
+        <a href="javascript:void(0)" onclick="toggleLand('54')" 
+           class="tab-btn "><img src="https://flagcdn.com/ps.svg" alt="PS" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Palestine</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('55')" 
+        <a href="javascript:void(0)" onclick="toggleLand('55')" 
+           class="tab-btn "><img src="https://flagcdn.com/pe.svg" alt="PE" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Peru</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('73')" 
+        <a href="javascript:void(0)" onclick="toggleLand('73')" 
+           class="tab-btn "><img src="https://flagcdn.com/pl.svg" alt="PL" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Poland</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('77')" 
+        <a href="javascript:void(0)" onclick="toggleLand('77')" 
+           class="tab-btn "><img src="https://flagcdn.com/pt.svg" alt="PT" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Portugal</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('56')" 
+        <a href="javascript:void(0)" onclick="toggleLand('56')" 
+           class="tab-btn "><img src="https://flagcdn.com/qa.svg" alt="QA" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Qatar</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('81')" 
+        <a href="javascript:void(0)" onclick="toggleLand('81')" 
+           class="tab-btn "><img src="https://flagcdn.com/re.svg" alt="RE" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Reunion</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('62')" 
+        <a href="javascript:void(0)" onclick="toggleLand('62')" 
+           class="tab-btn "><img src="https://flagcdn.com/ro.svg" alt="RO" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Romania</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('63')" 
+        <a href="javascript:void(0)" onclick="toggleLand('63')" 
+           class="tab-btn "><img src="https://flagcdn.com/ru.svg" alt="RU" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Russia</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('64')" 
+        <a href="javascript:void(0)" onclick="toggleLand('64')" 
+           class="tab-btn "><img src="https://flagcdn.com/sm.svg" alt="SM" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> San Marino</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('15')" 
+        <a href="javascript:void(0)" onclick="toggleLand('15')" 
+           class="tab-btn "><img src="https://flagcdn.com/sa.svg" alt="SA" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Saudi Arabia</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('78')" 
+        <a href="javascript:void(0)" onclick="toggleLand('78')" 
+           class="tab-btn "><img src="https://flagcdn.com/sk.svg" alt="SK" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Slovakia</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('70')" 
+        <a href="javascript:void(0)" onclick="toggleLand('70')" 
+           class="tab-btn "><img src="https://flagcdn.com/si.svg" alt="SI" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Slovenia</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('14')" 
+        <a href="javascript:void(0)" onclick="toggleLand('14')" 
+           class="tab-btn "><img src="https://flagcdn.com/za.svg" alt="ZA" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> South Africa</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('76')" 
+        <a href="javascript:void(0)" onclick="toggleLand('76')" 
+           class="tab-btn "><img src="https://flagcdn.com/es.svg" alt="ES" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Spain</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('57')" 
+        <a href="javascript:void(0)" onclick="toggleLand('57')" 
+           class="tab-btn "><img src="https://flagcdn.com/se.svg" alt="SE" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Sweden</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('6')" 
+        <a href="javascript:void(0)" onclick="toggleLand('6')" 
+           class="tab-btn "><img src="https://flagcdn.com/ch.svg" alt="CH" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Switzerland</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('58')" 
+        <a href="javascript:void(0)" onclick="toggleLand('58')" 
+           class="tab-btn "><img src="https://flagcdn.com/th.svg" alt="TH" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Thailand</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('59')" 
+        <a href="javascript:void(0)" onclick="toggleLand('59')" 
+           class="tab-btn "><img src="https://flagcdn.com/tg.svg" alt="TG" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Togo</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('9')" 
+        <a href="javascript:void(0)" onclick="toggleLand('9')" 
+           class="tab-btn "><img src="https://flagcdn.com/tr.svg" alt="TR" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Turkey</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('60')" 
+        <a href="javascript:void(0)" onclick="toggleLand('60')" 
+           class="tab-btn "><img src="https://flagcdn.com/ua.svg" alt="UA" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Ukraine</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('28')" 
+        <a href="javascript:void(0)" onclick="toggleLand('28')" 
+           class="tab-btn "><img src="https://flagcdn.com/ae.svg" alt="AE" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> United Arab Emirates</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('68')" 
+        <a href="javascript:void(0)" onclick="toggleLand('68')" 
+           class="tab-btn "><img src="https://flagcdn.com/us.svg" alt="US" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> USA</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('67')" 
+        <a href="javascript:void(0)" onclick="toggleLand('67')" 
+           class="tab-btn "><img src="https://flagcdn.com/va.svg" alt="VA" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Vatican</a>
+        
+    </div>
+</div>
+
+
+<form method="get" class="filter-bar">
+    
+    
+    
+    <div>
+        <label></label>
+        <div style="position:relative;">
+            <input type="text" name="suche" id="suche-input" value="" placeholder="Motive, place, issuer…" autocomplete="off" oninput="suchAutocomplete(this.value)">
+            <div id="autocomplete-list" style="display:none;position:absolute;top:100%;left:0;right:0;background:white;border:1px solid #ccc;border-radius:0 0 5px 5px;z-index:1000;box-shadow:0 4px 12px rgba(0,0,0,0.1);max-height:320px;overflow-y:auto;"></div>
+        </div>
+    </div>
+    <div>
+        <label>Year</label>
+        <select name="jahr">
+            <option value="">All Years</option>
+            
+                <option value="2015" >2015</option>
+            
+                <option value="2016" >2016</option>
+            
+                <option value="2017" >2017</option>
+            
+                <option value="2018" >2018</option>
+            
+                <option value="2019" >2019</option>
+            
+                <option value="2020" >2020</option>
+            
+                <option value="2021" >2021</option>
+            
+                <option value="2022" >2022</option>
+            
+                <option value="2023" >2023</option>
+            
+                <option value="2024" >2024</option>
+            
+                <option value="2025" >2025</option>
+            
+                <option value="2026" >2026</option>
+            
+                <option value="2027" >2027</option>
+            
+        </select>
+    </div>
+    <div>
+        <label>Sort by</label>
+        <select name="sort">
+            <option value="katalog_nr" selected>Catalogue number</option>
+            <option value="motiv" >Motive A–Z</option>
+            <option value="jahr_neu" >Year ↓</option>
+            <option value="jahr_alt" >Year ↑</option>
+            <option value="neu" >Recently added</option>
+        </select>
+    </div>
+    <div class="filter-actions">
+        <button type="submit" class="btn btn-rot">Apply</button>
+        <a href="/katalog/" class="btn btn-grau">Reset</a>
+        
+        <button type="button" onclick="document.getElementById('vorschlag-modal').style.display='flex'" class="btn btn-grau vorschlag-btn" style="margin-left:auto;white-space:nowrap;">💡 Suggest a note</button>
+        
+    </div>
+</form>
+
+<div style="display:flex;flex-wrap:wrap;gap:1rem;align-items:center;font-size:0.78rem;color:#888;background:#f8f8f8;border:1px solid #e8e8e8;border-radius:6px;padding:0.5rem 0.75rem;margin-bottom:0.75rem;">
+    <span>📅 Year of issue</span>
+    <span>🔢 Print run</span>
+    <span>👤 Number of collectors</span>
+    <span><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;vertical-align:middle;"></span> Still available</span>
+    <span><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#dc3545;vertical-align:middle;"></span> Sold out</span>
+    <span>📍 Location on map</span>
+    <span>🛒 Buy in shop</span>
+    <span class="badge badge-serie" style="font-size:0.75rem;">Series</span>
+    <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;font-size:0.75rem;">Type</span>
+</div>
+<p class="stats-bar"><strong>7096</strong> notes found</p>
+
+
+<div class="grid">
+    
+    <div class="karte" data-id="1083">
+        <a href="/schein/1083/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/PEBF-2_resultat_lwwxz7" alt="Johannes Vermeer" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1083)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PEBF-2</div>
+            <div class="karte-titel">Johannes Vermeer</div>
+            <div class="karte-ort">Netherlands / Delft</div>
+            <div class="karte-meta">
+                <span>📅 2021-2</span>
+                <span>🔢 4000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1084">
+        <a href="/schein/1084/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1084)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PEBF-2A</div>
+            <div class="karte-titel">Johannes Vermeer ANNIVERSARY</div>
+            <div class="karte-ort">Netherlands / Delft</div>
+            <div class="karte-meta">
+                <span>📅 2021-2</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 5</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1085">
+        <a href="/schein/1085/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/PEBF-3_resultat_tgkeku" alt="Johannes Vermeer" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1085)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PEBF-3</div>
+            <div class="karte-titel">Johannes Vermeer</div>
+            <div class="karte-ort">Netherlands / Delft</div>
+            <div class="karte-meta">
+                <span>📅 2021-3</span>
+                <span>🔢 4000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1086">
+        <a href="/schein/1086/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1086)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PEBF-3A</div>
+            <div class="karte-titel">Johannes Vermeer ANNIVERSARY</div>
+            <div class="karte-ort">Netherlands / Delft</div>
+            <div class="karte-meta">
+                <span>📅 2021-3</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 5</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1087">
+        <a href="/schein/1087/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1087)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PEBF-4</div>
+            <div class="karte-titel">Johannes Vermeer</div>
+            <div class="karte-ort">Netherlands / Delft</div>
+            <div class="karte-meta">
+                <span>📅 2021-4</span>
+                <span>🔢 4000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1088">
+        <a href="/schein/1088/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1088)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PEBF-4A</div>
+            <div class="karte-titel">Johannes Vermeer ANNIVERSARY</div>
+            <div class="karte-ort">Netherlands / Delft</div>
+            <div class="karte-meta">
+                <span>📅 2021-4</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 5</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1089">
+        <a href="/schein/1089/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/PEBF-5_resultat_yjkepu" alt="Johannes Vermeer" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1089)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PEBF-5</div>
+            <div class="karte-titel">Johannes Vermeer</div>
+            <div class="karte-ort">Netherlands / Delft</div>
+            <div class="karte-meta">
+                <span>📅 2021-5</span>
+                <span>🔢 4000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1090">
+        <a href="/schein/1090/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1090)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PEBF-5A</div>
+            <div class="karte-titel">Johannes Vermeer ANNIVERSARY</div>
+            <div class="karte-ort">Netherlands / Delft</div>
+            <div class="karte-meta">
+                <span>📅 2021-5</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 5</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1091">
+        <a href="/schein/1091/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/PEBF-6_resultat_nwoiy8" alt="Johannes Vermeer" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1091)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PEBF-6</div>
+            <div class="karte-titel">Johannes Vermeer</div>
+            <div class="karte-ort">Netherlands / Delft</div>
+            <div class="karte-meta">
+                <span>📅 2021-6</span>
+                <span>🔢 4000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1092">
+        <a href="/schein/1092/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1092)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PEBF-6A</div>
+            <div class="karte-titel">Johannes Vermeer ANNIVERSARY</div>
+            <div class="karte-ort">Netherlands / Delft</div>
+            <div class="karte-meta">
+                <span>📅 2021-6</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 5</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1093">
+        <a href="/schein/1093/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/PEBF-7_resultat_kx2jiy" alt="Johannes Vermeer" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1093)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PEBF-7</div>
+            <div class="karte-titel">Johannes Vermeer</div>
+            <div class="karte-ort">Netherlands / Delft</div>
+            <div class="karte-meta">
+                <span>📅 2023-7</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1094">
+        <a href="/schein/1094/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/PEBF-8_resultat_qgp717" alt="Johannes Vermeer" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1094)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PEBF-8</div>
+            <div class="karte-titel">Johannes Vermeer</div>
+            <div class="karte-ort">Netherlands / Delft</div>
+            <div class="karte-meta">
+                <span>📅 2023-8</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1095">
+        <a href="/schein/1095/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/PEBH-1_resultat_fsyod0" alt="30 Jaar Verdrag van Maastricht" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1095)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PEBH-1</div>
+            <div class="karte-titel">30 Jaar Verdrag van Maastricht</div>
+            <div class="karte-ort">Netherlands / Maastricht</div>
+            <div class="karte-meta">
+                <span>📅 2022-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1096">
+        <a href="/schein/1096/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1096)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PEBH-2</div>
+            <div class="karte-titel">20 Years of the Euro</div>
+            <div class="karte-ort">Netherlands / Maastricht</div>
+            <div class="karte-meta">
+                <span>📅 2022-2</span>
+                <span>🔢 4000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1097">
+        <a href="/schein/1097/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1097)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PEBH-2A</div>
+            <div class="karte-titel">20 Years of the Euro ANNIVERSARY</div>
+            <div class="karte-ort">Netherlands / Maastricht</div>
+            <div class="karte-meta">
+                <span>📅 2022-2</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 5</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1098">
+        <a href="/schein/1098/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/PEBH-3_resultat_ye54oy" alt="25 Jaar Euromunten" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1098)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PEBH-3</div>
+            <div class="karte-titel">25 Jaar Euromunten</div>
+            <div class="karte-ort">Netherlands / Maastricht</div>
+            <div class="karte-meta">
+                <span>📅 2024-3</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1099">
+        <a href="/schein/1099/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/PEBJ-1_resultat_wuqklo" alt="Koningin Máxima" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1099)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PEBJ-1</div>
+            <div class="karte-titel">Koningin Máxima</div>
+            <div class="karte-ort">Netherlands / Den Haag</div>
+            <div class="karte-meta">
+                <span>📅 2021-1</span>
+                <span>🔢 4000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1100">
+        <a href="/schein/1100/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1100)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PEBJ-1A</div>
+            <div class="karte-titel">Koningin Máxima ANNIVERSARY</div>
+            <div class="karte-ort">Netherlands / Den Haag</div>
+            <div class="karte-meta">
+                <span>📅 2021-1</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 5</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1101">
+        <a href="/schein/1101/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/PEBJ-2_resultat_bmypms" alt="Prinses Amalia" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1101)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PEBJ-2</div>
+            <div class="karte-titel">Prinses Amalia</div>
+            <div class="karte-ort">Netherlands / Den Haag</div>
+            <div class="karte-meta">
+                <span>📅 2021-2</span>
+                <span>🔢 2000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1102">
+        <a href="/schein/1102/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1102)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PEBJ-2A</div>
+            <div class="karte-titel">Prinses Amalia ANNIVERSARY</div>
+            <div class="karte-ort">Netherlands / Den Haag</div>
+            <div class="karte-meta">
+                <span>📅 2021-2</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 5</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1103">
+        <a href="/schein/1103/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/PEBJ-3_resultat_epsdjd" alt="Koning Willem I" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1103)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PEBJ-3</div>
+            <div class="karte-titel">Koning Willem I</div>
+            <div class="karte-ort">Netherlands / Den Haag</div>
+            <div class="karte-meta">
+                <span>📅 2022-3</span>
+                <span>🔢 2000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1104">
+        <a href="/schein/1104/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1104)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PEBJ-3A</div>
+            <div class="karte-titel">Koning Willem I ANNIVERSARY</div>
+            <div class="karte-ort">Netherlands / Den Haag</div>
+            <div class="karte-meta">
+                <span>📅 2022-3</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 5</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1105">
+        <a href="/schein/1105/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/PEBJ-4_resultat_luz4td" alt="Koning Willem-Alexander" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1105)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PEBJ-4</div>
+            <div class="karte-titel">Koning Willem-Alexander</div>
+            <div class="karte-ort">Netherlands / Den Haag</div>
+            <div class="karte-meta">
+                <span>📅 2023-4</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1106">
+        <a href="/schein/1106/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/PEBJ-5_resultat_sa9fwt" alt="Het Leven van Juliana" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1106)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PEBJ-5</div>
+            <div class="karte-titel">Het Leven van Juliana</div>
+            <div class="karte-ort">Netherlands / Den Haag</div>
+            <div class="karte-meta">
+                <span>📅 2023-5</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1107">
+        <a href="/schein/1107/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/PEBJ-6_resultat_vm0kly" alt="Prinses Amalia" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1107)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PEBJ-6</div>
+            <div class="karte-titel">Prinses Amalia</div>
+            <div class="karte-ort">Netherlands / Den Haag</div>
+            <div class="karte-meta">
+                <span>📅 2024-6</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1108">
+        <a href="/schein/1108/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/PEBK-1_resultat_q3yebi" alt="Napoleon Bonaparte" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1108)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PEBK-1</div>
+            <div class="karte-titel">Napoleon Bonaparte</div>
+            <div class="karte-ort">Netherlands / Den Haag</div>
+            <div class="karte-meta">
+                <span>📅 2021-1</span>
+                <span>🔢 2000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1109">
+        <a href="/schein/1109/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1109)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PEBK-1A</div>
+            <div class="karte-titel">Napoleon Bonaparte ANNIVERSARY</div>
+            <div class="karte-ort">Netherlands / Den Haag</div>
+            <div class="karte-meta">
+                <span>📅 2021-1</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 5</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1110">
+        <a href="/schein/1110/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/PEBL-1_resultat_jb71wa" alt="Hunebedbouwers" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1110)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PEBL-1</div>
+            <div class="karte-titel">Hunebedbouwers</div>
+            <div class="karte-ort">Netherlands / Borger-Odoorn</div>
+            <div class="karte-meta">
+                <span>📅 2021-1</span>
+                <span>🔢 4000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1111">
+        <a href="/schein/1111/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1111)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PEBL-1A</div>
+            <div class="karte-titel">Hunebedbouwers ANNIVERSARY</div>
+            <div class="karte-ort">Netherlands / Borger-Odoorn</div>
+            <div class="karte-meta">
+                <span>📅 2021-1</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 5</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1112">
+        <a href="/schein/1112/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/PEBM-1_resultat_jubv0f" alt="&#x27;s-Hertogenbosch" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1112)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PEBM-1</div>
+            <div class="karte-titel">&#x27;s-Hertogenbosch</div>
+            <div class="karte-ort">Netherlands / &#x27;s-Hertogenbosch</div>
+            <div class="karte-meta">
+                <span>📅 2021-1</span>
+                <span>🔢 2000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1113">
+        <a href="/schein/1113/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1113)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PEBM-1A</div>
+            <div class="karte-titel">s-Hertogenbosch ANNIVERSARY</div>
+            <div class="karte-ort">Netherlands / &#x27;s-Hertogenbosch</div>
+            <div class="karte-meta">
+                <span>📅 2021-1</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 5</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1114">
+        <a href="/schein/1114/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/PEBN-1_resultat_r1yszs" alt="Herman Brood" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1114)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PEBN-1</div>
+            <div class="karte-titel">Herman Brood</div>
+            <div class="karte-ort">Netherlands / Amsterdam</div>
+            <div class="karte-meta">
+                <span>📅 2021-1</span>
+                <span>🔢 2000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1115">
+        <a href="/schein/1115/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1115)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PEBN-1A</div>
+            <div class="karte-titel">Herman Brood ANNIVERSARY</div>
+            <div class="karte-ort">Netherlands / Amsterdam</div>
+            <div class="karte-meta">
+                <span>📅 2021-1</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 5</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1116">
+        <a href="/schein/1116/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/PEBN-2_resultat_q0gnjx" alt="Herman Brood" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1116)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PEBN-2</div>
+            <div class="karte-titel">Herman Brood</div>
+            <div class="karte-ort">Netherlands / Amsterdam</div>
+            <div class="karte-meta">
+                <span>📅 2021-2</span>
+                <span>🔢 2000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1117">
+        <a href="/schein/1117/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1117)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PEBN-2A</div>
+            <div class="karte-titel">Herman Brood ANNIVERSARY</div>
+            <div class="karte-ort">Netherlands / Amsterdam</div>
+            <div class="karte-meta">
+                <span>📅 2021-2</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 5</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1118">
+        <a href="/schein/1118/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1118)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PEBN-3</div>
+            <div class="karte-titel">Herman Brood</div>
+            <div class="karte-ort">Netherlands / Amsterdam</div>
+            <div class="karte-meta">
+                <span>📅 2023-3</span>
+                <span>🔢 3000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1119">
+        <a href="/schein/1119/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1119)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PEBN-4</div>
+            <div class="karte-titel">Herman Brood</div>
+            <div class="karte-ort">Netherlands / Amsterdam</div>
+            <div class="karte-meta">
+                <span>📅 2023-4</span>
+                <span>🔢 3000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1120">
+        <a href="/schein/1120/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1120)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PEBQ-1</div>
+            <div class="karte-titel">Vrolijk Pasen</div>
+            <div class="karte-ort">Netherlands / unbekannt</div>
+            <div class="karte-meta">
+                <span>📅 2022-1</span>
+                <span>🔢 2000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1121">
+        <a href="/schein/1121/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/PEBQ-1A_resultat_xjzti4" alt="Vrolijk Pasen ANNIVERSARY" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1121)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PEBQ-1A</div>
+            <div class="karte-titel">Vrolijk Pasen ANNIVERSARY</div>
+            <div class="karte-ort">Netherlands / unbekannt</div>
+            <div class="karte-meta">
+                <span>📅 2022-1</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 5</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1122">
+        <a href="/schein/1122/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/PEBR-1_resultat_cq1ygc" alt="Vincent van Gogh" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1122)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PEBR-1</div>
+            <div class="karte-titel">Vincent van Gogh</div>
+            <div class="karte-ort">Netherlands / Amsterdam</div>
+            <div class="karte-meta">
+                <span>📅 2022-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1123">
+        <a href="/schein/1123/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/PEBR-2_resultat_sz3kke" alt="Vincent van Gogh" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1123)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PEBR-2</div>
+            <div class="karte-titel">Vincent van Gogh</div>
+            <div class="karte-ort">Netherlands / Amsterdam</div>
+            <div class="karte-meta">
+                <span>📅 2022-2</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1124">
+        <a href="/schein/1124/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/PEBR-3_resultat_mlrqjo" alt="Vincent van Gogh" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1124)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PEBR-3</div>
+            <div class="karte-titel">Vincent van Gogh</div>
+            <div class="karte-ort">Netherlands / Amsterdam</div>
+            <div class="karte-meta">
+                <span>📅 2022-3</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1125">
+        <a href="/schein/1125/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/PEBR-4_resultat_nkqlyb" alt="Vincent van Gogh" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1125)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PEBR-4</div>
+            <div class="karte-titel">Vincent van Gogh</div>
+            <div class="karte-ort">Netherlands / Amsterdam</div>
+            <div class="karte-meta">
+                <span>📅 2022-4</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1126">
+        <a href="/schein/1126/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/PEBR-5_resultat_n5zcyr" alt="Vincent van Gogh" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1126)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PEBR-5</div>
+            <div class="karte-titel">Vincent van Gogh</div>
+            <div class="karte-ort">Netherlands / Amsterdam</div>
+            <div class="karte-meta">
+                <span>📅 2022-5</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1127">
+        <a href="/schein/1127/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/PEBR-6_resultat_ox4bzo" alt="Vincent van Gogh" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1127)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PEBR-6</div>
+            <div class="karte-titel">Vincent van Gogh</div>
+            <div class="karte-ort">Netherlands / Amsterdam</div>
+            <div class="karte-meta">
+                <span>📅 2022-6</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1128">
+        <a href="/schein/1128/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1128)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PEBR-7</div>
+            <div class="karte-titel">Vincent van Gogh</div>
+            <div class="karte-ort">Netherlands / Amsterdam</div>
+            <div class="karte-meta">
+                <span>📅 2023-3</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1129">
+        <a href="/schein/1129/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1129)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PEBR-8</div>
+            <div class="karte-titel">Vincent van Gogh</div>
+            <div class="karte-ort">Netherlands / Amsterdam</div>
+            <div class="karte-meta">
+                <span>📅 2023-7</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1130">
+        <a href="/schein/1130/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1130)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PEBR-9</div>
+            <div class="karte-titel">Vincent van Gogh</div>
+            <div class="karte-ort">Netherlands / Amsterdam</div>
+            <div class="karte-meta">
+                <span>📅 2023-8</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1131">
+        <a href="/schein/1131/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/PEBS-1_resultat_zhgjja" alt="Erasmus Programme" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1131)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PEBS-1</div>
+            <div class="karte-titel">Erasmus Programme</div>
+            <div class="karte-ort">Netherlands / unbekannt</div>
+            <div class="karte-meta">
+                <span>📅 2022-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1132">
+        <a href="/schein/1132/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/PEBS-2_resultat_kjyvzw" alt="NAVO-Top Den Haag" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1132)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PEBS-2</div>
+            <div class="karte-titel">NAVO-Top Den Haag</div>
+            <div class="karte-ort">Netherlands / Den Haag</div>
+            <div class="karte-meta">
+                <span>📅 2025-2</span>
+                <span>🔢 2000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1133">
+        <a href="/schein/1133/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/PEBS-2A_resultat_dl59tt" alt="NAVO-Top Den Haag ANNIVERSARY" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1133)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PEBS-2A</div>
+            <div class="karte-titel">NAVO-Top Den Haag ANNIVERSARY</div>
+            <div class="karte-ort">Netherlands / Den Haag</div>
+            <div class="karte-meta">
+                <span>📅 2025-2</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 10</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1134">
+        <a href="/schein/1134/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/PEBT-1_resultat_qxp2uq" alt="Paus Adrianus VI" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1134)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PEBT-1</div>
+            <div class="karte-titel">Paus Adrianus VI</div>
+            <div class="karte-ort">Netherlands / Utrecht</div>
+            <div class="karte-meta">
+                <span>📅 2022-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1135">
+        <a href="/schein/1135/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1135)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PEBY-1</div>
+            <div class="karte-titel">Royal Netherlands Air Force</div>
+            <div class="karte-ort">Netherlands / --</div>
+            <div class="karte-meta">
+                <span>📅 2022-1</span>
+                <span>🔢 3000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#dc3545;" title="Sold out"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1136">
+        <a href="/schein/1136/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/PECA-1_resultat_jpigji" alt="Bonaire" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1136)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PECA-1</div>
+            <div class="karte-titel">Bonaire</div>
+            <div class="karte-ort">Netherlands / Bonaire</div>
+            <div class="karte-meta">
+                <span>📅 2022-1</span>
+                <span>🔢 3000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1137">
+        <a href="/schein/1137/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/PECA-2_resultat_uzlkrt" alt="Caribbean Guilder" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1137)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PECA-2</div>
+            <div class="karte-titel">Caribbean Guilder</div>
+            <div class="karte-ort">Netherlands / Sint Maarten</div>
+            <div class="karte-meta">
+                <span>📅 2025-2</span>
+                <span>🔢 2000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1138">
+        <a href="/schein/1138/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/PECA-2A_resultat_l4oe9z" alt="Caribbean Guilder ANNIVERSARY" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1138)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PECA-2A</div>
+            <div class="karte-titel">Caribbean Guilder ANNIVERSARY</div>
+            <div class="karte-ort">Netherlands / Sint Maarten</div>
+            <div class="karte-meta">
+                <span>📅 2025-2</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 10</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1139">
+        <a href="/schein/1139/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/PECA-3_resultat_mtt4r9" alt="Caribbean Guilder" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1139)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PECA-3</div>
+            <div class="karte-titel">Caribbean Guilder</div>
+            <div class="karte-ort">Netherlands / Curaçao</div>
+            <div class="karte-meta">
+                <span>📅 2025-3</span>
+                <span>🔢 2000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1140">
+        <a href="/schein/1140/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/PECA-3A_resultat_wvant0" alt="Caribbean Guilder ANNIVERSARY" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1140)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PECA-3A</div>
+            <div class="karte-titel">Caribbean Guilder ANNIVERSARY</div>
+            <div class="karte-ort">Netherlands / Curaçao</div>
+            <div class="karte-meta">
+                <span>📅 2025-3</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 10</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1141">
+        <a href="/schein/1141/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/PECB-1_resultat_wbqg6r" alt="Terschelling" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1141)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PECB-1</div>
+            <div class="karte-titel">Terschelling</div>
+            <div class="karte-ort">Netherlands / Terschelling</div>
+            <div class="karte-meta">
+                <span>📅 2023-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1142">
+        <a href="/schein/1142/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/PECB-2_resultat_yeqmy4" alt="Drenkelingenhuisje" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1142)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PECB-2</div>
+            <div class="karte-titel">Drenkelingenhuisje</div>
+            <div class="karte-ort">Netherlands / Terschelling</div>
+            <div class="karte-meta">
+                <span>📅 2024-2</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1143">
+        <a href="/schein/1143/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/PECC-1_resultat_lxddpy" alt="Westkapelle" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1143)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PECC-1</div>
+            <div class="karte-titel">Westkapelle</div>
+            <div class="karte-ort">Netherlands / Westkapelle</div>
+            <div class="karte-meta">
+                <span>📅 2023-1</span>
+                <span>🔢 3000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1144">
+        <a href="/schein/1144/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/PECC-2_resultat_aruqap" alt="Marken" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1144)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PECC-2</div>
+            <div class="karte-titel">Marken</div>
+            <div class="karte-ort">Netherlands / Waterland</div>
+            <div class="karte-meta">
+                <span>📅 2023-4</span>
+                <span>🔢 3000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1145">
+        <a href="/schein/1145/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/PECC-3_resultat_zbhjpr" alt="Egmond" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1145)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PECC-3</div>
+            <div class="karte-titel">Egmond</div>
+            <div class="karte-ort">Netherlands / Egmond aan Zee</div>
+            <div class="karte-meta">
+                <span>📅 2023-5</span>
+                <span>🔢 3000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1146">
+        <a href="/schein/1146/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/PECD-1_resultat_jqn87p" alt="70 Jaar Watersnoodramp" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1146)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PECD-1</div>
+            <div class="karte-titel">70 Jaar Watersnoodramp</div>
+            <div class="karte-ort">Netherlands / unbekannt</div>
+            <div class="karte-meta">
+                <span>📅 2023-1</span>
+                <span>🔢 3000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1147">
+        <a href="/schein/1147/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/PECD-2_resultat_iank4y" alt="100 Jaar Kinderpostzegels" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1147)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PECD-2</div>
+            <div class="karte-titel">100 Jaar Kinderpostzegels</div>
+            <div class="karte-ort">Netherlands / Leiden</div>
+            <div class="karte-meta">
+                <span>📅 2024-2</span>
+                <span>🔢 3000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1148">
+        <a href="/schein/1148/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1148)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PECE-1</div>
+            <div class="karte-titel">Amsterdam Westertoren</div>
+            <div class="karte-ort">Netherlands / Amsterdam</div>
+            <div class="karte-meta">
+                <span>📅 2023-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1149">
+        <a href="/schein/1149/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/PECF-1_resultat_targry" alt="Frans Hals" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1149)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PECF-1</div>
+            <div class="karte-titel">Frans Hals</div>
+            <div class="karte-ort">Netherlands / Amsterdam</div>
+            <div class="karte-meta">
+                <span>📅 2024-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1150">
+        <a href="/schein/1150/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/PECF-2_resultat_wh4vkd" alt="Frans Hals" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1150)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PECF-2</div>
+            <div class="karte-titel">Frans Hals</div>
+            <div class="karte-ort">Netherlands / Amsterdam</div>
+            <div class="karte-meta">
+                <span>📅 2024-2</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1151">
+        <a href="/schein/1151/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1151)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PECF-3</div>
+            <div class="karte-titel">Frans Hals</div>
+            <div class="karte-ort">Netherlands / Den Haag</div>
+            <div class="karte-meta">
+                <span>📅 2024-3</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1152">
+        <a href="/schein/1152/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1152)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PECF-4</div>
+            <div class="karte-titel">Frans Hals</div>
+            <div class="karte-ort">Netherlands / Amsterdam</div>
+            <div class="karte-meta">
+                <span>📅 2024-4</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1153">
+        <a href="/schein/1153/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1153)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PECF-5</div>
+            <div class="karte-titel">Frans Hals</div>
+            <div class="karte-ort">Netherlands / Haarlem</div>
+            <div class="karte-meta">
+                <span>📅 2024-5</span>
+                <span>🔢 3000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1154">
+        <a href="/schein/1154/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1154)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PECF-6</div>
+            <div class="karte-titel">Frans Hals</div>
+            <div class="karte-ort">Netherlands / Haarlem</div>
+            <div class="karte-meta">
+                <span>📅 2024-6</span>
+                <span>🔢 3000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1155">
+        <a href="/schein/1155/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/PECF-7_resultat_lsbspc" alt="Frans Hals" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1155)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PECF-7</div>
+            <div class="karte-titel">Frans Hals</div>
+            <div class="karte-ort">Netherlands / Haarlem</div>
+            <div class="karte-meta">
+                <span>📅 2024-7</span>
+                <span>🔢 3000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1156">
+        <a href="/schein/1156/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/PECF-8_resultat_w13epw" alt="Frans Hals" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1156)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PECF-8</div>
+            <div class="karte-titel">Frans Hals</div>
+            <div class="karte-ort">Netherlands / Haarlem</div>
+            <div class="karte-meta">
+                <span>📅 2024-8</span>
+                <span>🔢 3000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1157">
+        <a href="/schein/1157/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/PECG-1_resultat_zu5szy" alt="D-Day 1944-2024" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1157)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PECG-1</div>
+            <div class="karte-titel">D-Day 1944-2024</div>
+            <div class="karte-ort">Netherlands / unbekannt</div>
+            <div class="karte-meta">
+                <span>📅 2024-1</span>
+                <span>🔢 3000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1158">
+        <a href="/schein/1158/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/PECH-1_resultat_bs4j6x" alt="750 Amsterdam" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1158)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PECH-1</div>
+            <div class="karte-titel">750 Amsterdam</div>
+            <div class="karte-ort">Netherlands / Amsterdam</div>
+            <div class="karte-meta">
+                <span>📅 2024-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1159">
+        <a href="/schein/1159/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/PECH-2_resultat_ynfxxo" alt="750 Amsterdam" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1159)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PECH-2</div>
+            <div class="karte-titel">750 Amsterdam</div>
+            <div class="karte-ort">Netherlands / Amsterdam</div>
+            <div class="karte-meta">
+                <span>📅 2024-2</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1160">
+        <a href="/schein/1160/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/PECH-3_resultat_va3sgz" alt="750 Amsterdam" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1160)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PECH-3</div>
+            <div class="karte-titel">750 Amsterdam</div>
+            <div class="karte-ort">Netherlands / Amsterdam</div>
+            <div class="karte-meta">
+                <span>📅 2024-3</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1169">
+        <a href="/schein/1169/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1169)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PECH-4</div>
+            <div class="karte-titel">750 Amsterdam</div>
+            <div class="karte-ort">Netherlands / Amsterdam</div>
+            <div class="karte-meta">
+                <span>📅 2025-4</span>
+                <span>🔢 2000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1170">
+        <a href="/schein/1170/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/PECH-4A_resultat_fkuznx" alt="750 Amsterdam ANNIVERSARY" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1170)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PECH-4A</div>
+            <div class="karte-titel">750 Amsterdam ANNIVERSARY</div>
+            <div class="karte-ort">Netherlands / Amsterdam</div>
+            <div class="karte-meta">
+                <span>📅 2025-4</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 10</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1171">
+        <a href="/schein/1171/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1171)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PECH-5</div>
+            <div class="karte-titel">750 Amsterdam ERROR</div>
+            <div class="karte-ort">Netherlands / Amsterdam</div>
+            <div class="karte-meta">
+                <span>📅 2025-5</span>
+                <span>🔢 2000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1172">
+        <a href="/schein/1172/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1172)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PECH-5A</div>
+            <div class="karte-titel">750 Amsterdam ERROR ANNIVERSARY</div>
+            <div class="karte-ort">Netherlands / Amsterdam</div>
+            <div class="karte-meta">
+                <span>📅 2025-5</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 10</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1173">
+        <a href="/schein/1173/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/PECH-6_resultat_w4bzzp" alt="750 Amsterdam" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1173)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PECH-6</div>
+            <div class="karte-titel">750 Amsterdam</div>
+            <div class="karte-ort">Netherlands / Amsterdam</div>
+            <div class="karte-meta">
+                <span>📅 2025-5</span>
+                <span>🔢 2000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1174">
+        <a href="/schein/1174/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/PECH-6A_resultat_gnijva" alt="750 Amsterdam ANNIVERSARY" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1174)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PECH-6A</div>
+            <div class="karte-titel">750 Amsterdam ANNIVERSARY</div>
+            <div class="karte-ort">Netherlands / Amsterdam</div>
+            <div class="karte-meta">
+                <span>📅 2025-5</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 10</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1175">
+        <a href="/schein/1175/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/PECH-7_resultat_jewhcs" alt="750 Amsterdam" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1175)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PECH-7</div>
+            <div class="karte-titel">750 Amsterdam</div>
+            <div class="karte-ort">Netherlands / Amsterdam</div>
+            <div class="karte-meta">
+                <span>📅 2025-6</span>
+                <span>🔢 2000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1176">
+        <a href="/schein/1176/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1176)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PECH-7A</div>
+            <div class="karte-titel">750 Amsterdam ANNIVERSARY</div>
+            <div class="karte-ort">Netherlands / Amsterdam</div>
+            <div class="karte-meta">
+                <span>📅 2025-6</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 10</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1177">
+        <a href="/schein/1177/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1177)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PECH-8</div>
+            <div class="karte-titel">750 Amsterdam</div>
+            <div class="karte-ort">Netherlands / Amsterdam</div>
+            <div class="karte-meta">
+                <span>📅 2025-7</span>
+                <span>🔢 2000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1178">
+        <a href="/schein/1178/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/PECH-8A_resultat_alaj1m" alt="750 Amsterdam ANNIVERSARY" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1178)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PECH-8A</div>
+            <div class="karte-titel">750 Amsterdam ANNIVERSARY</div>
+            <div class="karte-ort">Netherlands / Amsterdam</div>
+            <div class="karte-meta">
+                <span>📅 2025-7</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 10</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1179">
+        <a href="/schein/1179/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/PECH-9_resultat_xzwva2" alt="750 Amsterdam" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1179)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PECH-9</div>
+            <div class="karte-titel">750 Amsterdam</div>
+            <div class="karte-ort">Netherlands / Amsterdam</div>
+            <div class="karte-meta">
+                <span>📅 2025-8</span>
+                <span>🔢 2000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1180">
+        <a href="/schein/1180/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/PECH-9A_resultat_mwvfun" alt="750 Amsterdam ANNIVERSARY" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1180)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PECH-9A</div>
+            <div class="karte-titel">750 Amsterdam ANNIVERSARY</div>
+            <div class="karte-ort">Netherlands / Amsterdam</div>
+            <div class="karte-meta">
+                <span>📅 2025-8</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 10</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1181">
+        <a href="/schein/1181/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/PECH-10_resultat_szolq2" alt="750 Amsterdam" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1181)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PECH-10</div>
+            <div class="karte-titel">750 Amsterdam</div>
+            <div class="karte-ort">Netherlands / Amsterdam</div>
+            <div class="karte-meta">
+                <span>📅 2025-9</span>
+                <span>🔢 2000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1182">
+        <a href="/schein/1182/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/PECH-10A_resultat_io51sx" alt="750 Amsterdam ANNIVERSARY" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1182)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PECH-10A</div>
+            <div class="karte-titel">750 Amsterdam ANNIVERSARY</div>
+            <div class="karte-ort">Netherlands / Amsterdam</div>
+            <div class="karte-meta">
+                <span>📅 2025-9</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 10</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1161">
+        <a href="/schein/1161/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1161)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PECH-11</div>
+            <div class="karte-titel">750 Amsterdam</div>
+            <div class="karte-ort">Netherlands / Amsterdam</div>
+            <div class="karte-meta">
+                <span>📅 2025-10</span>
+                <span>🔢 2000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1162">
+        <a href="/schein/1162/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/PECH-11A_resultat_leudgm" alt="750 Amsterdam ANNIVERSARY" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1162)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PECH-11A</div>
+            <div class="karte-titel">750 Amsterdam ANNIVERSARY</div>
+            <div class="karte-ort">Netherlands / Amsterdam</div>
+            <div class="karte-meta">
+                <span>📅 2025-10</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 10</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1163">
+        <a href="/schein/1163/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/PECH-12_resultat_pkmxrd" alt="750 Amsterdam" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1163)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PECH-12</div>
+            <div class="karte-titel">750 Amsterdam</div>
+            <div class="karte-ort">Netherlands / Amsterdam</div>
+            <div class="karte-meta">
+                <span>📅 2025-11</span>
+                <span>🔢 2000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1164">
+        <a href="/schein/1164/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/PECH-12A_resultat_kptcwm" alt="750 Amsterdam ANNIVERSARY" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1164)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PECH-12A</div>
+            <div class="karte-titel">750 Amsterdam ANNIVERSARY</div>
+            <div class="karte-ort">Netherlands / Amsterdam</div>
+            <div class="karte-meta">
+                <span>📅 2025-11</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 10</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1165">
+        <a href="/schein/1165/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/PECH-13_resultat_cehkbv" alt="750 Amsterdam" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1165)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PECH-13</div>
+            <div class="karte-titel">750 Amsterdam</div>
+            <div class="karte-ort">Netherlands / Amsterdam</div>
+            <div class="karte-meta">
+                <span>📅 2025-12</span>
+                <span>🔢 2000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1166">
+        <a href="/schein/1166/" class="bild-link">
+            
+                <img src="https://res.cloudinary.com/dj0t1asov/image/upload/v1/media/scheine/PECH-13A_resultat_wy1bin" alt="750 Amsterdam ANNIVERSARY" loading="lazy">
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1166)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PECH-13A</div>
+            <div class="karte-titel">750 Amsterdam ANNIVERSARY</div>
+            <div class="karte-ort">Netherlands / Amsterdam</div>
+            <div class="karte-meta">
+                <span>📅 2025-12</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 10</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1167">
+        <a href="/schein/1167/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1167)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PECH-14</div>
+            <div class="karte-titel">750 Amsterdam</div>
+            <div class="karte-ort">Netherlands / Amsterdam</div>
+            <div class="karte-meta">
+                <span>📅 2025-13</span>
+                <span>🔢 2000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="1168">
+        <a href="/schein/1168/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 1168)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">PECH-14A</div>
+            <div class="karte-titel">750 Amsterdam ANNIVERSARY</div>
+            <div class="karte-ort">Netherlands / Amsterdam</div>
+            <div class="karte-meta">
+                <span>📅 2025-13</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 10</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+</div>
+
+
+<script>
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let c of cookies) {
+            c = c.trim();
+            if (c.startsWith(name + '=')) { cookieValue = decodeURIComponent(c.substring(name.length + 1)); break; }
+        }
+    }
+    return cookieValue;
+}
+async function toggleSammlung(btn, id) {
+    const resp = await fetch(`/schein/${id}/toggle/`, {
+        method: 'POST', headers: { 'X-CSRFToken': getCookie('csrftoken') }
+    });
+    const data = await resp.json();
+    btn.textContent = data.in_sammlung ? '★' : '☆';
+    btn.classList.toggle('aktiv', data.in_sammlung);
+    btn.title = data.in_sammlung ? 'Aus Sammlung entfernen' : 'Zu Sammlung hinzufügen';
+}
+
+async function suchAutocomplete(q) {
+    const list = document.getElementById('autocomplete-list');
+    if (q.length < 2) { list.style.display = 'none'; return; }
+    const resp = await fetch(`/autocomplete/?q=${encodeURIComponent(q)}`);
+    const data = await resp.json();
+    if (!data.results.length) { list.style.display = 'none'; return; }
+    list.innerHTML = data.results.map(r => `
+        <a href="${r.url}" style="display:flex;align-items:center;gap:0.75rem;padding:0.6rem 0.8rem;text-decoration:none;color:#333;border-bottom:1px solid #f0f0f0;">
+            <span style="font-size:0.72rem;color:#999;font-weight:600;min-width:60px;">${r.katalog_nr}</span>
+            <span style="flex:1;">
+                <span style="font-weight:600;font-size:0.875rem;">${r.label}</span>
+                <span style="font-size:0.78rem;color:#888;display:block;">${r.ort}</span>
+            </span>
+        </a>
+    `).join('');
+    list.style.display = 'block';
+}
+
+document.addEventListener('click', function(e) {
+    const list = document.getElementById('autocomplete-list');
+    if (list && !list.contains(e.target) && e.target.id !== 'suche-input') {
+        list.style.display = 'none';
+    }
+});
+</script>
+<script>
+function toggleFilter(key, val) {
+    var params = new URLSearchParams(window.location.search);
+    var vals = params.getAll(key);
+    var idx = vals.indexOf(String(val));
+    if (idx !== -1) { vals.splice(idx, 1); } else { vals.push(String(val)); }
+    params.delete(key);
+    vals.forEach(function(v) { params.append(key, v); });
+    params.delete('page');
+    window.location.search = params.toString();
+}
+function clearFilter(key) {
+    var params = new URLSearchParams(window.location.search);
+    params.delete(key);
+    params.delete('page');
+    window.location.search = params.toString();
+}
+function toggleLand(landId) {
+    var params = new URLSearchParams(window.location.search);
+    var laender = params.getAll('land');
+    var idx = laender.indexOf(String(landId));
+    if (idx !== -1) {
+        laender.splice(idx, 1);
+    } else {
+        laender.push(String(landId));
+    }
+    params.delete('land');
+    laender.forEach(function(l) { params.append('land', l); });
+    params.delete('page');
+    window.location.search = params.toString();
+}
+</script>
+
+
+
+<div id="vorschlag-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:9999;align-items:center;justify-content:center;padding:1rem;">
+    <div style="background:white;border-radius:10px;padding:2rem;max-width:520px;width:100%;max-height:90vh;overflow-y:auto;position:relative;">
+        <button onclick="document.getElementById('vorschlag-modal').style.display='none'" style="position:absolute;top:1rem;right:1rem;background:none;border:none;font-size:1.3rem;cursor:pointer;">&#x2715;</button>
+        <h2 style="font-size:1.1rem;font-weight:800;margin-bottom:1.25rem;">💡 Suggest a note</h2>
+        
+        <form method="post" enctype="multipart/form-data">
+            <input type="hidden" name="csrfmiddlewaretoken" value="vUCUqbS5MPMZEZ1YG4f2tEy3Hekqvnx8IaxXud3hu8Awd4o7lV2kLjhhpyZIYjLn">
+            <input type="hidden" name="schein_vorschlagen" value="1">
+            <div style="margin-bottom:0.75rem;">
+                <label style="font-size:0.8rem;font-weight:600;color:#555;display:block;margin-bottom:3px;">Motive / Name *</label>
+                <input type="text" name="motiv" required style="width:100%;padding:0.4rem 0.6rem;border:1px solid #ccc;border-radius:5px;font-size:0.85rem;box-sizing:border-box;">
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:0.75rem;">
+                <div>
+                    <label style="font-size:0.8rem;font-weight:600;color:#555;display:block;margin-bottom:3px;">Country</label>
+                    <input type="text" name="land" style="width:100%;padding:0.4rem 0.6rem;border:1px solid #ccc;border-radius:5px;font-size:0.85rem;box-sizing:border-box;">
+                </div>
+                <div>
+                    <label style="font-size:0.8rem;font-weight:600;color:#555;display:block;margin-bottom:3px;">Location</label>
+                    <input type="text" name="ort" style="width:100%;padding:0.4rem 0.6rem;border:1px solid #ccc;border-radius:5px;font-size:0.85rem;box-sizing:border-box;">
+                </div>
+            </div>
+            <div style="margin-bottom:0.75rem;">
+                <label style="font-size:0.8rem;font-weight:600;color:#555;display:block;margin-bottom:3px;">Additional information (sales location, series, etc.)</label>
+                <textarea name="info" rows="3" style="width:100%;padding:0.4rem 0.6rem;border:1px solid #ccc;border-radius:5px;font-size:0.85rem;box-sizing:border-box;resize:vertical;"></textarea>
+            </div>
+            <div style="margin-bottom:1rem;">
+                <label style="font-size:0.8rem;font-weight:600;color:#555;display:block;margin-bottom:3px;">Image file</label>
+                <input type="file" name="bilder" accept="image/*" multiple style="width:100%;border:1px solid #ccc;padding:0.3rem;border-radius:5px;font-size:0.82rem;">
+            </div>
+            <button type="submit" class="btn btn-rot">💡 Submit suggestion</button>
+        </form>
+        
+    </div>
+</div>
+
+
+
+</main>
+
+<footer>
+    <p>0-Euro Souvenirscheine Schweiz &mdash; <a href="https://www.collectionseeland.ch" target="_blank">Collection Seeland</a></p>
+</footer>
+<nav class="bottom-nav">
+    <a href="/" >
+        <span class="icon">🏠</span>
+        <span>Home</span>
+    </a>
+    <a href="/katalog/" class="aktiv">
+        <span class="icon">📋</span>
+        <span>Catalogue</span>
+    </a>
+    
+    <a href="/meine-sammlung/" >
+        <span class="icon">⭐</span>
+        <span>My Collection</span>
+    </a>
+    <a href="/tauschboerse/" >
+        <span class="icon">🔄</span>
+        <span>Exchange</span>
+    </a>
+    
+            <a href="/statistik/" >
+        <span class="icon">📊</span>
+        <span>Statistics</span>
+    </a>
+    
+    <a href="/profil/" >
+        <span class="icon">👤</span>
+        <span>Profile</span>
+    </a>
+    
+</nav>
+<button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})"
+    style="display:none;position:fixed;bottom:2rem;right:2rem;background:var(--rot);color:white;border:none;border-radius:50%;width:44px;height:44px;font-size:1.2rem;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,0.2);z-index:999;">↑</button>
+<script>
+window.addEventListener('scroll', function() {
+    document.getElementById('back-to-top').style.display = window.scrollY > 400 ? 'block' : 'none';
+});
+</script>
+</body>
+</html>

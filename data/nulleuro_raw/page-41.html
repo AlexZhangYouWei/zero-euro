@@ -1,0 +1,4525 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta name="google-site-verification" content="LjYRdR7g0LgYxQ01sJ_WxzpN5kLNPehj96CT6wQ70_g" />
+<link rel="icon" type="image/png" sizes="16x16" href="/static/favicon/favicon-16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/static/favicon/favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/static/favicon/favicon-180.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/static/favicon/favicon-192.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Katalog – 0-Euro Souvenir Notes</title>
+    
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --rot: #c8102e;
+            --dunkelrot: #9b0b22;
+            --grau: #f5f5f5;
+            --dunkelgrau: #333;
+            --mittelgrau: #666;
+            --rand: #ddd;
+            --gold: #c9a84c;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: #fff;
+            color: var(--dunkelgrau);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* NAV */
+        nav {
+            background: var(--rot);
+            color: white;
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 60px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+        .nav-brand {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .nav-brand span.badge {
+            background: white;
+            color: var(--rot);
+            font-size: 0.75rem;
+            padding: 2px 7px;
+            border-radius: 10px;
+            font-weight: 800;
+        }
+        .nav-links { display: flex; gap: 1rem; align-items: center; }
+        .nav-links a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            font-size: 0.9rem;
+            padding: 4px 10px;
+            border-radius: 4px;
+            transition: background 0.15s;
+        }
+        .nav-links a:hover { background: rgba(255,255,255,0.15); }
+        .nav-links a.active { background: rgba(255,255,255,0.2); font-weight: 600; }
+        .mobile-lang-switcher { display: none; }
+        .nav-toggle { display: none; background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; padding: 4px 8px; }
+        .bottom-nav { display: none; }
+        @media (max-width: 700px) {
+            nav { height: 50px; padding: 0 1rem; }
+            .mobile-lang-switcher { display: flex; gap: 2px; align-items: center; }
+            .nav-toggle { display: none; }
+            .nav-links { display: none !important; }
+            main { padding-bottom: 70px; }
+            .bottom-nav {
+                display: flex;
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: white;
+                border-top: 1px solid #e0e0e0;
+                z-index: 9999;
+                box-shadow: 0 -2px 8px rgba(0,0,0,0.08);
+                transform: translateZ(0);
+            }
+            .bottom-nav a {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                padding: 0.4rem 0;
+                font-size: 0.65rem;
+                color: #888;
+                text-decoration: none;
+                gap: 2px;
+            }
+            .bottom-nav a.aktiv { color: var(--rot); }
+            .bottom-nav a span.icon { font-size: 1.3rem; }
+        }
+
+        /* MAIN */
+        main { flex: 1; max-width: 1200px; margin: 0 auto; padding: 2rem; width: 100%; }
+
+        /* MESSAGES */
+        .messages { list-style: none; margin-bottom: 1rem; }
+        .messages li {
+            padding: 0.75rem 1rem;
+            border-radius: 6px;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+        .messages .success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .messages .error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+
+        /* FOOTER */
+        footer {
+            background: var(--dunkelgrau);
+            color: #aaa;
+            text-align: center;
+            padding: 1rem;
+            font-size: 0.8rem;
+        }
+        footer a { color: var(--gold); text-decoration: none; }
+
+        /* UTILS */
+        .btn {
+            display: inline-flex; align-items: center; gap: 0.4rem;
+            padding: 0.5rem 1.1rem; border-radius: 5px; font-size: 0.9rem;
+            font-weight: 600; border: none; cursor: pointer; text-decoration: none;
+            transition: all 0.15s;
+        }
+        .btn-rot { background: var(--rot); color: white; }
+        .btn-rot:hover { background: var(--dunkelrot); }
+        .btn-outline { background: white; color: var(--rot); border: 2px solid var(--rot); }
+        .btn-outline:hover { background: var(--rot); color: white; }
+        .btn-grau { background: var(--grau); color: var(--dunkelgrau); border: 1px solid var(--rand); }
+        .btn-grau:hover { background: #e8e8e8; }
+        .btn-gold { background: var(--gold); color: white; }
+        .btn-gold:hover { background: #b8903c; }
+
+        h1 { font-size: 1.6rem; margin-bottom: 1.5rem; color: var(--dunkelgrau); }
+        h2 { font-size: 1.25rem; margin-bottom: 1rem; }
+    </style>
+    
+<style>
+.tabs-gruppe { margin-bottom: 0.5rem; }
+.tabs-label { font-size: 0.75rem; font-weight: 600; color: #999; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.4rem; }
+.tab-buttons { display: flex; flex-wrap: nowrap; gap: 0.4rem; margin-bottom: 1rem; overflow-x: auto; padding-bottom: 4px; scrollbar-width: thin; -webkit-overflow-scrolling: touch; }
+.tab-btn {
+    padding: 0.35rem 0.9rem; border-radius: 20px; font-size: 0.82rem; font-weight: 600;
+    border: 2px solid #ddd; background: white; color: #555;
+    cursor: pointer; text-decoration: none; transition: all 0.15s; white-space: nowrap;
+@media (max-width: 700px) {
+    .vorschlag-btn { display: none !important; }
+}
+}
+.tab-btn:hover { border-color: var(--rot); color: var(--rot); }
+.tab-btn.aktiv { background: var(--rot); border-color: var(--rot); color: white; }
+.tab-btn.aktiv-land { background: #0066cc; border-color: #0066cc; color: white; }
+.tab-btn:hover.aktiv-land { background: #0052a3; }
+
+.filter-bar {
+    background: #f9f9f9; border: 1px solid #e0e0e0; border-radius: 8px;
+    padding: 1rem 1.25rem; margin-bottom: 1.5rem;
+    display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: flex-end;
+}
+.filter-bar label { font-size: 0.8rem; font-weight: 600; color: #555; display: block; margin-bottom: 3px; }
+.filter-bar select, .filter-bar input[type=text] {
+    padding: 0.4rem 0.7rem; border: 1px solid #ccc; border-radius: 5px;
+    font-size: 0.875rem; background: white; min-width: 140px;
+}
+.filter-actions { display: flex; gap: 0.5rem; align-items: flex-end; }
+.stats-bar { color: #666; font-size: 0.875rem; margin-bottom: 1rem; }
+.stats-bar strong { color: #333; }
+
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.25rem; }
+.karte {
+    display: flex; flex-direction: column;
+    border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;
+    background: white; transition: box-shadow 0.2s, transform 0.15s; position: relative;
+}
+.karte:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.12); transform: translateY(-2px); }
+.karte a.bild-link { display: block; }
+.karte img { width: 100%; aspect-ratio: 2/1; object-fit: cover; display: block; background: #f0f0f0; }
+.karte-body { padding: 0.75rem; flex: 1; }
+.karte-nr { font-size: 0.75rem; color: #999; font-weight: 600; letter-spacing: 0.05em; }
+.karte-titel { font-weight: 700; font-size: 0.95rem; margin: 2px 0 4px; line-height: 1.3; }
+.karte-ort { font-size: 0.8rem; color: #666; }
+.karte-meta { margin-top: 0.4rem; font-size: 0.78rem; color: #999; display: flex; gap: 0.75rem; flex-wrap: wrap; }
+.karte-footer {
+    padding: 0.5rem 0.75rem; border-top: 1px solid #f0f0f0;
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: nowrap; gap: 0.3rem; overflow: hidden; min-height: 2.2rem;
+}
+.badge { font-size: 0.7rem; padding: 2px 7px; border-radius: 10px; font-weight: 600; }
+.badge-kanton { background: #f0f0f0; color: #555; }
+.badge-land { background: #e8f0fe; color: #1a56a0; border: 1px solid #b3ccf5; }
+.badge-seeland { background: #c9a84c22; color: #8a6a00; border: 1px solid #c9a84c55; }
+.badge-serie { background: #f0f9f0; color: #1a6e1a; border: 1px solid #b3e0b3; }
+.sammlung-btn {
+    position: absolute; top: 8px; right: 8px; background: white; border: none;
+    border-radius: 50%; width: 32px; height: 32px; font-size: 1rem; cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15); display: flex; align-items: center;
+    justify-content: center; transition: transform 0.15s; line-height: 1;
+}
+.sammlung-btn:hover { transform: scale(1.15); }
+.sammlung-btn.aktiv { background: #ffe8e8; }
+.leer { text-align: center; padding: 3rem; color: #999; font-size: 1rem; }
+</style>
+<div id="scroll-spinner" style="display:none;text-align:center;padding:2rem;">
+    <div style="display:inline-flex;align-items:center;gap:0.75rem;background:white;border:1px solid #e0e0e0;border-radius:30px;padding:0.6rem 1.5rem;box-shadow:0 2px 8px rgba(0,0,0,0.1);">
+        <span style="font-size:1.5rem;animation:spin 1s linear infinite;display:inline-block;">⏳</span>
+        <span style="color:#666;font-size:0.9rem;font-weight:600;">Loading more notes...</span>
+    </div>
+</div>
+<style>@keyframes spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }</style>
+
+<script>
+var currentPage = 2;
+var hasNext = true;
+var loading = false;
+
+function buildUrl(page) {
+    const params = new URLSearchParams(window.location.search);
+    params.set('page', page);
+    return '/katalog/?' + params.toString();
+}
+
+async function loadMore() {
+    if (!hasNext || loading) return;
+    loading = true;
+    document.getElementById('scroll-spinner').style.display = 'block';
+    try {
+        const resp = await fetch(buildUrl(currentPage), {
+            headers: { 'X-Requested-With': 'XMLHttpRequest' }
+        });
+        const data = await resp.json();
+        document.querySelector('.grid').insertAdjacentHTML('beforeend', data.html);
+        hasNext = data.has_next;
+        currentPage = data.next_page;
+    } catch(e) {
+        console.error('Fehler beim Laden:', e);
+    }
+    loading = false;
+    document.getElementById('scroll-spinner').style.display = 'none';
+}
+
+window.addEventListener('scroll', function() {
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 400) {
+        loadMore();
+    }
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const liste = JSON.parse(localStorage.getItem('zuletzt') || '[]').slice(0, 3);
+    if (liste.length === 0) return;
+    const container = document.getElementById('zuletzt-gesehen');
+    const listEl = document.getElementById('zuletzt-liste');
+    if (!container || !listEl) return;
+    listEl.innerHTML = liste.map(s =>
+        `<a href="${s.url}" style="display:inline-block;background:#f0f0f0;border:1px solid #ddd;border-radius:20px;padding:2px 10px;font-size:0.78rem;color:#555;text-decoration:none;margin-right:4px;">${s.motiv}</a>`
+    ).join('');
+    container.style.display = 'block';
+});
+</script>
+
+</head>
+<body>
+<nav>
+    <a href="/" class="nav-brand">
+        <span class="badge">0 €</span>
+        Souvenirscheine Schweiz
+    </a>
+    <span class="mobile-lang-switcher">
+        <a href="?lang=de" style="font-size:0.72rem;padding:2px 5px;border-radius:3px;text-decoration:none;color:rgba(255,255,255,0.6);">DE</a><a href="?lang=fr" style="font-size:0.72rem;padding:2px 5px;border-radius:3px;text-decoration:none;color:rgba(255,255,255,0.6);">FR</a><a href="?lang=en" style="font-size:0.72rem;padding:2px 5px;border-radius:3px;text-decoration:none;background:rgba(255,255,255,0.3);color:white;font-weight:700;">EN</a>
+    </span>
+    <button class="nav-toggle" onclick="document.getElementById('nav-menu').classList.toggle('open')">☰</button>
+    <div class="nav-links" id="nav-menu">
+        <a href="/">Home</a>
+        <a href="/katalog/">Catalogue</a>
+        <a href="/#kontakt">Contact</a>
+            <a href="/tauschboerse/" >Exchange</a>
+            <a href="/statistik/">Statistics</a>
+        
+            <a href="/meine-sammlung/">My Collection</a>
+            <a href="/profil/">Profile</a>
+            <form method="post" action="/accounts/logout/" style="display:inline;"><input type="hidden" name="csrfmiddlewaretoken" value="gYePZ5hlUpCF9LoYytRpX8Y4oQ0kZXP17x9PpPppJP7ko4RgJu513hdjzokGFlqd"><button type="submit" style="background:none;border:none;color:rgba(255,255,255,0.9);font-size:0.9rem;padding:4px 10px;border-radius:4px;cursor:pointer;">Logout (Alex)</button></form>
+        
+        <span style="display:flex;gap:2px;align-items:center;margin-left:0.5rem;border-left:1px solid rgba(255,255,255,0.3);padding-left:0.5rem;">
+            <a href="?lang=de" style="font-size:0.78rem;padding:2px 6px;border-radius:3px;text-decoration:none;color:rgba(255,255,255,0.6);">DE</a><a href="?lang=fr" style="font-size:0.78rem;padding:2px 6px;border-radius:3px;text-decoration:none;color:rgba(255,255,255,0.6);">FR</a><a href="?lang=en" style="font-size:0.78rem;padding:2px 6px;border-radius:3px;text-decoration:none;background:rgba(255,255,255,0.3);color:white;font-weight:700;">EN</a>
+        </span>
+    </div>
+</nav>
+
+<main>
+    
+    
+<h1>0-Euro Souvenir Notes</h1>
+
+<div id="zuletzt-gesehen" style="display:none;margin-bottom:1rem;">
+    <span style="font-size:0.78rem;color:#999;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;">Recently viewed:</span>
+    <span id="zuletzt-liste" style="margin-left:0.5rem;"></span>
+</div>
+
+
+<div class="tabs-gruppe">
+    <div class="tabs-label">Series</div>
+    <div class="tab-buttons">
+        <a href="javascript:void(0)" onclick="clearFilter('serie')"
+           class="tab-btn aktiv">All</a>
+        
+        <a href="javascript:void(0)" onclick="toggleFilter('serie', '5')"
+           class="tab-btn ">EUROSOUVENIR</a>
+        
+        <a href="javascript:void(0)" onclick="toggleFilter('serie', '6')"
+           class="tab-btn ">MEMOEURO</a>
+        
+        <a href="javascript:void(0)" onclick="toggleFilter('serie', '7')"
+           class="tab-btn ">ZEROSOUVENIR</a>
+        
+        <a href="javascript:void(0)" onclick="toggleFilter('serie', '9')"
+           class="tab-btn ">ESCUDOSOUVENIR</a>
+        
+        <a href="javascript:void(0)" onclick="toggleFilter('serie', '8')"
+           class="tab-btn ">PENNY PRESS</a>
+        
+    </div>
+</div>
+
+
+<div class="tabs-gruppe">
+    <div class="tabs-label">Type</div>
+    <div class="tab-buttons">
+        <a href="javascript:void(0)" onclick="clearFilter('typ')"
+           class="tab-btn aktiv" style="border-color:#888;">All</a>
+        
+        <a href="javascript:void(0)" onclick="toggleFilter('typ', '4')"
+           class="tab-btn " style="border-color:#888;">ANNIVERSARY 10</a>
+        
+        <a href="javascript:void(0)" onclick="toggleFilter('typ', '5')"
+           class="tab-btn " style="border-color:#888;">ANNIVERSARY 5</a>
+        
+        <a href="javascript:void(0)" onclick="toggleFilter('typ', '6')"
+           class="tab-btn " style="border-color:#888;">Polymer</a>
+        
+        <a href="javascript:void(0)" onclick="toggleFilter('typ', '3')"
+           class="tab-btn " style="border-color:#888;">Specimen</a>
+        
+        <a href="javascript:void(0)" onclick="toggleFilter('typ', '1')"
+           class="tab-btn " style="border-color:#888;">Standard</a>
+        
+        <a href="javascript:void(0)" onclick="toggleFilter('typ', '2')"
+           class="tab-btn " style="border-color:#888;">colored</a>
+        
+    </div>
+</div>
+
+
+<div class="tabs-gruppe">
+    <div class="tabs-label">Country</div>
+    <div class="tab-buttons">
+        <a href="?suche=&serie=[]&jahr="
+           class="tab-btn aktiv-land aktiv">All</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('12')" 
+        <a href="javascript:void(0)" onclick="toggleLand('12')" 
+           class="tab-btn "><img src="https://flagcdn.com/ad.svg" alt="AD" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Andorra</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('13')" 
+        <a href="javascript:void(0)" onclick="toggleLand('13')" 
+           class="tab-btn "><img src="https://flagcdn.com/ar.svg" alt="AR" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Argentina</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('16')" 
+        <a href="javascript:void(0)" onclick="toggleLand('16')" 
+           class="tab-btn "><img src="https://flagcdn.com/am.svg" alt="AM" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Armenia</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('17')" 
+        <a href="javascript:void(0)" onclick="toggleLand('17')" 
+           class="tab-btn "><img src="https://flagcdn.com/au.svg" alt="AU" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Australia</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('75')" 
+        <a href="javascript:void(0)" onclick="toggleLand('75')" 
+           class="tab-btn "><img src="https://flagcdn.com/at.svg" alt="AT" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Austria</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('18')" 
+        <a href="javascript:void(0)" onclick="toggleLand('18')" 
+           class="tab-btn "><img src="https://flagcdn.com/bh.svg" alt="BH" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Bahrain</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('71')" 
+        <a href="javascript:void(0)" onclick="toggleLand('71')" 
+           class="tab-btn "><img src="https://flagcdn.com/be.svg" alt="BE" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Belgium</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('20')" 
+        <a href="javascript:void(0)" onclick="toggleLand('20')" 
+           class="tab-btn "><img src="https://flagcdn.com/br.svg" alt="BR" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Brazil</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('21')" 
+        <a href="javascript:void(0)" onclick="toggleLand('21')" 
+           class="tab-btn "><img src="https://flagcdn.com/bg.svg" alt="BG" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Bulgaria</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('22')" 
+        <a href="javascript:void(0)" onclick="toggleLand('22')" 
+           class="tab-btn "><img src="https://flagcdn.com/kh.svg" alt="KH" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Cambodia</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('23')" 
+        <a href="javascript:void(0)" onclick="toggleLand('23')" 
+           class="tab-btn "><img src="https://flagcdn.com/ca.svg" alt="CA" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Canada</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('31')" 
+        <a href="javascript:void(0)" onclick="toggleLand('31')" 
+           class="tab-btn "><img src="https://flagcdn.com/cn.svg" alt="CN" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> China</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('25')" 
+        <a href="javascript:void(0)" onclick="toggleLand('25')" 
+           class="tab-btn "><img src="https://flagcdn.com/hr.svg" alt="HR" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Croatia</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('26')" 
+        <a href="javascript:void(0)" onclick="toggleLand('26')" 
+           class="tab-btn "><img src="https://flagcdn.com/cu.svg" alt="CU" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Cuba</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('24')" 
+        <a href="javascript:void(0)" onclick="toggleLand('24')" 
+           class="tab-btn "><img src="https://flagcdn.com/cy.svg" alt="CY" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Cyprus</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('74')" 
+        <a href="javascript:void(0)" onclick="toggleLand('74')" 
+           class="tab-btn "><img src="https://flagcdn.com/cz.svg" alt="CZ" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Czech Republic</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('27')" 
+        <a href="javascript:void(0)" onclick="toggleLand('27')" 
+           class="tab-btn "><img src="https://flagcdn.com/dk.svg" alt="DK" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Denmark</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('11')" 
+        <a href="javascript:void(0)" onclick="toggleLand('11')" 
+           class="tab-btn "><img src="https://flagcdn.com/eg.svg" alt="EG" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Egypt</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('29')" 
+        <a href="javascript:void(0)" onclick="toggleLand('29')" 
+           class="tab-btn "><img src="https://flagcdn.com/ee.svg" alt="EE" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Estonia</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('10')" 
+        <a href="javascript:void(0)" onclick="toggleLand('10')" 
+           class="tab-btn "><img src="https://flagcdn.com/fi.svg" alt="FI" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Finland</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('79')" 
+        <a href="javascript:void(0)" onclick="toggleLand('79')" 
+           class="tab-btn "><img src="https://flagcdn.com/fr.svg" alt="FR" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> France</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('30')" 
+        <a href="javascript:void(0)" onclick="toggleLand('30')" 
+           class="tab-btn "><img src="https://flagcdn.com/ge.svg" alt="GE" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Georgia</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('80')" 
+        <a href="javascript:void(0)" onclick="toggleLand('80')" 
+           class="tab-btn "><img src="https://flagcdn.com/de.svg" alt="DE" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Germany</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('69')" 
+        <a href="javascript:void(0)" onclick="toggleLand('69')" 
+           class="tab-btn "><img src="https://flagcdn.com/gb.svg" alt="GB" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Great Britain</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('32')" 
+        <a href="javascript:void(0)" onclick="toggleLand('32')" 
+           class="tab-btn "><img src="https://flagcdn.com/gr.svg" alt="GR" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Greece</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('33')" 
+        <a href="javascript:void(0)" onclick="toggleLand('33')" 
+           class="tab-btn "><img src="https://flagcdn.com/ht.svg" alt="HT" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Haiti</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('66')" 
+        <a href="javascript:void(0)" onclick="toggleLand('66')" 
+           class="tab-btn "><img src="https://flagcdn.com/hu.svg" alt="HU" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Hungary</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('38')" 
+        <a href="javascript:void(0)" onclick="toggleLand('38')" 
+           class="tab-btn "><img src="https://flagcdn.com/is.svg" alt="IS" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Iceland</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('34')" 
+        <a href="javascript:void(0)" onclick="toggleLand('34')" 
+           class="tab-btn "><img src="https://flagcdn.com/in.svg" alt="IN" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> India</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('35')" 
+        <a href="javascript:void(0)" onclick="toggleLand('35')" 
+           class="tab-btn "><img src="https://flagcdn.com/id.svg" alt="ID" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Indonesia</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('36')" 
+        <a href="javascript:void(0)" onclick="toggleLand('36')" 
+           class="tab-btn "><img src="https://flagcdn.com/iq.svg" alt="IQ" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Iraq</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('37')" 
+        <a href="javascript:void(0)" onclick="toggleLand('37')" 
+           class="tab-btn "><img src="https://flagcdn.com/ie.svg" alt="IE" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Ireland</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('8')" 
+        <a href="javascript:void(0)" onclick="toggleLand('8')" 
+           class="tab-btn "><img src="https://flagcdn.com/it.svg" alt="IT" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Italy</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('39')" 
+        <a href="javascript:void(0)" onclick="toggleLand('39')" 
+           class="tab-btn "><img src="https://flagcdn.com/jp.svg" alt="JP" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Japan</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('40')" 
+        <a href="javascript:void(0)" onclick="toggleLand('40')" 
+           class="tab-btn "><img src="https://flagcdn.com/jo.svg" alt="JO" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Jordan</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('41')" 
+        <a href="javascript:void(0)" onclick="toggleLand('41')" 
+           class="tab-btn "><img src="https://flagcdn.com/xk.svg" alt="XK" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Kosovo</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('42')" 
+        <a href="javascript:void(0)" onclick="toggleLand('42')" 
+           class="tab-btn "><img src="https://flagcdn.com/kw.svg" alt="KW" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Kuwait</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('44')" 
+        <a href="javascript:void(0)" onclick="toggleLand('44')" 
+           class="tab-btn "><img src="https://flagcdn.com/lv.svg" alt="LV" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Latvia</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('45')" 
+        <a href="javascript:void(0)" onclick="toggleLand('45')" 
+           class="tab-btn "><img src="https://flagcdn.com/lb.svg" alt="LB" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Lebanon</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('46')" 
+        <a href="javascript:void(0)" onclick="toggleLand('46')" 
+           class="tab-btn "><img src="https://flagcdn.com/ly.svg" alt="LY" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Libya</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('43')" 
+        <a href="javascript:void(0)" onclick="toggleLand('43')" 
+           class="tab-btn "><img src="https://flagcdn.com/lt.svg" alt="LT" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Lithuania</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('47')" 
+        <a href="javascript:void(0)" onclick="toggleLand('47')" 
+           class="tab-btn "><img src="https://flagcdn.com/lu.svg" alt="LU" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Luxembourg</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('48')" 
+        <a href="javascript:void(0)" onclick="toggleLand('48')" 
+           class="tab-btn "><img src="https://flagcdn.com/mg.svg" alt="MG" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Madagascar</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('49')" 
+        <a href="javascript:void(0)" onclick="toggleLand('49')" 
+           class="tab-btn "><img src="https://flagcdn.com/mt.svg" alt="MT" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Malta</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('65')" 
+        <a href="javascript:void(0)" onclick="toggleLand('65')" 
+           class="tab-btn "><img src="https://flagcdn.com/mu.svg" alt="MU" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Mauritius</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('51')" 
+        <a href="javascript:void(0)" onclick="toggleLand('51')" 
+           class="tab-btn "><img src="https://flagcdn.com/mx.svg" alt="MX" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Mexico</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('61')" 
+        <a href="javascript:void(0)" onclick="toggleLand('61')" 
+           class="tab-btn "><img src="https://flagcdn.com/mc.svg" alt="MC" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Monaco</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('50')" 
+        <a href="javascript:void(0)" onclick="toggleLand('50')" 
+           class="tab-btn "><img src="https://flagcdn.com/ma.svg" alt="MA" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Morocco</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('19')" 
+        <a href="javascript:void(0)" onclick="toggleLand('19')" 
+           class="tab-btn "><img src="https://flagcdn.com/mm.svg" alt="MM" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Myanmar</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('72')" 
+        <a href="javascript:void(0)" onclick="toggleLand('72')" 
+           class="tab-btn "><img src="https://flagcdn.com/nl.svg" alt="NL" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Netherlands</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('52')" 
+        <a href="javascript:void(0)" onclick="toggleLand('52')" 
+           class="tab-btn "><img src="https://flagcdn.com/no.svg" alt="NO" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Norway</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('53')" 
+        <a href="javascript:void(0)" onclick="toggleLand('53')" 
+           class="tab-btn "><img src="https://flagcdn.com/om.svg" alt="OM" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Oman</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('54')" 
+        <a href="javascript:void(0)" onclick="toggleLand('54')" 
+           class="tab-btn "><img src="https://flagcdn.com/ps.svg" alt="PS" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Palestine</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('55')" 
+        <a href="javascript:void(0)" onclick="toggleLand('55')" 
+           class="tab-btn "><img src="https://flagcdn.com/pe.svg" alt="PE" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Peru</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('73')" 
+        <a href="javascript:void(0)" onclick="toggleLand('73')" 
+           class="tab-btn "><img src="https://flagcdn.com/pl.svg" alt="PL" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Poland</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('77')" 
+        <a href="javascript:void(0)" onclick="toggleLand('77')" 
+           class="tab-btn "><img src="https://flagcdn.com/pt.svg" alt="PT" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Portugal</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('56')" 
+        <a href="javascript:void(0)" onclick="toggleLand('56')" 
+           class="tab-btn "><img src="https://flagcdn.com/qa.svg" alt="QA" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Qatar</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('81')" 
+        <a href="javascript:void(0)" onclick="toggleLand('81')" 
+           class="tab-btn "><img src="https://flagcdn.com/re.svg" alt="RE" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Reunion</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('62')" 
+        <a href="javascript:void(0)" onclick="toggleLand('62')" 
+           class="tab-btn "><img src="https://flagcdn.com/ro.svg" alt="RO" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Romania</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('63')" 
+        <a href="javascript:void(0)" onclick="toggleLand('63')" 
+           class="tab-btn "><img src="https://flagcdn.com/ru.svg" alt="RU" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Russia</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('64')" 
+        <a href="javascript:void(0)" onclick="toggleLand('64')" 
+           class="tab-btn "><img src="https://flagcdn.com/sm.svg" alt="SM" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> San Marino</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('15')" 
+        <a href="javascript:void(0)" onclick="toggleLand('15')" 
+           class="tab-btn "><img src="https://flagcdn.com/sa.svg" alt="SA" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Saudi Arabia</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('78')" 
+        <a href="javascript:void(0)" onclick="toggleLand('78')" 
+           class="tab-btn "><img src="https://flagcdn.com/sk.svg" alt="SK" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Slovakia</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('70')" 
+        <a href="javascript:void(0)" onclick="toggleLand('70')" 
+           class="tab-btn "><img src="https://flagcdn.com/si.svg" alt="SI" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Slovenia</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('14')" 
+        <a href="javascript:void(0)" onclick="toggleLand('14')" 
+           class="tab-btn "><img src="https://flagcdn.com/za.svg" alt="ZA" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> South Africa</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('76')" 
+        <a href="javascript:void(0)" onclick="toggleLand('76')" 
+           class="tab-btn "><img src="https://flagcdn.com/es.svg" alt="ES" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Spain</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('57')" 
+        <a href="javascript:void(0)" onclick="toggleLand('57')" 
+           class="tab-btn "><img src="https://flagcdn.com/se.svg" alt="SE" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Sweden</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('6')" 
+        <a href="javascript:void(0)" onclick="toggleLand('6')" 
+           class="tab-btn "><img src="https://flagcdn.com/ch.svg" alt="CH" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Switzerland</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('58')" 
+        <a href="javascript:void(0)" onclick="toggleLand('58')" 
+           class="tab-btn "><img src="https://flagcdn.com/th.svg" alt="TH" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Thailand</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('59')" 
+        <a href="javascript:void(0)" onclick="toggleLand('59')" 
+           class="tab-btn "><img src="https://flagcdn.com/tg.svg" alt="TG" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Togo</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('9')" 
+        <a href="javascript:void(0)" onclick="toggleLand('9')" 
+           class="tab-btn "><img src="https://flagcdn.com/tr.svg" alt="TR" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Turkey</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('60')" 
+        <a href="javascript:void(0)" onclick="toggleLand('60')" 
+           class="tab-btn "><img src="https://flagcdn.com/ua.svg" alt="UA" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Ukraine</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('28')" 
+        <a href="javascript:void(0)" onclick="toggleLand('28')" 
+           class="tab-btn "><img src="https://flagcdn.com/ae.svg" alt="AE" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> United Arab Emirates</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('68')" 
+        <a href="javascript:void(0)" onclick="toggleLand('68')" 
+           class="tab-btn "><img src="https://flagcdn.com/us.svg" alt="US" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> USA</a>
+        
+        <a href="javascript:void(0)" onclick="toggleLand('67')" 
+        <a href="javascript:void(0)" onclick="toggleLand('67')" 
+           class="tab-btn "><img src="https://flagcdn.com/va.svg" alt="VA" style="vertical-align:middle;margin-right:4px;width:20px;height:15px;"> Vatican</a>
+        
+    </div>
+</div>
+
+
+<form method="get" class="filter-bar">
+    
+    
+    
+    <div>
+        <label></label>
+        <div style="position:relative;">
+            <input type="text" name="suche" id="suche-input" value="" placeholder="Motive, place, issuer…" autocomplete="off" oninput="suchAutocomplete(this.value)">
+            <div id="autocomplete-list" style="display:none;position:absolute;top:100%;left:0;right:0;background:white;border:1px solid #ccc;border-radius:0 0 5px 5px;z-index:1000;box-shadow:0 4px 12px rgba(0,0,0,0.1);max-height:320px;overflow-y:auto;"></div>
+        </div>
+    </div>
+    <div>
+        <label>Year</label>
+        <select name="jahr">
+            <option value="">All Years</option>
+            
+                <option value="2015" >2015</option>
+            
+                <option value="2016" >2016</option>
+            
+                <option value="2017" >2017</option>
+            
+                <option value="2018" >2018</option>
+            
+                <option value="2019" >2019</option>
+            
+                <option value="2020" >2020</option>
+            
+                <option value="2021" >2021</option>
+            
+                <option value="2022" >2022</option>
+            
+                <option value="2023" >2023</option>
+            
+                <option value="2024" >2024</option>
+            
+                <option value="2025" >2025</option>
+            
+                <option value="2026" >2026</option>
+            
+                <option value="2027" >2027</option>
+            
+        </select>
+    </div>
+    <div>
+        <label>Sort by</label>
+        <select name="sort">
+            <option value="katalog_nr" selected>Catalogue number</option>
+            <option value="motiv" >Motive A–Z</option>
+            <option value="jahr_neu" >Year ↓</option>
+            <option value="jahr_alt" >Year ↑</option>
+            <option value="neu" >Recently added</option>
+        </select>
+    </div>
+    <div class="filter-actions">
+        <button type="submit" class="btn btn-rot">Apply</button>
+        <a href="/katalog/" class="btn btn-grau">Reset</a>
+        
+        <button type="button" onclick="document.getElementById('vorschlag-modal').style.display='flex'" class="btn btn-grau vorschlag-btn" style="margin-left:auto;white-space:nowrap;">💡 Suggest a note</button>
+        
+    </div>
+</form>
+
+<div style="display:flex;flex-wrap:wrap;gap:1rem;align-items:center;font-size:0.78rem;color:#888;background:#f8f8f8;border:1px solid #e8e8e8;border-radius:6px;padding:0.5rem 0.75rem;margin-bottom:0.75rem;">
+    <span>📅 Year of issue</span>
+    <span>🔢 Print run</span>
+    <span>👤 Number of collectors</span>
+    <span><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;vertical-align:middle;"></span> Still available</span>
+    <span><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#dc3545;vertical-align:middle;"></span> Sold out</span>
+    <span>📍 Location on map</span>
+    <span>🛒 Buy in shop</span>
+    <span class="badge badge-serie" style="font-size:0.75rem;">Series</span>
+    <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;font-size:0.75rem;">Type</span>
+</div>
+<p class="stats-bar"><strong>7096</strong> notes found</p>
+
+
+<div class="grid">
+    
+    <div class="karte" data-id="5240">
+        <a href="/schein/5240/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 5240)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UEMM-4</div>
+            <div class="karte-titel">Saintes-Maries-de-la-Mer</div>
+            <div class="karte-ort">France / Saintes-Maries-de-la-Mer</div>
+            <div class="karte-meta">
+                <span>📅 2024-4</span>
+                <span>🔢 3000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#dc3545;" title="Sold out"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="5513">
+        <a href="/schein/5513/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 5513)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UEMN-1</div>
+            <div class="karte-titel">Roc de Cazelle</div>
+            <div class="karte-ort">France / Les Eyzies-de-Tayac-Sireuil</div>
+            <div class="karte-meta">
+                <span>📅 2017-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="5133">
+        <a href="/schein/5133/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 5133)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UEMP-1</div>
+            <div class="karte-titel">Château de Queribus</div>
+            <div class="karte-ort">France / Cucugnan</div>
+            <div class="karte-meta">
+                <span>📅 2017-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#dc3545;" title="Sold out"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="5134">
+        <a href="/schein/5134/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 5134)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UEMP-2</div>
+            <div class="karte-titel">Château de Queribus</div>
+            <div class="karte-ort">France / Cucugnan</div>
+            <div class="karte-meta">
+                <span>📅 2024-2</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="5060">
+        <a href="/schein/5060/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 5060)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UEMQ-1</div>
+            <div class="karte-titel">Christmas</div>
+            <div class="karte-ort">France / -</div>
+            <div class="karte-meta">
+                <span>📅 2018-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="6356">
+        <a href="/schein/6356/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 6356)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UEMR-1</div>
+            <div class="karte-titel">4L Trophy 2019</div>
+            <div class="karte-ort">France / Ciboure</div>
+            <div class="karte-meta">
+                <span>📅 2019-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#dc3545;" title="Sold out"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="7020">
+        <a href="/schein/7020/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 7020)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UEMS-1</div>
+            <div class="karte-titel">Puces de Saint Ouen</div>
+            <div class="karte-ort">France / Saint-Ouen</div>
+            <div class="karte-meta">
+                <span>📅 2019-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="5964">
+        <a href="/schein/5964/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 5964)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UEMT-1</div>
+            <div class="karte-titel">Cevennes Mont-Lozere</div>
+            <div class="karte-ort">France / La Garde</div>
+            <div class="karte-meta">
+                <span>📅 2023-1</span>
+                <span>🔢 3000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="7040">
+        <a href="/schein/7040/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 7040)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UEMU-1</div>
+            <div class="karte-titel">Zoo de Guadeloupe</div>
+            <div class="karte-ort">France / Bouillante</div>
+            <div class="karte-meta">
+                <span>📅 2017-1</span>
+                <span>🔢 10000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="5103">
+        <a href="/schein/5103/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 5103)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UEMV-1</div>
+            <div class="karte-titel">Le Vieil Antibes</div>
+            <div class="karte-ort">France / Antibes</div>
+            <div class="karte-meta">
+                <span>📅 2019-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#dc3545;" title="Sold out"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="5561">
+        <a href="/schein/5561/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 5561)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UEMW-1</div>
+            <div class="karte-titel">Les Plus Beaux Calvaires de Bretagne</div>
+            <div class="karte-ort">France / Gouézec</div>
+            <div class="karte-meta">
+                <span>📅 2017-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="5562">
+        <a href="/schein/5562/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 5562)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UEMW-2</div>
+            <div class="karte-titel">Gouézec</div>
+            <div class="karte-ort">France / Gouézec</div>
+            <div class="karte-meta">
+                <span>📅 2021-2</span>
+                <span>🔢 2000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="5563">
+        <a href="/schein/5563/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 5563)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UEMW-2A</div>
+            <div class="karte-titel">Gouézec ANNIVERSARY</div>
+            <div class="karte-ort">France / Gouézec</div>
+            <div class="karte-meta">
+                <span>📅 2021-2</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 5</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="5564">
+        <a href="/schein/5564/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 5564)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UEMW-3</div>
+            <div class="karte-titel">Gouézec</div>
+            <div class="karte-ort">France / Gouézec</div>
+            <div class="karte-meta">
+                <span>📅 2021-3</span>
+                <span>🔢 2000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="5565">
+        <a href="/schein/5565/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 5565)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UEMW-3A</div>
+            <div class="karte-titel">Gouézec ANNIVERSARY</div>
+            <div class="karte-ort">France / Gouézec</div>
+            <div class="karte-meta">
+                <span>📅 2021-3</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 5</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="5566">
+        <a href="/schein/5566/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 5566)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UEMW-4</div>
+            <div class="karte-titel">Douarnenez</div>
+            <div class="karte-ort">France / Douarnenez</div>
+            <div class="karte-meta">
+                <span>📅 2021-4</span>
+                <span>🔢 2000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="5567">
+        <a href="/schein/5567/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 5567)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UEMW-4A</div>
+            <div class="karte-titel">Douarnenez ANNIVERSARY</div>
+            <div class="karte-ort">France / Douarnenez</div>
+            <div class="karte-meta">
+                <span>📅 2021-4</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 5</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="5568">
+        <a href="/schein/5568/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 5568)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UEMW-5</div>
+            <div class="karte-titel">Les Phares de Bretagne</div>
+            <div class="karte-ort">France / Penmarc&#x27;h</div>
+            <div class="karte-meta">
+                <span>📅 2021-5</span>
+                <span>🔢 2000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="5569">
+        <a href="/schein/5569/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 5569)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UEMW-5A</div>
+            <div class="karte-titel">Les Phares de Bretagne ANNIVERSARY</div>
+            <div class="karte-ort">France / Penmarc&#x27;h</div>
+            <div class="karte-meta">
+                <span>📅 2021-5</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 5</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="5570">
+        <a href="/schein/5570/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 5570)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UEMW-6</div>
+            <div class="karte-titel">Les Phares de Bretagne</div>
+            <div class="karte-ort">France / Plouzané</div>
+            <div class="karte-meta">
+                <span>📅 2021-6</span>
+                <span>🔢 2000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="5571">
+        <a href="/schein/5571/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 5571)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UEMW-6A</div>
+            <div class="karte-titel">Les Phares de Bretagne ANNIVERSARY</div>
+            <div class="karte-ort">France / Plouzané</div>
+            <div class="karte-meta">
+                <span>📅 2021-6</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 5</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="5572">
+        <a href="/schein/5572/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 5572)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UEMW-7</div>
+            <div class="karte-titel">Les Phares de Bretagne</div>
+            <div class="karte-ort">France / Plouzané</div>
+            <div class="karte-meta">
+                <span>📅 2021-8</span>
+                <span>🔢 2000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="5573">
+        <a href="/schein/5573/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 5573)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UEMW-7A</div>
+            <div class="karte-titel">Les Phares de Bretagne ANNIVERSARY</div>
+            <div class="karte-ort">France / Plouzané</div>
+            <div class="karte-meta">
+                <span>📅 2021-8</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 5</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="5574">
+        <a href="/schein/5574/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 5574)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UEMW-8</div>
+            <div class="karte-titel">Les Phares de Bretagne</div>
+            <div class="karte-ort">France / Penmarc&#x27;h</div>
+            <div class="karte-meta">
+                <span>📅 2021-10</span>
+                <span>🔢 2000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="5575">
+        <a href="/schein/5575/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 5575)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UEMW-8A</div>
+            <div class="karte-titel">Les Phares de Bretagne ANNIVERSARY</div>
+            <div class="karte-ort">France / Penmarc&#x27;h</div>
+            <div class="karte-meta">
+                <span>📅 2021-10</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 5</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="5576">
+        <a href="/schein/5576/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 5576)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UEMW-9</div>
+            <div class="karte-titel">Les Phares de Bretagne</div>
+            <div class="karte-ort">France / Plouzané</div>
+            <div class="karte-meta">
+                <span>📅 2021-11</span>
+                <span>🔢 2000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="5577">
+        <a href="/schein/5577/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 5577)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UEMW-9A</div>
+            <div class="karte-titel">Les Phares de Bretagne ANNIVERSARY</div>
+            <div class="karte-ort">France / Plouzané</div>
+            <div class="karte-meta">
+                <span>📅 2021-11</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 5</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="6709">
+        <a href="/schein/6709/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 6709)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UEMY-1</div>
+            <div class="karte-titel">Vedettes de Paris</div>
+            <div class="karte-ort">France / Paris</div>
+            <div class="karte-meta">
+                <span>📅 2019-1</span>
+                <span>🔢 10000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#dc3545;" title="Sold out"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="6710">
+        <a href="/schein/6710/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 6710)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UEMY-2</div>
+            <div class="karte-titel">Vedettes de Paris</div>
+            <div class="karte-ort">France / Paris</div>
+            <div class="karte-meta">
+                <span>📅 2022-2</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#dc3545;" title="Sold out"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="6711">
+        <a href="/schein/6711/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 6711)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UEMY-3</div>
+            <div class="karte-titel">Vedettes de Paris</div>
+            <div class="karte-ort">France / Paris</div>
+            <div class="karte-meta">
+                <span>📅 2023-2</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#dc3545;" title="Sold out"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="6712">
+        <a href="/schein/6712/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 6712)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UEMY-4</div>
+            <div class="karte-titel">Vedettes de Paris</div>
+            <div class="karte-ort">France / Paris</div>
+            <div class="karte-meta">
+                <span>📅 2024-3</span>
+                <span>🔢 3000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="6713">
+        <a href="/schein/6713/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 6713)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UEMY-5</div>
+            <div class="karte-titel">Vedettes de Paris</div>
+            <div class="karte-ort">France / Paris</div>
+            <div class="karte-meta">
+                <span>📅 2026-4</span>
+                <span>🔢 3000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="6271">
+        <a href="/schein/6271/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 6271)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UEMZ-1</div>
+            <div class="karte-titel">Village de Montpeyroux</div>
+            <div class="karte-ort">France / Montpeyroux</div>
+            <div class="karte-meta">
+                <span>📅 2018-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="6714">
+        <a href="/schein/6714/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 6714)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UENA-1</div>
+            <div class="karte-titel">Exposition Universelle de Paris</div>
+            <div class="karte-ort">France / Paris</div>
+            <div class="karte-meta">
+                <span>📅 2019-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#dc3545;" title="Sold out"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="6715">
+        <a href="/schein/6715/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 6715)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UENA-2</div>
+            <div class="karte-titel">2ème D.B.</div>
+            <div class="karte-ort">France / Paris</div>
+            <div class="karte-meta">
+                <span>📅 2019-2</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#dc3545;" title="Sold out"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="6716">
+        <a href="/schein/6716/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 6716)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UENA-3</div>
+            <div class="karte-titel">120 Ans Exposition Paris 1900</div>
+            <div class="karte-ort">France / Paris</div>
+            <div class="karte-meta">
+                <span>📅 2020-4</span>
+                <span>🔢 4000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#dc3545;" title="Sold out"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="6717">
+        <a href="/schein/6717/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 6717)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UENA-3A</div>
+            <div class="karte-titel">120 Ans Exposition Paris 1900 ANNIVERSARY</div>
+            <div class="karte-ort">France / Paris</div>
+            <div class="karte-meta">
+                <span>📅 2020-4</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 5</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#dc3545;" title="Sold out"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="6718">
+        <a href="/schein/6718/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 6718)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UENA-4</div>
+            <div class="karte-titel">Ordre du Temple</div>
+            <div class="karte-ort">France / Paris</div>
+            <div class="karte-meta">
+                <span>📅 2020-5</span>
+                <span>🔢 4000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#dc3545;" title="Sold out"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="6719">
+        <a href="/schein/6719/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 6719)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UENA-4A</div>
+            <div class="karte-titel">Ordre du Temple ANNIVERSARY</div>
+            <div class="karte-ort">France / Paris</div>
+            <div class="karte-meta">
+                <span>📅 2020-5</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 5</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#dc3545;" title="Sold out"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="5848">
+        <a href="/schein/5848/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 5848)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UENA-5</div>
+            <div class="karte-titel">Côte d&#x27;Argent</div>
+            <div class="karte-ort">France / Léon</div>
+            <div class="karte-meta">
+                <span>📅 2021-6</span>
+                <span>🔢 2000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="5849">
+        <a href="/schein/5849/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 5849)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UENA-5A</div>
+            <div class="karte-titel">Côte d&#x27;Argent ANNIVERSARY</div>
+            <div class="karte-ort">France / Léon</div>
+            <div class="karte-meta">
+                <span>📅 2021-6</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 5</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="6720">
+        <a href="/schein/6720/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 6720)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UENA-6</div>
+            <div class="karte-titel">Nostradamus</div>
+            <div class="karte-ort">France / Paris</div>
+            <div class="karte-meta">
+                <span>📅 2021-7</span>
+                <span>🔢 2000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="6721">
+        <a href="/schein/6721/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 6721)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UENA-6A</div>
+            <div class="karte-titel">Nostradamus ANNIVERSARY</div>
+            <div class="karte-ort">France / Paris</div>
+            <div class="karte-meta">
+                <span>📅 2021-7</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 5</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="6722">
+        <a href="/schein/6722/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 6722)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UENA-7</div>
+            <div class="karte-titel">Joyeuses Pâques</div>
+            <div class="karte-ort">France / Paris</div>
+            <div class="karte-meta">
+                <span>📅 2022-8</span>
+                <span>🔢 2000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="6723">
+        <a href="/schein/6723/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 6723)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UENA-7A</div>
+            <div class="karte-titel">Joyeuses Pâques ANNIVERSARY</div>
+            <div class="karte-ort">France / Paris</div>
+            <div class="karte-meta">
+                <span>📅 2022-8</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 5</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="6724">
+        <a href="/schein/6724/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 6724)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UENA-8</div>
+            <div class="karte-titel">Maria Salomea Sklodowska - Marie Curie</div>
+            <div class="karte-ort">France / Paris</div>
+            <div class="karte-meta">
+                <span>📅 2023-9</span>
+                <span>🔢 3000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="6725">
+        <a href="/schein/6725/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 6725)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UENA-9</div>
+            <div class="karte-titel">2024 Annee du Dragon</div>
+            <div class="karte-ort">France / --</div>
+            <div class="karte-meta">
+                <span>📅 2023-10</span>
+                <span>🔢 3000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="6726">
+        <a href="/schein/6726/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 6726)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UENA-10</div>
+            <div class="karte-titel">2024 Annee du Dragon</div>
+            <div class="karte-ort">France / --</div>
+            <div class="karte-meta">
+                <span>📅 2024-10</span>
+                <span>🔢 6000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="6727">
+        <a href="/schein/6727/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 6727)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UENA-11</div>
+            <div class="karte-titel">2025 Annee du Serpent</div>
+            <div class="karte-ort">France / --</div>
+            <div class="karte-meta">
+                <span>📅 2025-11</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="6728">
+        <a href="/schein/6728/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 6728)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UENA-11A</div>
+            <div class="karte-titel">2025 Annee du Serpent ANNIVERSARY</div>
+            <div class="karte-ort">France / --</div>
+            <div class="karte-meta">
+                <span>📅 2025-11</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 10</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="6729">
+        <a href="/schein/6729/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 6729)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UENA-12</div>
+            <div class="karte-titel">8 Mai 1945 : 80th VE Day</div>
+            <div class="karte-ort">France / Paris</div>
+            <div class="karte-meta">
+                <span>📅 2025-12</span>
+                <span>🔢 2000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="6730">
+        <a href="/schein/6730/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 6730)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UENA-12A</div>
+            <div class="karte-titel">8 Mai 1945 : 80th VE Day ANNIVERSARY</div>
+            <div class="karte-ort">France / Paris</div>
+            <div class="karte-meta">
+                <span>📅 2025-12</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 10</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="6731">
+        <a href="/schein/6731/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 6731)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UENA-13</div>
+            <div class="karte-titel">250 Years Independence USA</div>
+            <div class="karte-ort">France / Paris</div>
+            <div class="karte-meta">
+                <span>📅 2026-13</span>
+                <span>🔢 3000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="5535">
+        <a href="/schein/5535/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 5535)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UENB-1</div>
+            <div class="karte-titel">Montélimar</div>
+            <div class="karte-ort">France / Montélimar</div>
+            <div class="karte-meta">
+                <span>📅 2017-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="6272">
+        <a href="/schein/6272/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 6272)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UENC-1</div>
+            <div class="karte-titel">Champions de France 2017</div>
+            <div class="karte-ort">France / Clermont-Ferrand</div>
+            <div class="karte-meta">
+                <span>📅 2017-1</span>
+                <span>🔢 10000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="6790">
+        <a href="/schein/6790/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 6790)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UEND-1</div>
+            <div class="karte-titel">Musée de la Gendarmerie Nationale</div>
+            <div class="karte-ort">France / Melun</div>
+            <div class="karte-meta">
+                <span>📅 2017-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="108">
+        <a href="/schein/108/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 108)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UENE-1</div>
+            <div class="karte-titel">20 ans ca se fête</div>
+            <div class="karte-ort">Switzerland / Jura / Alle</div>
+            <div class="karte-meta">
+                <span>📅 2023-1</span>
+                <span>🔢 3000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="109">
+        <a href="/schein/109/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 109)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UENE-2</div>
+            <div class="karte-titel">Partons ensemble</div>
+            <div class="karte-ort">Switzerland / Jura / Alle</div>
+            <div class="karte-meta">
+                <span>📅 2024-2</span>
+                <span>🔢 3000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="6466">
+        <a href="/schein/6466/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 6466)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UENE-3</div>
+            <div class="karte-titel">Mulhouse Schweissdissi</div>
+            <div class="karte-ort">France / Mülhausen</div>
+            <div class="karte-meta">
+                <span>📅 2026-4</span>
+                <span>🔢 3000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="6128">
+        <a href="/schein/6128/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 6128)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UENF-1</div>
+            <div class="karte-titel">Villa Cavrois</div>
+            <div class="karte-ort">France / Croix</div>
+            <div class="karte-meta">
+                <span>📅 2023-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="5432">
+        <a href="/schein/5432/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 5432)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UENG-1</div>
+            <div class="karte-titel">Palais Jacques-Coeur</div>
+            <div class="karte-ort">France / Bourges</div>
+            <div class="karte-meta">
+                <span>📅 2023-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="5241">
+        <a href="/schein/5241/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 5241)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UENH-1</div>
+            <div class="karte-titel">Abbaye de Montmajour</div>
+            <div class="karte-ort">France / Arles</div>
+            <div class="karte-meta">
+                <span>📅 2023-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="5104">
+        <a href="/schein/5104/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 5104)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UENJ-1</div>
+            <div class="karte-titel">Villa Kerylos</div>
+            <div class="karte-ort">France / Beaulieu-sur-Mer</div>
+            <div class="karte-meta">
+                <span>📅 2023-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="6820">
+        <a href="/schein/6820/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 6820)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UENL-1</div>
+            <div class="karte-titel">Château de Rambouillet</div>
+            <div class="karte-ort">France / Rambouillet</div>
+            <div class="karte-meta">
+                <span>📅 2023-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="5915">
+        <a href="/schein/5915/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 5915)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UENM-1</div>
+            <div class="karte-titel">Cloître Notre-Dame du Puy</div>
+            <div class="karte-ort">France / Le Puy-en-Velay</div>
+            <div class="karte-meta">
+                <span>📅 2023-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="6110">
+        <a href="/schein/6110/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 6110)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UENN-1</div>
+            <div class="karte-titel">Site des Megalithes de Locmariaquer</div>
+            <div class="karte-ort">France / Locmariaquer</div>
+            <div class="karte-meta">
+                <span>📅 2023-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="5458">
+        <a href="/schein/5458/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 5458)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UENQ-1</div>
+            <div class="karte-titel">Hospices de Beaune</div>
+            <div class="karte-ort">France / Beaune</div>
+            <div class="karte-meta">
+                <span>📅 2019-1</span>
+                <span>🔢 10000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#dc3545;" title="Sold out"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="5459">
+        <a href="/schein/5459/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 5459)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UENQ-2</div>
+            <div class="karte-titel">Hospices de Beaune</div>
+            <div class="karte-ort">France / Beaune</div>
+            <div class="karte-meta">
+                <span>📅 2022-2</span>
+                <span>🔢 8000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#dc3545;" title="Sold out"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="5460">
+        <a href="/schein/5460/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 5460)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UENQ-2A</div>
+            <div class="karte-titel">Hospices de Beaune ANNIVERSARY</div>
+            <div class="karte-ort">France / Beaune</div>
+            <div class="karte-meta">
+                <span>📅 2022-2</span>
+                <span>🔢 2000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 5</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#dc3545;" title="Sold out"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="5461">
+        <a href="/schein/5461/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 5461)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UENQ-3</div>
+            <div class="karte-titel">Hospices de Beaune</div>
+            <div class="karte-ort">France / Beaune</div>
+            <div class="karte-meta">
+                <span>📅 2024-2</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="5462">
+        <a href="/schein/5462/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 5462)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UENQ-4</div>
+            <div class="karte-titel">Hospices de Beaune</div>
+            <div class="karte-ort">France / Beaune</div>
+            <div class="karte-meta">
+                <span>📅 2025-2</span>
+                <span>🔢 4000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#dc3545;" title="Sold out"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="5463">
+        <a href="/schein/5463/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 5463)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UENQ-4A</div>
+            <div class="karte-titel">Hospices de Beaune ANNIVERSARY</div>
+            <div class="karte-ort">France / Beaune</div>
+            <div class="karte-meta">
+                <span>📅 2025-2</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 10</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#dc3545;" title="Sold out"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="5464">
+        <a href="/schein/5464/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 5464)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UENQ-5</div>
+            <div class="karte-titel">Hospices de Beaune</div>
+            <div class="karte-ort">France / Beaune</div>
+            <div class="karte-meta">
+                <span>📅 2026-2</span>
+                <span>🔢 8000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="5242">
+        <a href="/schein/5242/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 5242)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UENR-1</div>
+            <div class="karte-titel">Mucem - Fort Saint-Jean</div>
+            <div class="karte-ort">France / Marseille</div>
+            <div class="karte-meta">
+                <span>📅 2024-1</span>
+                <span>🔢 3000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="6129">
+        <a href="/schein/6129/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 6129)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UENS-1</div>
+            <div class="karte-titel">Lille</div>
+            <div class="karte-ort">France / Lille</div>
+            <div class="karte-meta">
+                <span>📅 2020-1</span>
+                <span>🔢 4000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#dc3545;" title="Sold out"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="6130">
+        <a href="/schein/6130/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 6130)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UENS-1A</div>
+            <div class="karte-titel">Lille ANNIVERSARY</div>
+            <div class="karte-ort">France / Lille</div>
+            <div class="karte-meta">
+                <span>📅 2020-1</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 5</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#dc3545;" title="Sold out"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="6131">
+        <a href="/schein/6131/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 6131)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UENS-2</div>
+            <div class="karte-titel">Lille - Vieux-Lille</div>
+            <div class="karte-ort">France / Lille</div>
+            <div class="karte-meta">
+                <span>📅 2025-2</span>
+                <span>🔢 2000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="6132">
+        <a href="/schein/6132/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 6132)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UENS-2A</div>
+            <div class="karte-titel">Lille - Vieux-Lille ANNIVERSARY</div>
+            <div class="karte-ort">France / Lille</div>
+            <div class="karte-meta">
+                <span>📅 2025-2</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 10</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="5546">
+        <a href="/schein/5546/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 5546)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UENT-1</div>
+            <div class="karte-titel">Château de Maintenon</div>
+            <div class="karte-ort">France / Maintenon</div>
+            <div class="karte-meta">
+                <span>📅 2019-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="5986">
+        <a href="/schein/5986/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 5986)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UENU-1</div>
+            <div class="karte-titel">Musée des Blindes</div>
+            <div class="karte-ort">France / Saumur</div>
+            <div class="karte-meta">
+                <span>📅 2022-1</span>
+                <span>🔢 2000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#dc3545;" title="Sold out"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="5987">
+        <a href="/schein/5987/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 5987)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UENU-1A</div>
+            <div class="karte-titel">Musée des Blindes ANNIVERSARY</div>
+            <div class="karte-ort">France / Saumur</div>
+            <div class="karte-meta">
+                <span>📅 2022-1</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 5</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#dc3545;" title="Sold out"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="5988">
+        <a href="/schein/5988/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 5988)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UENU-2</div>
+            <div class="karte-titel">Musée des Blindes</div>
+            <div class="karte-ort">France / Saumur</div>
+            <div class="karte-meta">
+                <span>📅 2023-2</span>
+                <span>🔢 3000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#dc3545;" title="Sold out"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="5989">
+        <a href="/schein/5989/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 5989)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UENU-3</div>
+            <div class="karte-titel">Musée des Blindes</div>
+            <div class="karte-ort">France / Saumur</div>
+            <div class="karte-meta">
+                <span>📅 2024-3</span>
+                <span>🔢 3000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="5990">
+        <a href="/schein/5990/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 5990)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UENU-4</div>
+            <div class="karte-titel">Musée des Blindes</div>
+            <div class="karte-ort">France / Saumur</div>
+            <div class="karte-meta">
+                <span>📅 2025-4</span>
+                <span>🔢 2000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="5991">
+        <a href="/schein/5991/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 5991)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UENU-4A</div>
+            <div class="karte-titel">Musée des Blindes ANNIVERSARY</div>
+            <div class="karte-ort">France / Saumur</div>
+            <div class="karte-meta">
+                <span>📅 2025-4</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 10</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="5992">
+        <a href="/schein/5992/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 5992)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UENU-5</div>
+            <div class="karte-titel">Musée des Blindes</div>
+            <div class="karte-ort">France / Saumur</div>
+            <div class="karte-meta">
+                <span>📅 2026-5</span>
+                <span>🔢 3000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="6111">
+        <a href="/schein/6111/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 6111)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UENW-1</div>
+            <div class="karte-titel">Domaine de Suscinio</div>
+            <div class="karte-ort">France / Sarzeau</div>
+            <div class="karte-meta">
+                <span>📅 2021-1</span>
+                <span>🔢 2000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#dc3545;" title="Sold out"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="6112">
+        <a href="/schein/6112/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 6112)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UENW-1A</div>
+            <div class="karte-titel">Domaine de Suscinio ANNIVERSARY</div>
+            <div class="karte-ort">France / Sarzeau</div>
+            <div class="karte-meta">
+                <span>📅 2021-1</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 5</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#dc3545;" title="Sold out"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="6113">
+        <a href="/schein/6113/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 6113)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UENW-2</div>
+            <div class="karte-titel">Suscinio, Domaine des Ducs de Bretagne</div>
+            <div class="karte-ort">France / Sarzeau</div>
+            <div class="karte-meta">
+                <span>📅 2022-2</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#dc3545;" title="Sold out"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="6114">
+        <a href="/schein/6114/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 6114)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UENW-3</div>
+            <div class="karte-titel">Suscinio, Domaine des Ducs de Bretagne</div>
+            <div class="karte-ort">France / Sarzeau</div>
+            <div class="karte-meta">
+                <span>📅 2025-2</span>
+                <span>🔢 2000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="6115">
+        <a href="/schein/6115/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 6115)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UENW-3A</div>
+            <div class="karte-titel">Suscinio, Domaine des Ducs de Bretagne ANNIVERSARY</div>
+            <div class="karte-ort">France / Sarzeau</div>
+            <div class="karte-meta">
+                <span>📅 2025-2</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 10</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="6116">
+        <a href="/schein/6116/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 6116)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UENW-4</div>
+            <div class="karte-titel">Suscinio, Domaine des Ducs de Bretagne</div>
+            <div class="karte-ort">France / Sarzeau</div>
+            <div class="karte-meta">
+                <span>📅 2026-3</span>
+                <span>🔢 3000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="5351">
+        <a href="/schein/5351/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 5351)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UENX-1</div>
+            <div class="karte-titel">Honfleur - Clocher et Église Sainte-Catherine</div>
+            <div class="karte-ort">France / Honfleur</div>
+            <div class="karte-meta">
+                <span>📅 2019-1</span>
+                <span>🔢 10000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="5835">
+        <a href="/schein/5835/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 5835)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UENZ-1</div>
+            <div class="karte-titel">Cité Royale de Loches - Le Logis</div>
+            <div class="karte-ort">France / Loches</div>
+            <div class="karte-meta">
+                <span>📅 2019-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="5836">
+        <a href="/schein/5836/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 5836)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UENZ-2</div>
+            <div class="karte-titel">Cité Royale de Loches - Le Donjon</div>
+            <div class="karte-ort">France / Loches</div>
+            <div class="karte-meta">
+                <span>📅 2019-2</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="5121">
+        <a href="/schein/5121/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 5121)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UEPA-1</div>
+            <div class="karte-titel">Château de Foix</div>
+            <div class="karte-ort">France / Foix</div>
+            <div class="karte-meta">
+                <span>📅 2025-1</span>
+                <span>🔢 2000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="5122">
+        <a href="/schein/5122/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 5122)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UEPA-1A</div>
+            <div class="karte-titel">Château de Foix ANNIVERSARY</div>
+            <div class="karte-ort">France / Foix</div>
+            <div class="karte-meta">
+                <span>📅 2025-1</span>
+                <span>🔢 1000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">ANNIVERSARY 10</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="5123">
+        <a href="/schein/5123/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 5123)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UEPA-2</div>
+            <div class="karte-titel">Ariege Préhistoire</div>
+            <div class="karte-ort">France / Le Mas-d&#x27;Azil</div>
+            <div class="karte-meta">
+                <span>📅 2026-2</span>
+                <span>🔢 3000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="5514">
+        <a href="/schein/5514/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 5514)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UEPC-1</div>
+            <div class="karte-titel">La Roque-Gageac</div>
+            <div class="karte-ort">France / La Roque-Gageac</div>
+            <div class="karte-meta">
+                <span>📅 2019-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+    <div class="karte" data-id="5739">
+        <a href="/schein/5739/" class="bild-link">
+            
+                <div style="height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:2rem;">💶</div>
+            
+        </a>
+        
+        <button
+            class="sammlung-btn "
+            title="Zu Sammlung hinzufügen"
+            onclick="toggleSammlung(this, 5739)"
+        >☆</button>
+        
+        <div class="karte-body">
+            <div class="karte-nr">UEPF-1</div>
+            <div class="karte-titel">Enserune, Oppidum et Musée Archeologique</div>
+            <div class="karte-ort">France / Nissan-lez-Ensérune</div>
+            <div class="karte-meta">
+                <span>📅 2023-1</span>
+                <span>🔢 5000 Ex.</span>
+                
+            </div>
+        </div>
+        <div class="karte-footer">
+            <span class="badge" style="background:#e8f4fd;color:#0c5460;border:1px solid #b8daff;">Standard</span>
+            <span class="badge badge-serie">EUROSOUVENIR</span>
+            
+            
+            
+            
+            <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#28a745;" title="Still available"></span>
+            
+
+        </div>
+    </div>
+    
+</div>
+
+
+<script>
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let c of cookies) {
+            c = c.trim();
+            if (c.startsWith(name + '=')) { cookieValue = decodeURIComponent(c.substring(name.length + 1)); break; }
+        }
+    }
+    return cookieValue;
+}
+async function toggleSammlung(btn, id) {
+    const resp = await fetch(`/schein/${id}/toggle/`, {
+        method: 'POST', headers: { 'X-CSRFToken': getCookie('csrftoken') }
+    });
+    const data = await resp.json();
+    btn.textContent = data.in_sammlung ? '★' : '☆';
+    btn.classList.toggle('aktiv', data.in_sammlung);
+    btn.title = data.in_sammlung ? 'Aus Sammlung entfernen' : 'Zu Sammlung hinzufügen';
+}
+
+async function suchAutocomplete(q) {
+    const list = document.getElementById('autocomplete-list');
+    if (q.length < 2) { list.style.display = 'none'; return; }
+    const resp = await fetch(`/autocomplete/?q=${encodeURIComponent(q)}`);
+    const data = await resp.json();
+    if (!data.results.length) { list.style.display = 'none'; return; }
+    list.innerHTML = data.results.map(r => `
+        <a href="${r.url}" style="display:flex;align-items:center;gap:0.75rem;padding:0.6rem 0.8rem;text-decoration:none;color:#333;border-bottom:1px solid #f0f0f0;">
+            <span style="font-size:0.72rem;color:#999;font-weight:600;min-width:60px;">${r.katalog_nr}</span>
+            <span style="flex:1;">
+                <span style="font-weight:600;font-size:0.875rem;">${r.label}</span>
+                <span style="font-size:0.78rem;color:#888;display:block;">${r.ort}</span>
+            </span>
+        </a>
+    `).join('');
+    list.style.display = 'block';
+}
+
+document.addEventListener('click', function(e) {
+    const list = document.getElementById('autocomplete-list');
+    if (list && !list.contains(e.target) && e.target.id !== 'suche-input') {
+        list.style.display = 'none';
+    }
+});
+</script>
+<script>
+function toggleFilter(key, val) {
+    var params = new URLSearchParams(window.location.search);
+    var vals = params.getAll(key);
+    var idx = vals.indexOf(String(val));
+    if (idx !== -1) { vals.splice(idx, 1); } else { vals.push(String(val)); }
+    params.delete(key);
+    vals.forEach(function(v) { params.append(key, v); });
+    params.delete('page');
+    window.location.search = params.toString();
+}
+function clearFilter(key) {
+    var params = new URLSearchParams(window.location.search);
+    params.delete(key);
+    params.delete('page');
+    window.location.search = params.toString();
+}
+function toggleLand(landId) {
+    var params = new URLSearchParams(window.location.search);
+    var laender = params.getAll('land');
+    var idx = laender.indexOf(String(landId));
+    if (idx !== -1) {
+        laender.splice(idx, 1);
+    } else {
+        laender.push(String(landId));
+    }
+    params.delete('land');
+    laender.forEach(function(l) { params.append('land', l); });
+    params.delete('page');
+    window.location.search = params.toString();
+}
+</script>
+
+
+
+<div id="vorschlag-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:9999;align-items:center;justify-content:center;padding:1rem;">
+    <div style="background:white;border-radius:10px;padding:2rem;max-width:520px;width:100%;max-height:90vh;overflow-y:auto;position:relative;">
+        <button onclick="document.getElementById('vorschlag-modal').style.display='none'" style="position:absolute;top:1rem;right:1rem;background:none;border:none;font-size:1.3rem;cursor:pointer;">&#x2715;</button>
+        <h2 style="font-size:1.1rem;font-weight:800;margin-bottom:1.25rem;">💡 Suggest a note</h2>
+        
+        <form method="post" enctype="multipart/form-data">
+            <input type="hidden" name="csrfmiddlewaretoken" value="gYePZ5hlUpCF9LoYytRpX8Y4oQ0kZXP17x9PpPppJP7ko4RgJu513hdjzokGFlqd">
+            <input type="hidden" name="schein_vorschlagen" value="1">
+            <div style="margin-bottom:0.75rem;">
+                <label style="font-size:0.8rem;font-weight:600;color:#555;display:block;margin-bottom:3px;">Motive / Name *</label>
+                <input type="text" name="motiv" required style="width:100%;padding:0.4rem 0.6rem;border:1px solid #ccc;border-radius:5px;font-size:0.85rem;box-sizing:border-box;">
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:0.75rem;">
+                <div>
+                    <label style="font-size:0.8rem;font-weight:600;color:#555;display:block;margin-bottom:3px;">Country</label>
+                    <input type="text" name="land" style="width:100%;padding:0.4rem 0.6rem;border:1px solid #ccc;border-radius:5px;font-size:0.85rem;box-sizing:border-box;">
+                </div>
+                <div>
+                    <label style="font-size:0.8rem;font-weight:600;color:#555;display:block;margin-bottom:3px;">Location</label>
+                    <input type="text" name="ort" style="width:100%;padding:0.4rem 0.6rem;border:1px solid #ccc;border-radius:5px;font-size:0.85rem;box-sizing:border-box;">
+                </div>
+            </div>
+            <div style="margin-bottom:0.75rem;">
+                <label style="font-size:0.8rem;font-weight:600;color:#555;display:block;margin-bottom:3px;">Additional information (sales location, series, etc.)</label>
+                <textarea name="info" rows="3" style="width:100%;padding:0.4rem 0.6rem;border:1px solid #ccc;border-radius:5px;font-size:0.85rem;box-sizing:border-box;resize:vertical;"></textarea>
+            </div>
+            <div style="margin-bottom:1rem;">
+                <label style="font-size:0.8rem;font-weight:600;color:#555;display:block;margin-bottom:3px;">Image file</label>
+                <input type="file" name="bilder" accept="image/*" multiple style="width:100%;border:1px solid #ccc;padding:0.3rem;border-radius:5px;font-size:0.82rem;">
+            </div>
+            <button type="submit" class="btn btn-rot">💡 Submit suggestion</button>
+        </form>
+        
+    </div>
+</div>
+
+
+
+</main>
+
+<footer>
+    <p>0-Euro Souvenirscheine Schweiz &mdash; <a href="https://www.collectionseeland.ch" target="_blank">Collection Seeland</a></p>
+</footer>
+<nav class="bottom-nav">
+    <a href="/" >
+        <span class="icon">🏠</span>
+        <span>Home</span>
+    </a>
+    <a href="/katalog/" class="aktiv">
+        <span class="icon">📋</span>
+        <span>Catalogue</span>
+    </a>
+    
+    <a href="/meine-sammlung/" >
+        <span class="icon">⭐</span>
+        <span>My Collection</span>
+    </a>
+    <a href="/tauschboerse/" >
+        <span class="icon">🔄</span>
+        <span>Exchange</span>
+    </a>
+    
+            <a href="/statistik/" >
+        <span class="icon">📊</span>
+        <span>Statistics</span>
+    </a>
+    
+    <a href="/profil/" >
+        <span class="icon">👤</span>
+        <span>Profile</span>
+    </a>
+    
+</nav>
+<button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})"
+    style="display:none;position:fixed;bottom:2rem;right:2rem;background:var(--rot);color:white;border:none;border-radius:50%;width:44px;height:44px;font-size:1.2rem;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,0.2);z-index:999;">↑</button>
+<script>
+window.addEventListener('scroll', function() {
+    document.getElementById('back-to-top').style.display = window.scrollY > 400 ? 'block' : 'none';
+});
+</script>
+</body>
+</html>
