@@ -1,0 +1,9 @@
+# 登入憑證，絕對不可提交
+nulleuro_cookie.txt
+
+# 爬蟲紀錄
+*.log
+
+__pycache__/
+*.pyc
+.DS_Store
