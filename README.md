@@ -2,6 +2,8 @@
 
 收錄世界各地 0 歐元紀念鈔（0 Euro Souvenir Banknote）的靜態圖鑑網站，介面為繁體中文。
 
+**👉 線上瀏覽：<https://alexzhangyouwei.github.io/zero-euro/>**
+
 - **2,323** 個地點代碼、**7,373** 個版本，涵蓋 **77** 個國家
 - 資料來源：[0eurosouvenirs.com](https://0eurosouvenirs.com/) 與 [nulleuro.ch](https://www.nulleuro.ch/)，依「代碼＋版次」合併兩邊的資料
 
@@ -14,7 +16,7 @@
 
 ## 瀏覽
 
-純靜態網頁，沒有框架，也不需要建置工具。可以直接用瀏覽器開啟 `index.html`，或透過 GitHub Pages 瀏覽。
+純靜態網頁，沒有框架，也不需要建置工具。可以直接用瀏覽器開啟 `index.html`，或透過 [GitHub Pages](https://alexzhangyouwei.github.io/zero-euro/) 瀏覽。
 
 ## 目錄結構
 
